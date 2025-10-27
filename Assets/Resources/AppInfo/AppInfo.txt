@@ -1,4 +1,0 @@
-MultiChat
-ID: ksxptucqm12f6cp5
-Public: r6F9u1a0u2GbHpmt0VgpqNvmLpPHGyLEHsJLJu8vlrPUJJ4jOuXZDvq7V4T7EPKo
-Secret: ZhhoyUtIopM01AJ0E08r8goDRYcLfEMyuKEgfdGWItzil4LLjuE3XgV80tSL1fpk

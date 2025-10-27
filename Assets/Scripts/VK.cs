@@ -8,71 +8,94 @@ using UnityEngine.Networking;
 
 namespace MultiChat
 {
-    public class VK : Platform
+    internal class VK : Platform
     {
         static string AppID = "ksxptucqm12f6cp5";
         static string AuthPath = "https://auth.live.vkvideo.ru/app/oauth2/authorize";
         static string RedirectPath = "https://oauth.vk.com/blank.html";
         static string EntryPath = "https://apidev.live.vkvideo.ru";
 
-        public VK(string channel)
-        {
-            Channel = channel;
+        static string TokenPref = "vk_token";
 
-            PlayerPrefs.SetString("vk_channel", channel);
-            PlayerPrefs.Save();
+        internal VK(string name, string channel, int index)
+        {
+            Index = index;
+
+            Data = new PlatformData
+            {
+                Enabled = true,
+
+                Name = name,
+                Channel = channel,
+                PlatformType = "vk"
+            };
+
+            SaveData();
+        }
+        internal VK(PlatformData data, int index)
+        {
+            Index = index;
+            Data = data;
+
+            SaveData();
         }
 
         protected override IEnumerator<UnityWebRequestAsyncOperation> GetChatMessages()
         {
-            var uri = $"{EntryPath}/v1/chat/messages?channel_url={Channel}&limit={MessagesLimit}";
-
-            using (var request = UnityWebRequest.Get(uri))
-            {
-                request.SetRequestHeader("Authorization", $"Bearer {PlayerPrefs.GetString("vk_token")}");
-
-                yield return request.SendWebRequest();
-
-                if (request.result == UnityWebRequest.Result.Success)
+            var token = PlayerPrefs.GetString(TokenPref);
+            if (!string.IsNullOrEmpty(token))
+                using (var request = UnityWebRequest
+                    .Get($"{EntryPath}/v1/chat/messages?channel_url={Data.Channel}&limit={MessagesLimit}"))
                 {
-                    var root = JsonConvert.DeserializeObject<RootObject>(request.downloadHandler.text);
-                    for (int m = 0; m < root.data.chat_messages.Count; m++)
+                    request.SetRequestHeader("Authorization", $"Bearer {token}");
+
+                    yield return request.SendWebRequest();
+
+                    if (request.result == UnityWebRequest.Result.Success)
                     {
-                        var message = root.data.chat_messages[m];
-                        var parts = GetParts(message);
+                        var root = JsonConvert.DeserializeObject<RootObject>(request.downloadHandler.text);
 
-                        Messages.Enqueue(new MC_Message
+                        var startCollecting = LastMessage == 0;
+                        for (int m = root.data.chat_messages.Count - 1; m >= 0; m--)
                         {
-                            Parts = parts,
-                        });
+                            var message = root.data.chat_messages[m];
+                            if (startCollecting)
+                                MC_Messages.Enqueue(new MC_Message
+                                {
+                                    Nick = message.author.nick,
+                                    Parts = GetParts(message),
+                                });
+                            else if (message.id == LastMessage)
+                                startCollecting = true;
+                        }
+
+                        LastMessage = root.data.chat_messages[0].id;
                     }
+                    else
+                        Debug.LogError(request.error);
                 }
-                else
-                    Debug.LogError(request.error);
-            }
-        }
 
-        List<MC_Message.MessagePart> GetParts(ChatMessage message)
-        {
-            var parts = new List<MC_Message.MessagePart>();
-            for (int p = 0; p < message.parts.Count; p++)
+            List<MC_Message.MessagePart> GetParts(ChatMessage message)
             {
-                var part = message.parts[p];
-                parts.Add(new MC_Message.MessagePart
+                var parts = new List<MC_Message.MessagePart>();
+                for (int p = 0; p < message.parts.Count; p++)
                 {
-                    Mention = part.mention == null ? default : new MC_Message.Mention { Nick = part.mention.nick },
-                    Smile = part.smile == null ? default : new MC_Message.Smile { URL = part.smile.small_url },
-                    Text = part.text == null ? default : new MC_Message.Text { Content = part.text.content },
-                });
-            }
+                    var part = message.parts[p];
+                    parts.Add(new MC_Message.MessagePart
+                    {
+                        Mention = part.mention == null ? default : new MC_Message.Mention { Nick = part.mention.nick },
+                        Smile = part.smile == null ? default : new MC_Message.Smile { URL = part.smile.small_url },
+                        Text = part.text == null ? default : new MC_Message.Text { Content = part.text.content },
+                    });
+                }
 
-            return parts;
+                return parts;
+            }
         }
 
-        public static void StartAuth() =>
+        internal static void StartAuth() =>
             Application.OpenURL($"{AuthPath}?client_id={AppID}&redirect_uri={RedirectPath}&response_type=token");
-
-        public static bool SubmitToken(string url, out string token)
+        internal static bool SubmitToken(string url, out string token)
         {
             token = null;
             if (url.Contains("access_token="))
@@ -82,8 +105,7 @@ namespace MultiChat
 
                 if (!string.IsNullOrEmpty(token))
                 {
-                    PlayerPrefs.SetString("vk_token", token);
-                    PlayerPrefs.Save();
+                    PlayerPrefs.SetString(TokenPref, token);
 
                     return true;
                 }
@@ -92,11 +114,12 @@ namespace MultiChat
             return false;
         }
 
+        #region message types
         class RootObject
         {
-            public Data data;
+            public Messages data;
         }
-        class Data
+        class Messages
         {
             public List<ChatMessage> chat_messages;
         }
@@ -166,5 +189,6 @@ namespace MultiChat
         {
             public string content;
         }
+        #endregion
     }
 }

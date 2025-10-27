@@ -1,37 +1,52 @@
 using System.Collections.Generic;
 
-using Core.UI;
+using Newtonsoft.Json;
 
 using TMPro;
+
+using UI;
 
 using UnityEngine;
 
 namespace MultiChat
 {
-    public class MultiChatManager : UIManagerBase
+    internal class MultiChatManager : UIManagerBase
     {
         [SerializeField] float RefreshPeriod = 2f;
 
-        [Header("UI for Manual Token")]
-        [SerializeField] Transform TokenInputPanel;
-        [SerializeField] TMP_InputField VK_ChannelField;
+        float T;
+
+        [Space]
+        [Header("Auth")]
+        [SerializeField] Transform AuthPanel;
         [SerializeField] TMP_InputField VK_TokenField;
 
-        float T;
+        [Space]
+        [Header("Platform Creation")]
+        [SerializeField] TMP_Dropdown PlatformSwitch;
+        [SerializeField] TMP_InputField PlatformNameInput;
+        [SerializeField] TMP_InputField PlatformURLInput;
+
         List<Platform> Platforms = new List<Platform>();
 
         protected override void Start()
         {
             base.Start();
 
-            if (PlayerPrefs.HasKey("vk_channel"))
+            var index = 0;
+            while (PlayerPrefs.HasKey("platform_" + index))
             {
-                VK_ChannelField.text = PlayerPrefs.GetString("vk_channel");
+                var data = JsonConvert.DeserializeObject<PlatformData>(PlayerPrefs.GetString("platform_" + index));
+                switch (data.PlatformType)
+                {
+                    case "vk":
+                    Platforms.Add(new VK(data, index));
+                    break;
+                }
 
-                SubmitVKToken(PlayerPrefs.GetString("vk_token"));
+                index++;
             }
         }
-
         void Update()
         {
             T += Time.deltaTime;
@@ -40,7 +55,8 @@ namespace MultiChat
                 T = 0f;
 
                 for (int p = 0; p < Platforms.Count; p++)
-                    Platforms[p].RefreshChat(this);
+                    if (Platforms[p].Enabled)
+                        Platforms[p].RefreshChat(this);
             }
 
             var process = true;
@@ -49,15 +65,34 @@ namespace MultiChat
                 process = false;
                 for (int p = 0; p < Platforms.Count; p++)
                 {
-                    var gm = Platforms[p].GetMessage(out var message);
-                    process |= gm;
+                    if (!Platforms[p].Enabled)
+                        continue;
 
-                    if (gm)
+                    var got = Platforms[p].GetMessage(out var message);
+                    process |= got;
+
+                    if (got)
                     {
-                        Debug.Log(message.Parts.Count);
-                        // UI MESSAGE PROCESSING
+                        // MESSAGE PROCESSING
+                        var text = message.Nick + ": ";
+                        for (int pt = 0; pt < message.Parts.Count; pt++)
+                            text += message.Parts[pt].Text.Content;
+
+                        Debug.Log(text);
                     }
                 }
+            }
+        }
+
+        public void CreatePlatform()
+        {
+            switch (PlatformSwitch.value)
+            {
+                case 0:
+                if (!string.IsNullOrEmpty(PlatformNameInput.text) &&
+                     !string.IsNullOrEmpty(PlatformURLInput.text))
+                    Platforms.Add(new VK(PlatformNameInput.text, PlatformURLInput.text, Platforms.Count));
+                break;
             }
         }
 
@@ -72,17 +107,7 @@ namespace MultiChat
                 return;
             }
 
-            if (!string.IsNullOrEmpty(VK_ChannelField.text))
-                SubmitVKToken(token);
-
-            TokenInputPanel.gameObject.SetActive(false);
-        }
-
-        void SubmitVKToken(string token)
-        {
-            Platforms.Add(new VK(VK_ChannelField.text));
-
-            Debug.Log("VK added");
+            AuthPanel.gameObject.SetActive(false);
         }
         #endregion
     }

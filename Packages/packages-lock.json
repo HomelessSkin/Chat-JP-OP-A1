@@ -14,7 +14,7 @@
       "dependencies": {
         "com.unity.entities": "1.3.14"
       },
-      "hash": "5001b758d252621b0feb62725db0ceeef2b7a8b6"
+      "hash": "92e66c424b9bda07cb9559c593e46596c11afb23"
     },
     "com.homelessskin.ui": {
       "version": "https://github.com/HomelessSkin/com.homelessskin.ui.git",
@@ -24,7 +24,7 @@
         "com.unity.entities": "1.3.14",
         "com.unity.ugui": "2.0.0"
       },
-      "hash": "bc0a4f36d8588a3303e0a523221dc979b0e62afe"
+      "hash": "d312854ea8902fc57fff7567897b800e24f6c14d"
     },
     "com.unity.burst": {
       "version": "1.8.25",

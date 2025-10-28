@@ -12,6 +12,8 @@ namespace MultiChat
 {
     internal class MultiChatManager : UIManagerBase
     {
+        public List<Texture2D> Textures;
+
         [SerializeField] float RefreshPeriod = 2f;
 
         float T;
@@ -27,6 +29,11 @@ namespace MultiChat
         [SerializeField] TMP_InputField PlatformNameInput;
         [SerializeField] TMP_InputField PlatformURLInput;
 
+        [Space]
+        [Header("Chat")]
+        [SerializeField] Transform ChatContent;
+        [SerializeField] GameObject MessagePrefab;
+
         List<Platform> Platforms = new List<Platform>();
 
         protected override void Start()
@@ -40,7 +47,7 @@ namespace MultiChat
                 switch (data.PlatformType)
                 {
                     case "vk":
-                    Platforms.Add(new VK(data, index));
+                    Platforms.Add(new VK(data, index, this));
                     break;
                 }
 
@@ -56,7 +63,7 @@ namespace MultiChat
 
                 for (int p = 0; p < Platforms.Count; p++)
                     if (Platforms[p].Enabled)
-                        Platforms[p].RefreshChat(this);
+                        Platforms[p].RefreshChat();
             }
 
             var process = true;
@@ -78,7 +85,9 @@ namespace MultiChat
                         for (int pt = 0; pt < message.Parts.Count; pt++)
                             text += message.Parts[pt].Text.Content;
 
-                        Debug.Log(text);
+                        var go = Instantiate(MessagePrefab, ChatContent, false);
+                        var m = go.GetComponent<Message>();
+                        m.Init(text);
                     }
                 }
             }
@@ -91,7 +100,7 @@ namespace MultiChat
                 case 0:
                 if (!string.IsNullOrEmpty(PlatformNameInput.text) &&
                      !string.IsNullOrEmpty(PlatformURLInput.text))
-                    Platforms.Add(new VK(PlatformNameInput.text, PlatformURLInput.text, Platforms.Count));
+                    Platforms.Add(new VK(PlatformNameInput.text, PlatformURLInput.text, Platforms.Count, this));
                 break;
             }
         }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
@@ -17,30 +18,20 @@ namespace MultiChat
 
         static string TokenPref = "vk_token";
 
-        internal VK(string name, string channel, int index)
+        internal VK(string name, string channel, int index, MultiChatManager manager) : base(name, channel, index, manager)
         {
-            Index = index;
-
-            Data = new PlatformData
-            {
-                Enabled = true,
-
-                Name = name,
-                Channel = channel,
-                PlatformType = "vk"
-            };
+            Data.PlatformType = "vk";
 
             SaveData();
         }
-        internal VK(PlatformData data, int index)
+        internal VK(PlatformData data, int index, MultiChatManager manager) : base(data, index, manager)
         {
-            Index = index;
-            Data = data;
+
 
             SaveData();
         }
 
-        protected override IEnumerator<UnityWebRequestAsyncOperation> GetChatMessages()
+        protected override async void GetChatMessages()
         {
             var token = PlayerPrefs.GetString(TokenPref);
             if (!string.IsNullOrEmpty(token))
@@ -49,7 +40,9 @@ namespace MultiChat
                 {
                     request.SetRequestHeader("Authorization", $"Bearer {token}");
 
-                    yield return request.SendWebRequest();
+                    var oper = request.SendWebRequest();
+                    while (!oper.isDone)
+                        await Task.Yield();
 
                     if (request.result == UnityWebRequest.Result.Success)
                     {
@@ -60,11 +53,17 @@ namespace MultiChat
                         {
                             var message = root.data.chat_messages[m];
                             if (startCollecting)
-                                MC_Messages.Enqueue(new MC_Message
-                                {
-                                    Nick = message.author.nick,
-                                    Parts = GetParts(message),
-                                });
+                            {
+                                if (message.author.nick == "ChatBot")
+                                    continue;
+
+                                if (GetParts(message, out var parts))
+                                    Enqueue(new MC_Message
+                                    {
+                                        Nick = message.author.nick,
+                                        Parts = parts,
+                                    });
+                            }
                             else if (message.id == LastMessage)
                                 startCollecting = true;
                         }
@@ -75,21 +74,33 @@ namespace MultiChat
                         Debug.LogError(request.error);
                 }
 
-            List<MC_Message.MessagePart> GetParts(ChatMessage message)
+            bool GetParts(ChatMessage message, out List<MC_Message.MessagePart> parts)
             {
-                var parts = new List<MC_Message.MessagePart>();
+                parts = new List<MC_Message.MessagePart>();
+                var tasks = new List<Task>();
                 for (int p = 0; p < message.parts.Count; p++)
                 {
                     var part = message.parts[p];
-                    parts.Add(new MC_Message.MessagePart
+                    var mc = new MC_Message.MessagePart { };
+
+                    if (part.link != null && !string.IsNullOrEmpty(part.link.content))
                     {
-                        Mention = part.mention == null ? default : new MC_Message.Mention { Nick = part.mention.nick },
-                        Smile = part.smile == null ? default : new MC_Message.Smile { URL = part.smile.small_url },
-                        Text = part.text == null ? default : new MC_Message.Text { Content = part.text.content },
-                    });
+                        parts = null;
+
+                        return false;
+                    }
+
+                    if (part.mention != null)
+                        mc.Mention = new MC_Message.Mention { Nick = part.mention.nick };
+                    if (part.smile != null && !string.IsNullOrEmpty(part.smile.medium_url))
+                        mc.Smile = new MC_Message.Smile { URL = part.smile.medium_url };
+                    if (part.text != null)
+                        mc.Text = new MC_Message.Text { Content = part.text.content };
+
+                    parts.Add(mc);
                 }
 
-                return parts;
+                return true;
             }
         }
 

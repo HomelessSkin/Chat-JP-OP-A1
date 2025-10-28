@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using Core.Util;
 
 using Newtonsoft.Json;
 
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace MultiChat
 {
@@ -12,6 +14,7 @@ namespace MultiChat
     {
         protected static int MessagesLimit = 100;
 
+        protected MultiChatManager Manager;
         protected PlatformData Data;
         internal bool Enabled
         {
@@ -41,16 +44,56 @@ namespace MultiChat
         protected long LastMessage;
         protected Queue<MC_Message> MC_Messages = new Queue<MC_Message>();
 
-        internal void RefreshChat(MonoBehaviour mono) => mono.StartCoroutine(GetChatMessages());
+        internal Platform(string name, string channel, int index, MultiChatManager manager)
+        {
+            Manager = manager;
+            Index = index;
+
+            Data = new PlatformData
+            {
+                Enabled = true,
+
+                Name = name,
+                Channel = channel,
+            };
+        }
+        internal Platform(PlatformData data, int index, MultiChatManager manager)
+        {
+            Manager = manager;
+            Index = index;
+            Data = data;
+        }
+
+        internal void RefreshChat() => GetChatMessages();
         internal void SaveData()
         {
             PlayerPrefs.SetString("platform_" + Index, JsonConvert.SerializeObject(Data));
             PlayerPrefs.Save();
         }
-
         internal bool GetMessage(out MC_Message message) => MC_Messages.TryDequeue(out message);
 
-        protected abstract IEnumerator<UnityWebRequestAsyncOperation> GetChatMessages();
+        protected abstract void GetChatMessages();
+        protected async void Enqueue(MC_Message message)
+        {
+            for (int p = 0; p < message.Parts.Count; p++)
+            {
+                var part = message.Parts[p];
+
+                if (!string.IsNullOrEmpty(part.Smile.URL))
+                {
+                    var a = await Web.DownloadSpriteTexture(message.Parts[p].Smile.URL);
+                    if (!a)
+                        continue;
+
+                    Manager.Textures.Add(a);
+
+                    part.Smile.ID = a.GetInstanceID();
+                    message.Parts[p] = part;
+                }
+            }
+
+            MC_Messages.Enqueue(message);
+        }
     }
 
     [System.Serializable]

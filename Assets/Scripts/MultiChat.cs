@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 
+using Core.Util;
+
 using Newtonsoft.Json;
 
 using TMPro;
@@ -12,7 +14,7 @@ namespace MultiChat
 {
     internal class MultiChatManager : UIManagerBase
     {
-        public List<Texture2D> Textures;
+        public List<Texture2D> Textures = new List<Texture2D>();
 
         [SerializeField] float RefreshPeriod = 2f;
 
@@ -36,24 +38,42 @@ namespace MultiChat
 
         List<Platform> Platforms = new List<Platform>();
 
+        [Space]
+        [Header("Smiles")]
+        [SerializeField] int DefaultSpritesCount;
+        [SerializeField] int SpriteWidth;
+        [SerializeField] Texture2D SmileTexture;
+        [SerializeField] TMP_SpriteAsset SmileAsset;
+
+        bool[] TextureMap;
+        Dictionary<int, (int, List<GameObject>)> Smiles = new Dictionary<int, (int, List<GameObject>)>();
+
         protected override void Start()
         {
             base.Start();
 
-            var index = 0;
-            while (PlayerPrefs.HasKey("platform_" + index))
-            {
-                var data = JsonConvert.DeserializeObject<PlatformData>(PlayerPrefs.GetString("platform_" + index));
-                switch (data.PlatformType)
-                {
-                    case "vk":
-                    Platforms.Add(new VK(data, index, this));
-                    break;
-                }
+            TextureMap = new bool[SpriteWidth * SpriteWidth];
 
-                index++;
+            LoadPlatforms();
+
+            void LoadPlatforms()
+            {
+                var index = 0;
+                while (PlayerPrefs.HasKey("platform_" + index))
+                {
+                    var data = JsonConvert.DeserializeObject<PlatformData>(PlayerPrefs.GetString("platform_" + index));
+                    switch (data.PlatformType)
+                    {
+                        case "vk":
+                        Platforms.Add(new VK(data, index, this));
+                        break;
+                    }
+
+                    index++;
+                }
             }
         }
+
         void Update()
         {
             T += Time.deltaTime;
@@ -83,7 +103,16 @@ namespace MultiChat
                         // MESSAGE PROCESSING
                         var text = message.Nick + ": ";
                         for (int pt = 0; pt < message.Parts.Count; pt++)
-                            text += message.Parts[pt].Text.Content;
+                        {
+                            var part = message.Parts[pt];
+                            if (!string.IsNullOrEmpty(part.Text.Content))
+                                text += part.Text.Content;
+                            if (part.Smile.Hash != 0)
+                            {
+                                var id = Smiles[part.Smile.Hash].Item1;
+                                text += $" <sprite name=\"Smiles_{id}\"> ";
+                            }
+                        }
 
                         var go = Instantiate(MessagePrefab, ChatContent, false);
                         var m = go.GetComponent<Message>();
@@ -103,6 +132,42 @@ namespace MultiChat
                     Platforms.Add(new VK(PlatformNameInput.text, PlatformURLInput.text, Platforms.Count, this));
                 break;
             }
+        }
+        internal void DrawSmile(Texture2D smile, int hash)
+        {
+            var id = -1;
+            for (int t = DefaultSpritesCount + 1; t < TextureMap.Length; t++)
+                if (!TextureMap[t])
+                {
+                    TextureMap[t] = true;
+
+                    id = t;
+
+                    break;
+                }
+
+            if (id < 0)
+                id = Random.Range(DefaultSpritesCount + 1, SpriteWidth * SpriteWidth);
+
+            Smiles[hash] = (id, new List<GameObject>());
+
+            smile = DataUtil.ResizeBilinear(smile, 64, 64);
+            Textures.Add(smile);
+
+            var x = 64 * (id % SpriteWidth);
+            var y = SmileTexture.height - 64 * (id / SpriteWidth + 1);
+            SmileTexture.SetPixels32(x, y, 64, 64, smile.GetPixels32());
+            SmileTexture.Apply();
+            SmileAsset.UpdateLookupTables();
+        }
+        internal bool HasSmile(int hash, out int id)
+        {
+            if (Smiles.TryGetValue(hash, out var value))
+                id = value.Item1;
+            else
+                id = -1;
+
+            return id >= 0;
         }
 
         #region VK

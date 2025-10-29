@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 using Core.Util;
 
@@ -81,13 +80,15 @@ namespace MultiChat
 
                 if (!string.IsNullOrEmpty(part.Smile.URL))
                 {
-                    var a = await Web.DownloadSpriteTexture(message.Parts[p].Smile.URL);
-                    if (!a)
-                        continue;
+                    var hash = part.Smile.URL.GetHashCode();
+                    part.Smile.Hash = hash;
 
-                    Manager.Textures.Add(a);
-
-                    part.Smile.ID = a.GetInstanceID();
+                    if (!Manager.HasSmile(hash, out var id))
+                    {
+                        var smile = await Web.DownloadSpriteTexture(part.Smile.URL);
+                        if (smile)
+                            Manager.DrawSmile(smile, hash);
+                    }
                     message.Parts[p] = part;
                 }
             }
@@ -123,7 +124,7 @@ namespace MultiChat
         }
         public struct Smile
         {
-            public int ID;
+            public int Hash;
             public string URL;
         }
         public struct Text

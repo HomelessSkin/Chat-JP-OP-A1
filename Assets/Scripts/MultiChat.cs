@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 using Core.Util;
@@ -9,6 +10,8 @@ using TMPro;
 using UI;
 
 using UnityEngine;
+
+using Random = UnityEngine.Random;
 
 namespace MultiChat
 {
@@ -23,7 +26,8 @@ namespace MultiChat
         [Space]
         [Header("Auth")]
         [SerializeField] Transform AuthPanel;
-        [SerializeField] TMP_InputField VK_TokenField;
+        [SerializeField] MenuButton SubmitButton;
+        [SerializeField] TMP_InputField TokenField;
 
         [Space]
         [Header("Platform Creation")]
@@ -55,6 +59,8 @@ namespace MultiChat
             TextureMap = new bool[SpriteWidth * SpriteWidth];
 
             LoadPlatforms();
+
+            var ttv = new Twitch("test", "ru_1n", Platforms.Count, this);
 
             void LoadPlatforms()
             {
@@ -107,7 +113,7 @@ namespace MultiChat
                             var part = message.Parts[pt];
                             if (!string.IsNullOrEmpty(part.Text.Content))
                                 text += part.Text.Content;
-                            if (part.Smile.Hash != 0)
+                            if (!string.IsNullOrEmpty(part.Smile.URL))
                             {
                                 var id = Smiles[part.Smile.Hash].Item1;
                                 text += $" <sprite name=\"Smiles_{id}\"> ";
@@ -171,18 +177,56 @@ namespace MultiChat
         }
 
         #region VK
-        public void StartAuthVK() => VK.StartAuth();
-        public void SubmitVKToken()
+        public void StartAuthVK()
         {
-            if (!VK.SubmitToken(VK_TokenField.text, out var token))
-            {
-                VK_TokenField.text = "";
+            SubmitButton.RemoveAllListeners();
+            SubmitButton.AddListener(SubmitVKToken);
 
-                return;
+            VK.StartAuth();
+        }
+        public void SubmitVKToken() => SubmitToken();
+        #endregion
+
+        #region
+        public void StartAuthTwitch()
+        {
+            SubmitButton.RemoveAllListeners();
+            SubmitButton.AddListener(SubmitTwitchToken);
+
+            Twitch.StartAuth();
+        }
+        public void SubmitTwitchToken() => SubmitToken(1);
+        #endregion
+
+        void SubmitToken(byte platform = 0)
+        {
+            var pref = VK.TokenPref;
+            switch (platform)
+            {
+                case 1:
+                pref = Twitch.TokenPref;
+                break;
             }
 
-            AuthPanel.gameObject.SetActive(false);
+            SubmitToken();
+
+            bool SubmitToken()
+            {
+                if (TokenField.text.Contains("access_token="))
+                {
+                    var uri = new Uri(TokenField.text);
+                    var token = System.Web.HttpUtility.ParseQueryString(uri.Fragment.TrimStart('#'))["access_token"];
+
+                    if (!string.IsNullOrEmpty(token))
+                    {
+                        PlayerPrefs.SetString(pref, token);
+
+                        return true;
+                    }
+                }
+
+                return false;
+            }
         }
-        #endregion
     }
 }

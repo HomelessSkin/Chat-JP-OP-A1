@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,12 +10,12 @@ namespace MultiChat
 {
     internal class VK : Platform
     {
+        internal static string TokenPref = "vk_token";
+
         static string AppID = "ksxptucqm12f6cp5";
         static string AuthPath = "https://auth.live.vkvideo.ru/app/oauth2/authorize";
         static string RedirectPath = "https://oauth.vk.com/blank.html";
         static string EntryPath = "https://apidev.live.vkvideo.ru";
-
-        static string TokenPref = "vk_token";
 
         internal VK(string name, string channel, int index, MultiChatManager manager) : base(name, channel, index, manager)
         {
@@ -58,7 +57,7 @@ namespace MultiChat
                                     continue;
 
                                 if (GetParts(message, out var parts))
-                                    Enqueue(new MC_Message
+                                    await Enqueue(new MC_Message
                                     {
                                         Nick = message.author.nick,
                                         Parts = parts,
@@ -93,7 +92,7 @@ namespace MultiChat
                     if (part.mention != null)
                         mc.Mention = new MC_Message.Mention { Nick = part.mention.nick };
                     if (part.smile != null && !string.IsNullOrEmpty(part.smile.medium_url))
-                        mc.Smile = new MC_Message.Smile { URL = part.smile.medium_url };
+                        mc.Smile = new MC_Message.Smile { Hash = part.smile.id.GetHashCode(), URL = part.smile.medium_url };
                     if (part.text != null)
                         mc.Text = new MC_Message.Text { Content = part.text.content };
 
@@ -106,24 +105,6 @@ namespace MultiChat
 
         internal static void StartAuth() =>
             Application.OpenURL($"{AuthPath}?client_id={AppID}&redirect_uri={RedirectPath}&response_type=token");
-        internal static bool SubmitToken(string url, out string token)
-        {
-            token = null;
-            if (url.Contains("access_token="))
-            {
-                var uri = new Uri(url);
-                token = System.Web.HttpUtility.ParseQueryString(uri.Fragment.TrimStart('#'))["access_token"];
-
-                if (!string.IsNullOrEmpty(token))
-                {
-                    PlayerPrefs.SetString(TokenPref, token);
-
-                    return true;
-                }
-            }
-
-            return false;
-        }
 
         #region message types
         class RootObject

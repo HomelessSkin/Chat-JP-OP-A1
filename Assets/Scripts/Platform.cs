@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Core.Util;
 
@@ -72,7 +73,7 @@ namespace MultiChat
         internal bool GetMessage(out MC_Message message) => MC_Messages.TryDequeue(out message);
 
         protected abstract void GetChatMessages();
-        protected async void Enqueue(MC_Message message)
+        protected async Task Enqueue(MC_Message message)
         {
             for (int p = 0; p < message.Parts.Count; p++)
             {
@@ -80,17 +81,17 @@ namespace MultiChat
 
                 if (!string.IsNullOrEmpty(part.Smile.URL))
                 {
-                    var hash = part.Smile.URL.GetHashCode();
-                    part.Smile.Hash = hash;
-
-                    if (!Manager.HasSmile(hash, out var id))
+                    var smile = await Web.DownloadSpriteTexture(part.Smile.URL);
+                    if (smile)
                     {
-                        var smile = await Web.DownloadSpriteTexture(part.Smile.URL);
-                        if (smile)
-                            Manager.DrawSmile(smile, hash);
+                        if (!Manager.HasSmile(part.Smile.Hash, out var id))
+                            Manager.DrawSmile(smile, part.Smile.Hash);
                     }
-                    message.Parts[p] = part;
+                    else
+                        part.Smile.URL = null;
                 }
+
+                message.Parts[p] = part;
             }
 
             MC_Messages.Enqueue(message);

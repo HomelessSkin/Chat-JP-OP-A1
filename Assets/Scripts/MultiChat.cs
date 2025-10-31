@@ -60,8 +60,6 @@ namespace MultiChat
 
             LoadPlatforms();
 
-            var ttv = new Twitch("test", "ru_1n", Platforms.Count, this);
-
             void LoadPlatforms()
             {
                 var index = 0;
@@ -72,6 +70,9 @@ namespace MultiChat
                     {
                         case "vk":
                         Platforms.Add(new VK(data, index, this));
+                        break;
+                        case "twitch":
+                        Platforms.Add(new Twitch(data, index, this));
                         break;
                     }
 
@@ -130,14 +131,17 @@ namespace MultiChat
 
         public void CreatePlatform()
         {
-            switch (PlatformSwitch.value)
-            {
-                case 0:
-                if (!string.IsNullOrEmpty(PlatformNameInput.text) &&
-                     !string.IsNullOrEmpty(PlatformURLInput.text))
+            if (!string.IsNullOrEmpty(PlatformNameInput.text) &&
+                 !string.IsNullOrEmpty(PlatformURLInput.text))
+                switch (PlatformSwitch.value)
+                {
+                    case 0:
                     Platforms.Add(new VK(PlatformNameInput.text, PlatformURLInput.text, Platforms.Count, this));
-                break;
-            }
+                    break;
+                    case 1:
+                    Platforms.Add(new Twitch(PlatformNameInput.text, PlatformURLInput.text, Platforms.Count, this));
+                    break;
+                }
         }
         internal void DrawSmile(Texture2D smile, int hash)
         {
@@ -187,7 +191,7 @@ namespace MultiChat
         public void SubmitVKToken() => SubmitToken();
         #endregion
 
-        #region
+        #region TWITCH
         public void StartAuthTwitch()
         {
             SubmitButton.RemoveAllListeners();

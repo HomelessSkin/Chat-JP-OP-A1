@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 using Core.Util;
 
@@ -14,8 +14,6 @@ namespace MultiChat
     {
         protected static int MessagesLimit = 100;
 
-        protected MultiChatManager Manager;
-        protected PlatformData Data;
         internal bool Enabled
         {
             get => Data.Enabled;
@@ -26,8 +24,6 @@ namespace MultiChat
                 SaveData();
             }
         }
-
-        protected int Index;
         internal int CurrentIndex
         {
             get => Index;
@@ -41,7 +37,10 @@ namespace MultiChat
             }
         }
 
+        protected int Index;
         protected long LastMessage;
+        protected PlatformData Data;
+        protected MultiChatManager Manager;
         protected Queue<MC_Message> MC_Messages = new Queue<MC_Message>();
 
         internal Platform(string name, string channel, int index, MultiChatManager manager)
@@ -53,8 +52,8 @@ namespace MultiChat
             {
                 Enabled = true,
 
-                Name = name,
-                Channel = channel,
+                PlatformName = name,
+                ChannelName = channel,
             };
         }
         internal Platform(PlatformData data, int index, MultiChatManager manager)
@@ -64,16 +63,12 @@ namespace MultiChat
             Data = data;
         }
 
+        protected abstract void GetChatMessages();
+
         internal void RefreshChat() => GetChatMessages();
-        internal void SaveData()
-        {
-            PlayerPrefs.SetString("platform_" + Index, JsonConvert.SerializeObject(Data));
-            PlayerPrefs.Save();
-        }
         internal bool GetMessage(out MC_Message message) => MC_Messages.TryDequeue(out message);
 
-        protected abstract void GetChatMessages();
-        protected async Task Enqueue(MC_Message message)
+        protected async void Enqueue(MC_Message message)
         {
             for (int p = 0; p < message.Parts.Count; p++)
             {
@@ -96,18 +91,28 @@ namespace MultiChat
 
             MC_Messages.Enqueue(message);
         }
+        protected void SaveData()
+        {
+            PlayerPrefs.SetString("platform_" + Index, JsonConvert.SerializeObject(Data));
+            PlayerPrefs.Save();
+        }
     }
 
-    [System.Serializable]
+    [Serializable]
     internal struct PlatformData
     {
         public bool Enabled;
 
-        public string Name;
-        public string Channel;
+        public string PlatformName;
         public string PlatformType;
+
+        public string ChannelID;
+        public string ChannelName;
+
+        public string SessionID;
     }
 
+    #region MESSAGE
     internal struct MC_Message
     {
         public string Nick;
@@ -119,18 +124,22 @@ namespace MultiChat
             public Smile Smile;
             public Text Text;
         }
+
         public struct Mention
         {
             public string Nick;
         }
+
         public struct Smile
         {
             public int Hash;
             public string URL;
         }
+
         public struct Text
         {
             public string Content;
         }
     }
+    #endregion
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -35,7 +36,7 @@ namespace MultiChat
             var token = PlayerPrefs.GetString(TokenPref);
             if (!string.IsNullOrEmpty(token))
                 using (var request = UnityWebRequest
-                    .Get($"{EntryPath}/v1/chat/messages?channel_url={Data.Channel}&limit={MessagesLimit}"))
+                    .Get($"{EntryPath}/v1/chat/messages?channel_url={Data.ChannelName}&limit={MessagesLimit}"))
                 {
                     request.SetRequestHeader("Authorization", $"Bearer {token}");
 
@@ -45,7 +46,7 @@ namespace MultiChat
 
                     if (request.result == UnityWebRequest.Result.Success)
                     {
-                        var root = JsonConvert.DeserializeObject<RootObject>(request.downloadHandler.text);
+                        var root = JsonConvert.DeserializeObject<Root>(request.downloadHandler.text);
 
                         var startCollecting = LastMessage == 0;
                         for (int m = root.data.chat_messages.Count - 1; m >= 0; m--)
@@ -57,7 +58,7 @@ namespace MultiChat
                                     continue;
 
                                 if (GetParts(message, out var parts))
-                                    await Enqueue(new MC_Message
+                                    Enqueue(new MC_Message
                                     {
                                         Nick = message.author.nick,
                                         Parts = parts,
@@ -73,7 +74,7 @@ namespace MultiChat
                         Debug.LogError(request.error);
                 }
 
-            bool GetParts(ChatMessage message, out List<MC_Message.MessagePart> parts)
+            bool GetParts(Root.Messages.ChatMessage message, out List<MC_Message.MessagePart> parts)
             {
                 parts = new List<MC_Message.MessagePart>();
                 var tasks = new List<Task>();
@@ -106,80 +107,81 @@ namespace MultiChat
         internal static void StartAuth() =>
             Application.OpenURL($"{AuthPath}?client_id={AppID}&redirect_uri={RedirectPath}&response_type=token");
 
-        #region message types
-        class RootObject
+        #region MESSAGE
+        [Serializable]
+        class Root
         {
             public Messages data;
-        }
-        class Messages
-        {
-            public List<ChatMessage> chat_messages;
-        }
-        class ChatMessage
-        {
-            public Author author;
-            public long created_at;
-            public long id;
-            public bool is_private;
-            public List<MessagePart> parts;
-        }
-        class Author
-        {
-            public string avatar_url;
-            public List<Badge> badges;
-            public long id;
-            public bool is_moderator;
-            public bool is_owner;
-            public string nick;
-            public long nick_color;
-            public List<Role> roles;
-        }
-        class Badge
-        {
-            public string achievement_name;
-            public string id;
-            public string large_url;
-            public string medium_url;
-            public string name;
-            public string small_url;
-        }
-        class Role
-        {
-            public string id;
-            public string large_url;
-            public string medium_url;
-            public string name;
-            public string small_url;
-        }
-        class MessagePart
-        {
-            public Link link;
-            public Mention mention;
-            public Smile smile;
-            public Text text;
-        }
-        class Link
-        {
-            public string content;
-            public string url;
-        }
-        class Mention
-        {
-            public long id;
-            public string nick;
-        }
-        class Smile
-        {
-            public bool animated;
-            public string id;
-            public string large_url;
-            public string medium_url;
-            public string name;
-            public string small_url;
-        }
-        class Text
-        {
-            public string content;
+
+            [Serializable]
+            public class Messages
+            {
+                public List<ChatMessage> chat_messages;
+
+                [Serializable]
+                public class ChatMessage
+                {
+                    public long id;
+                    public Author author;
+                    public List<MessagePart> parts;
+                }
+            }
+
+            [Serializable]
+            public class Author
+            {
+                public string nick;
+                public long nick_color;
+                public List<Badge> badges;
+                public List<Role> roles;
+
+                [Serializable]
+                public class Badge
+                {
+                    public string medium_url;
+                }
+
+                [Serializable]
+                public class Role
+                {
+                    public string medium_url;
+                }
+            }
+
+            [Serializable]
+            public class MessagePart
+            {
+                public Link link;
+                public Mention mention;
+                public Smile smile;
+                public Text text;
+
+                [Serializable]
+                public class Link
+                {
+                    public string content;
+                }
+
+                [Serializable]
+                public class Mention
+                {
+                    public string nick;
+                }
+
+                [Serializable]
+                public class Smile
+                {
+                    public bool animated;
+                    public string id;
+                    public string medium_url;
+                }
+
+                [Serializable]
+                public class Text
+                {
+                    public string content;
+                }
+            }
         }
         #endregion
     }

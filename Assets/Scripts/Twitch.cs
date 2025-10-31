@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using Newtonsoft.Json;
 
 using UnityEngine;
+using UnityEngine.Networking;
 
 using WebSocketSharp;
 
@@ -25,270 +29,285 @@ namespace MultiChat
         static string AppID = "6ss2l29z27gl1rmz061rajdhd9mgr6";
         static string AuthPath = "https://id.twitch.tv/oauth2/authorize";
         static string RedirectPath = "https://oauth.vk.com/blank.html";
-        //static string EntryPath = "https://apidev.live.vkvideo.ru";
         static string SocketURL = "wss://eventsub.wss.twitch.tv/ws";
-        //static string SocketURL = "wss://irc-ws.chat.twitch.tv:443";
+        static string EventSubURL = "https://api.twitch.tv/helix/eventsub/subscriptions";
+        static string GetUsersURL = "https://api.twitch.tv/helix/users";
 
         WebSocket Socket;
+        Queue<Notification> Responses = new Queue<Notification>();
 
         internal Twitch(string name, string channel, int index, MultiChatManager manager) : base(name, channel, index, manager)
         {
-            Socket = new WebSocket(SocketURL);
-            Socket.SslConfiguration.EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12;
-            Socket.SslConfiguration.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+            Data.PlatformType = "twitch";
 
-            Socket.OnOpen += OnOpen;
-            Socket.OnMessage += OnMessage;
-            Socket.OnClose += OnClose;
-            Socket.OnError += OnError;
+            ManageConnection(true);
 
-            Socket.Connect();
+            SaveData();
+        }
+        internal Twitch(PlatformData data, int index, MultiChatManager manager) : base(data, index, manager)
+        {
+            ManageConnection(true);
 
             SaveData();
         }
 
-        internal Twitch(PlatformData data, int index, MultiChatManager manager) : base(data, index, manager)
+        protected override void GetChatMessages()
         {
+            while (Responses.Count > 0)
+            {
+                var message = Responses.Dequeue();
 
+                switch (message.metadata.message_type)
+                {
+                    case "session_keepalive":
+                    {
 
+                    }
+                    break;
+                    case "session_welcome":
+                    {
+                        Data.SessionID = message.payload.session.id;
 
-            SaveData();
+                        SubscribeToEvent("channel.chat.message");
+                    }
+                    break;
+                    case "notification":
+                    {
+                        switch (message.metadata.subscription_type)
+                        {
+                            case "channel.chat.message":
+                            {
+                                var parts = new List<MC_Message.MessagePart>();
+                                var fragments = message.payload.@event.message.fragments;
+                                for (int f = 0; f < fragments.Length; f++)
+                                    parts.Add(new MC_Message.MessagePart
+                                    {
+                                        Text = new MC_Message.Text { Content = fragments[f].text },
+
+                                    });
+
+                                MC_Messages.Enqueue(new MC_Message
+                                {
+                                    Nick = message.payload.@event.chatter_user_name,
+                                    Parts = parts,
+                                });
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+
+        async void SubscribeToEvent(string type)
+        {
+            var data = JsonConvert.SerializeObject(new EventSubRequest
+            {
+                type = type,
+                version = "1",
+                condition = new EventSubRequest.Condition
+                {
+                    broadcaster_user_id = Data.ChannelID,
+                    user_id = Data.ChannelID,
+                },
+                transport = new EventSubRequest.Transport
+                {
+                    method = "websocket",
+                    session_id = $"{Data.SessionID}",
+                },
+            });
+
+            using (var request = UnityWebRequest.Post(EventSubURL, "", "application/json"))
+            {
+                request.SetRequestHeader("Authorization", $"Bearer {PlayerPrefs.GetString(TokenPref)}");
+                request.SetRequestHeader("Client-Id", AppID);
+
+                var bodyRaw = System.Text.Encoding.UTF8.GetBytes(data);
+                request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+                request.downloadHandler = new DownloadHandlerBuffer();
+
+                var oper = request.SendWebRequest();
+                while (!oper.isDone)
+                    await Task.Yield();
+
+                if (request.result == UnityWebRequest.Result.Success)
+                    Debug.Log($"Subscribed successfully to a {type} event");
+                else
+                    Debug.LogError($"Failed to create subscription: {request.error}");
+            }
+        }
+        async void ManageConnection(bool value)
+        {
+            if (value)
+            {
+                using (var request = UnityWebRequest.Get(GetUsersURL + $"?login={Data.ChannelName}"))
+                {
+                    request.SetRequestHeader("Authorization", $"Bearer {PlayerPrefs.GetString(TokenPref)}");
+                    request.SetRequestHeader("Client-ID", AppID);
+
+                    var oper = request.SendWebRequest();
+                    while (!oper.isDone)
+                        await Task.Yield();
+
+                    if (request.result == UnityWebRequest.Result.Success)
+                        Data.ChannelID = JsonConvert
+                            .DeserializeObject<UserResponse>(request.downloadHandler.text)
+                            .data[0]
+                            .id;
+                }
+
+                if (Socket != null)
+                    Socket.Close();
+
+                Socket = new WebSocket(SocketURL);
+                Socket.SslConfiguration.EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12;
+                Socket.SslConfiguration.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+
+                Socket.OnOpen += OnOpen;
+                Socket.OnMessage += OnMessage;
+                Socket.OnClose += OnClose;
+                Socket.OnError += OnError;
+
+                Socket.Connect();
+            }
+
+            void OnOpen(object sender, EventArgs e)
+            {
+            }
+            void OnMessage(object sender, MessageEventArgs e) => Responses.Enqueue(JsonConvert.DeserializeObject<Notification>(e.Data));
+            void OnClose(object sender, CloseEventArgs e) => Debug.Log(e.Reason);
+            void OnError(object sender, ErrorEventArgs e) => Debug.Log(e.Message);
         }
 
         internal static void StartAuth() =>
             Application.OpenURL($"{AuthPath}?response_type=token&client_id={AppID}&redirect_uri={RedirectPath}&scope=user%3Aread%3Achat");
 
-        protected override void GetChatMessages() { }
-
-        void OnOpen(object sender, EventArgs e)
+        #region SUB REQUEST
+        [Serializable]
+        class EventSubRequest
         {
-            //Socket.Send($"PASS {PlayerPrefs.GetString(TokenPref)}");
-            //Socket.Send($"NICK ru_1n");
-            //Socket.Send($"JOIN #ru_1n");
-        }
-        void OnMessage(object sender, MessageEventArgs e)
-        {
-            if (e.Data.StartsWith("PING"))
-            {
-                Socket.Send("PONG :tmi.twitch.tv");
-
-                Debug.Log("PONG");
-            }
-            else
-                Debug.Log(e.Data);
-        }
-        void OnClose(object sender, CloseEventArgs e) => Debug.Log(e.Reason);
-        void OnError(object sender, ErrorEventArgs e) => Debug.Log(e.Message);
-        void ManageConnection(bool value)
-        {
-        }
-
-        [System.Serializable]
-        public class LoginRequest
-        {
-            public string username;
-            public string password;
-        }
-
-        [System.Serializable]
-        public class RegisterRequest
-        {
-            public string username;
-            public string password;
-        }
-
-        [System.Serializable]
-        public class RefreshTokenRequest
-        {
-            public string refreshToken;
-        }
-
-        [System.Serializable]
-        public class SubscribeRequest
-        {
-            public string roomId;
-        }
-
-        [System.Serializable]
-        public class SendMessageRequest
-        {
-            public string roomId;
-            public string message;
-        }
-
-        [System.Serializable]
-        public class TokenResponse
-        {
-            public bool success;
-            public string message;
-            public string userId;
-            public string accessToken;
-            public string refreshToken;
-            public int expiresIn;
-        }
-
-        [System.Serializable]
-        public class AuthResponse
-        {
-            public bool success;
-            public string message;
-        }
-
-        [System.Serializable]
-        public class TokenValidationResponse
-        {
-            public bool valid;
-            public string userId;
-            public string username;
-        }
-
-        [System.Serializable]
-        public class SubscribeResponse
-        {
-            public bool success;
-            public string message;
-        }
-
-        [System.Serializable]
-        public class MessagesResponse
-        {
-            public bool success;
-            public List<ChatMessage> messages;
-        }
-
-        [System.Serializable]
-        public class ChatMessage
-        {
-            public Subscription subscription;
-            public Event eventData;
-        }
-
-        [System.Serializable]
-        public class Subscription
-        {
-            public string id;
-            public string status;
             public string type;
             public string version;
             public Condition condition;
             public Transport transport;
-            public string created_at;
-            public int cost;
-        }
 
-        [System.Serializable]
-        public class Condition
-        {
-            public string broadcaster_user_id;
-            public string user_id;
-        }
+            [Serializable]
+            public class Condition
+            {
+                public string broadcaster_user_id;
+                public string user_id;
+            }
 
-        [System.Serializable]
-        public class Transport
-        {
-            public string method;
-            public string callback;
+            [Serializable]
+            public class Transport
+            {
+                public string method;
+                public string session_id;
+            }
         }
+        #endregion
 
-        [System.Serializable]
-        public class Event
+        #region NOTIFICATION
+        [Serializable]
+        class Notification
         {
-            public string broadcaster_user_id;
-            public string broadcaster_user_login;
-            public string broadcaster_user_name;
-            public string chatter_user_id;
-            public string chatter_user_login;
-            public string chatter_user_name;
-            public string message_id;
-            public Message message;
-            public string color;
-            public Badge[] badges;
-            public string message_type;
-            public Cheer cheer;
-            public Reply reply;
-            public string channel_points_custom_reward_id;
-        }
+            public Metadata metadata;
+            public Payload payload;
 
-        [System.Serializable]
-        public class Message
-        {
-            public string text;
-            public Fragment[] fragments;
-        }
+            [Serializable]
+            public class Metadata
+            {
+                public string message_type;
+                public string subscription_type;
+            }
 
-        [System.Serializable]
-        public class Fragment
-        {
-            public string type;
-            public string text;
-            public Cheermote cheermote;
-            public Emote emote;
-            public Mention mention;
-        }
+            [Serializable]
+            public class Payload
+            {
+                public Session session;
+                public Event @event;
 
-        [System.Serializable]
-        public class Cheermote
-        {
-            // Можно добавить поля если нужны
-            public string prefix;
-            public int bits;
-            public int tier;
-        }
+                public class Session
+                {
+                    public string id;
+                }
 
-        [System.Serializable]
-        public class Emote
-        {
-            public string id;
-            public string emote_set_id;
-            public string owner_id;
-            public string[] format;
-        }
+                [Serializable]
+                public class Event
+                {
+                    public string chatter_user_name;
+                    public Message message;
+                    public Badge[] badges;
+                    public Cheer cheer;
 
-        [System.Serializable]
-        public class Mention
-        {
-            public string user_id;
-            public string user_login;
-            public string user_name;
-        }
+                    [Serializable]
+                    public class Message
+                    {
+                        public Fragment[] fragments;
 
-        [System.Serializable]
-        public class Badge
-        {
-            public string set_id;
-            public string id;
-            public string info;
-        }
+                        [Serializable]
+                        public class Fragment
+                        {
+                            public string type;
+                            public string text;
+                            public Cheermote cheermote;
+                            public Emote emote;
+                            public Mention mention;
 
-        [System.Serializable]
-        public class Cheer
-        {
-            public int bits;
-        }
+                            [Serializable]
+                            public class Cheermote
+                            {
+                                public string prefix;
+                                public int bits;
+                                public int tier;
+                            }
 
-        [System.Serializable]
-        public class Reply
-        {
-            public string parent_message_id;
-            public string parent_message_body;
-            public ParentUser parent_user;
-            public ThreadUser thread_user;
-        }
+                            [Serializable]
+                            public class Emote
+                            {
+                                public string id;
+                                public string emote_set_id;
+                                public string owner_id;
+                                public string[] format;
+                            }
 
-        [System.Serializable]
-        public class ParentUser
-        {
-            public string user_id;
-            public string user_login;
-            public string user_name;
-        }
+                            [Serializable]
+                            public class Mention
+                            {
+                                public string user_name;
+                            }
+                        }
+                    }
 
-        [System.Serializable]
-        public class ThreadUser
-        {
-            public string user_id;
-            public string user_login;
-            public string user_name;
+                    [Serializable]
+                    public class Badge
+                    {
+                        public string id;
+                    }
+
+                    [Serializable]
+                    public class Cheer
+                    {
+                        public int bits;
+                    }
+                }
+            }
         }
+        #endregion
+
+        #region USER INFO
+        [Serializable]
+        class UserResponse
+        {
+            public User[] data;
+
+            [Serializable]
+            public class User
+            {
+                public string id;
+            }
+        }
+        #endregion
     }
 }

@@ -7,6 +7,8 @@ using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 
+using WebSocketSharp;
+
 namespace MultiChat
 {
     internal class VK : Platform
@@ -17,6 +19,9 @@ namespace MultiChat
         static string AuthPath = "https://auth.live.vkvideo.ru/app/oauth2/authorize";
         static string RedirectPath = "https://oauth.vk.com/blank.html";
         static string EntryPath = "https://apidev.live.vkvideo.ru";
+        static string SocketURL = "wss://pubsub-dev.live.vkvideo.ru/connection/websocket?format=json&cf_protocol_version=v2";
+
+        WebSocket Socket;
 
         internal VK(string name, string channel, int index, MultiChatManager manager) : base(name, channel, index, manager)
         {
@@ -26,13 +31,15 @@ namespace MultiChat
         }
         internal VK(PlatformData data, int index, MultiChatManager manager) : base(data, index, manager)
         {
-
+            ManageConnection(true);
 
             SaveData();
         }
 
         protected override async void GetChatMessages()
         {
+            return;
+
             var token = PlayerPrefs.GetString(TokenPref);
             if (!string.IsNullOrEmpty(token))
                 using (var request = UnityWebRequest
@@ -102,6 +109,119 @@ namespace MultiChat
 
                 return true;
             }
+        }
+
+        //async void SubscribeToEvent(string type)
+        //{
+        //    var data = JsonConvert.SerializeObject(new EventSubRequest
+        //    {
+        //        type = type,
+        //        version = "1",
+        //        condition = new EventSubRequest.Condition
+        //        {
+        //            broadcaster_user_id = Data.ChannelID,
+        //            user_id = Data.ChannelID,
+        //        },
+        //        transport = new EventSubRequest.Transport
+        //        {
+        //            method = "websocket",
+        //            session_id = $"{Data.SessionID}",
+        //        },
+        //    });
+
+        //    using (var request = UnityWebRequest.Post(EventSubURL, "", "application/json"))
+        //    {
+        //        request.SetRequestHeader("Authorization", $"Bearer {PlayerPrefs.GetString(TokenPref)}");
+        //        request.SetRequestHeader("Client-Id", AppID);
+
+        //        var bodyRaw = System.Text.Encoding.UTF8.GetBytes(data);
+        //        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        //        request.downloadHandler = new DownloadHandlerBuffer();
+
+        //        var oper = request.SendWebRequest();
+        //        while (!oper.isDone)
+        //            await Task.Yield();
+
+        //        if (request.result == UnityWebRequest.Result.Success)
+        //            Debug.Log($"Subscribed successfully to a {type} event");
+        //        else
+        //            Debug.LogError($"Failed to create subscription: {request.error}");
+        //    }
+        //}
+        async void ManageConnection(bool value)
+        {
+            if (value)
+            {
+                using (var request = UnityWebRequest.Get(EntryPath + "/v1/websocket/token"))
+                {
+                    request.SetRequestHeader("Authorization", $"Bearer {PlayerPrefs.GetString(TokenPref)}");
+
+                    var oper = request.SendWebRequest();
+                    while (!oper.isDone)
+                        await System.Threading.Tasks.Task.Yield();
+
+                    if (request.result == UnityWebRequest.Result.Success)
+                    {
+                        Data.ChannelID = JsonConvert.DeserializeObject<JWT>(request.downloadHandler.text).data.token;
+                        Debug.Log(Data.ChannelID);
+                    }
+                    else
+                        Debug.Log(request.error);
+                }
+
+                if (Socket != null)
+                    Socket.Close();
+
+                Socket = new WebSocket(SocketURL);
+                Socket.SslConfiguration.EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12;
+                Socket.SslConfiguration.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+
+                Socket.OnOpen += OnOpen;
+                Socket.OnMessage += OnMessage;
+                Socket.OnClose += OnClose;
+                Socket.OnError += OnError;
+
+                Socket.Connect();
+            }
+
+            async void OnOpen(object sender, EventArgs e)
+            {
+                var connect = JsonConvert.SerializeObject(new Message { id = 1u, connect = new Message.Connect { token = Data.ChannelID } });
+                Socket.Send(connect);
+
+                using (var request = UnityWebRequest.Post(EntryPath +
+                    $"/v1/channels" +
+                    $"?body={Data.ChannelName}", "", "application/json"))
+                {
+                    request.SetRequestHeader("Authorization", $"Bearer {PlayerPrefs.GetString(TokenPref)}");
+
+                    var body = new ChannelsRequest
+                    {
+                        channels = new ChannelsRequest.Channel[] { new ChannelsRequest.Channel { url = "ru_1ned" } }
+                    };
+
+                    var handler = new UploadHandlerRaw(new System.Text.UTF8Encoding().GetBytes(JsonConvert.SerializeObject(body)));
+                    request.uploadHandler = handler;
+                    request.downloadHandler = new DownloadHandlerBuffer();
+
+                    var oper = request.SendWebRequest();
+                    while (!oper.isDone)
+                        await Task.Yield();
+
+                    if (request.result == UnityWebRequest.Result.Success)
+                    {
+                        var channel = JsonConvert.DeserializeObject<ChannelsResponse>(request.downloadHandler.text).data.channels[0].channel;
+                        var message = new Message { id = 1u, subscribe = new Message.Sub { channel = $"{channel.web_socket_channels.chat}" } };
+
+                        Socket.Send(JsonConvert.SerializeObject(message));
+                    }
+                    else
+                        Debug.Log(request.error);
+                }
+            }
+            void OnMessage(object sender, MessageEventArgs e) => Debug.Log(e.Data);
+            void OnClose(object sender, CloseEventArgs e) => Debug.Log(e.Reason);
+            void OnError(object sender, ErrorEventArgs e) => Debug.Log(e.Message);
         }
 
         internal static void StartAuth() =>
@@ -184,5 +304,89 @@ namespace MultiChat
             }
         }
         #endregion
+
+        [Serializable]
+        class JWT
+        {
+            public Data data;
+
+            [Serializable]
+            public class Data
+            {
+                public string token;
+            }
+        }
+
+        [Serializable]
+        class ChannelsRequest
+        {
+            public Channel[] channels;
+
+            [Serializable]
+            public class Channel
+            {
+                public string url;
+            }
+        }
+
+        [Serializable]
+        class ChannelsResponse
+        {
+            public Data data;
+
+            [Serializable]
+            public class Data
+            {
+                public ChannelData[] channels;
+
+                [Serializable]
+                public class ChannelData
+                {
+                    public Channel channel;
+
+                    [Serializable]
+                    public class Channel
+                    {
+                        public string id;
+                        public string url;
+                        public WebSocketChannels web_socket_channels;
+
+                        [Serializable]
+                        public class WebSocketChannels
+                        {
+                            public string chat;
+                            public string private_chat;
+                            public string info;
+                            public string private_info;
+                            public string channel_points;
+                            public string private_channel_points;
+                            public string limited_chat;
+                            public string limited_private_chat;
+                        }
+                    }
+                }
+            }
+        }
+
+        [Serializable]
+        class Message
+        {
+            public uint id;
+            public string type;
+            public Connect connect;
+            public Sub subscribe;
+
+            [Serializable]
+            public class Sub
+            {
+                public string channel;
+            }
+
+            [Serializable]
+            public class Connect
+            {
+                public string token;
+            }
+        }
     }
 }

@@ -24,7 +24,7 @@
         "com.unity.entities": "1.3.14",
         "com.unity.ugui": "2.0.0"
       },
-      "hash": "d312854ea8902fc57fff7567897b800e24f6c14d"
+      "hash": "2e2e8b2210987d460a18563cb05051e0855dd555"
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
@@ -107,7 +107,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.nuget.newtonsoft-json": {
-      "version": "3.2.1",
+      "version": "3.2.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -239,6 +239,15 @@
         "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.imgui": "1.0.0"
       }
+    },
+    "websocket-sharp": {
+      "version": "https://github.com/HomelessSkin/websocket-sharp.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.entities": "1.3.14"
+      },
+      "hash": "efe8967b7d0bd4fd0e35eb97b840c41b03200992"
     },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",

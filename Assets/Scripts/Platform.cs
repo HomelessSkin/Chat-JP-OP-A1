@@ -7,21 +7,24 @@ using Newtonsoft.Json;
 
 using UnityEngine;
 
+using WebSocketSharp;
+
 namespace MultiChat
 {
     [System.Serializable]
     internal abstract class Platform
     {
         protected static int MessagesLimit = 100;
+        protected static string RedirectPath = "https://oauth.vk.com/blank.html";
 
         internal bool Enabled
         {
             get => Data.Enabled;
             set
             {
-                Data.Enabled = value;
+                Connect();
 
-                SaveData();
+                Data.Enabled = value;
             }
         }
         internal int CurrentIndex
@@ -40,7 +43,10 @@ namespace MultiChat
         protected int Index;
         protected long LastMessage;
         protected PlatformData Data;
+
+        protected WebSocket Socket;
         protected MultiChatManager Manager;
+
         protected Queue<MC_Message> MC_Messages = new Queue<MC_Message>();
 
         internal Platform(string name, string channel, int index, MultiChatManager manager)
@@ -63,9 +69,18 @@ namespace MultiChat
             Data = data;
         }
 
-        protected abstract void GetChatMessages();
+        protected abstract void Connect();
+        protected abstract void OnOpen(object sender, EventArgs e);
+        protected abstract void OnMessage(object sender, MessageEventArgs e);
+        protected abstract void SubscribeToEvent(string type);
+        protected abstract void ProcessSocketMessages();
 
-        internal void RefreshChat() => GetChatMessages();
+        internal void Refresh() => ProcessSocketMessages();
+        internal void Disconnect()
+        {
+            if (Socket.IsAlive)
+                Socket.Close();
+        }
         internal bool GetMessage(out MC_Message message) => MC_Messages.TryDequeue(out message);
 
         protected async void Enqueue(MC_Message message)
@@ -96,8 +111,27 @@ namespace MultiChat
             PlayerPrefs.SetString("platform_" + Index, JsonConvert.SerializeObject(Data));
             PlayerPrefs.Save();
         }
+        protected void InitializeSocket(string url)
+        {
+            if (Socket != null)
+                Socket.Close();
+
+            Socket = new WebSocket(url);
+            Socket.SslConfiguration.EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12;
+            Socket.SslConfiguration.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+
+            Socket.OnOpen += OnOpen;
+            Socket.OnMessage += OnMessage;
+            Socket.OnClose += OnClose;
+            Socket.OnError += OnError;
+
+            Socket.Connect();
+        }
+        protected void OnClose(object sender, CloseEventArgs e) => Debug.Log(e.Reason);
+        protected void OnError(object sender, ErrorEventArgs e) => Debug.Log(e.Message);
     }
 
+    #region DATA
     [Serializable]
     internal struct PlatformData
     {
@@ -111,11 +145,13 @@ namespace MultiChat
 
         public string SessionID;
     }
+    #endregion
 
     #region MESSAGE
     internal struct MC_Message
     {
         public string Nick;
+        public string Color;
         public List<MessagePart> Parts;
 
         public struct MessagePart

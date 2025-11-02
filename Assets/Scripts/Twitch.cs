@@ -14,93 +14,60 @@ namespace MultiChat
     internal class Twitch : Platform
     {
         internal static string TokenPref = "twitch_token";
-
-        internal new bool Enabled
-        {
-            get => base.Enabled;
-            set
-            {
-                ManageConnection(value);
-
-                base.Enabled = value;
-            }
-        }
+        internal static void StartAuth() =>
+            Application.OpenURL($"{AuthPath}?response_type=token&client_id={AppID}&redirect_uri={RedirectPath}&scope=user%3Aread%3Achat");
 
         static string AppID = "6ss2l29z27gl1rmz061rajdhd9mgr6";
         static string AuthPath = "https://id.twitch.tv/oauth2/authorize";
-        static string RedirectPath = "https://oauth.vk.com/blank.html";
         static string SocketURL = "wss://eventsub.wss.twitch.tv/ws";
         static string EventSubURL = "https://api.twitch.tv/helix/eventsub/subscriptions";
         static string GetUsersURL = "https://api.twitch.tv/helix/users";
+        static string EmoteURL = "https://static-cdn.jtvnw.net/emoticons/v2";
 
-        WebSocket Socket;
-        Queue<Notification> Responses = new Queue<Notification>();
+        Queue<SocketMessage> Responses = new Queue<SocketMessage>();
 
         internal Twitch(string name, string channel, int index, MultiChatManager manager) : base(name, channel, index, manager)
         {
             Data.PlatformType = "twitch";
 
-            ManageConnection(true);
-
+            Connect();
             SaveData();
         }
         internal Twitch(PlatformData data, int index, MultiChatManager manager) : base(data, index, manager)
         {
-            ManageConnection(true);
-
+            Connect();
             SaveData();
         }
 
-        protected override void GetChatMessages()
+        protected override async void Connect()
         {
-            while (Responses.Count > 0)
+            if (Data.Enabled)
             {
-                var message = Responses.Dequeue();
-
-                switch (message.metadata.message_type)
+                using (var request = UnityWebRequest.Get(GetUsersURL + $"?login={Data.ChannelName}"))
                 {
-                    case "session_keepalive":
-                    {
+                    request.SetRequestHeader("Authorization", $"Bearer {PlayerPrefs.GetString(TokenPref)}");
+                    request.SetRequestHeader("Client-ID", AppID);
 
-                    }
-                    break;
-                    case "session_welcome":
-                    {
-                        Data.SessionID = message.payload.session.id;
+                    var oper = request.SendWebRequest();
+                    while (!oper.isDone)
+                        await Task.Yield();
 
-                        SubscribeToEvent("channel.chat.message");
-                    }
-                    break;
-                    case "notification":
-                    {
-                        switch (message.metadata.subscription_type)
-                        {
-                            case "channel.chat.message":
-                            {
-                                var parts = new List<MC_Message.MessagePart>();
-                                var fragments = message.payload.@event.message.fragments;
-                                for (int f = 0; f < fragments.Length; f++)
-                                    parts.Add(new MC_Message.MessagePart
-                                    {
-                                        Text = new MC_Message.Text { Content = fragments[f].text },
-
-                                    });
-
-                                MC_Messages.Enqueue(new MC_Message
-                                {
-                                    Nick = message.payload.@event.chatter_user_name,
-                                    Parts = parts,
-                                });
-                            }
-                            break;
-                        }
-                    }
-                    break;
+                    if (request.result == UnityWebRequest.Result.Success)
+                        Data.ChannelID = JsonConvert
+                            .DeserializeObject<UserResponse>(request.downloadHandler.text)
+                            .data[0]
+                            .id;
                 }
+
+                InitializeSocket(SocketURL);
             }
         }
-
-        async void SubscribeToEvent(string type)
+        protected override void OnOpen(object sender, EventArgs e)
+        {
+        }
+        protected override void OnMessage(object sender, MessageEventArgs e) =>
+            Responses.Enqueue(JsonConvert.DeserializeObject<SocketMessage>(e.Data));
+        protected override async void SubscribeToEvent(string type)
         {
             var data = JsonConvert.SerializeObject(new EventSubRequest
             {
@@ -137,51 +104,64 @@ namespace MultiChat
                     Debug.LogError($"Failed to create subscription: {request.error}");
             }
         }
-        async void ManageConnection(bool value)
+        protected override void ProcessSocketMessages()
         {
-            if (value)
+            while (Responses.Count > 0)
             {
-                using (var request = UnityWebRequest.Get(GetUsersURL + $"?login={Data.ChannelName}"))
+                var message = Responses.Dequeue();
+
+                switch (message.metadata.message_type)
                 {
-                    request.SetRequestHeader("Authorization", $"Bearer {PlayerPrefs.GetString(TokenPref)}");
-                    request.SetRequestHeader("Client-ID", AppID);
+                    case "session_keepalive":
+                    {
 
-                    var oper = request.SendWebRequest();
-                    while (!oper.isDone)
-                        await Task.Yield();
+                    }
+                    break;
+                    case "session_welcome":
+                    {
+                        Data.SessionID = message.payload.session.id;
 
-                    if (request.result == UnityWebRequest.Result.Success)
-                        Data.ChannelID = JsonConvert
-                            .DeserializeObject<UserResponse>(request.downloadHandler.text)
-                            .data[0]
-                            .id;
+                        SubscribeToEvent("channel.chat.message");
+                    }
+                    break;
+                    case "notification":
+                    {
+                        switch (message.metadata.subscription_type)
+                        {
+                            case "channel.chat.message":
+                            {
+                                var parts = new List<MC_Message.MessagePart>();
+                                var fragments = message.payload.@event.message.fragments;
+                                for (int f = 0; f < fragments.Length; f++)
+                                {
+                                    var fragment = fragments[f];
+                                    var m = new MC_Message.MessagePart();
+                                    if (fragment.emote != null)
+                                        m.Smile = new MC_Message.Smile
+                                        {
+                                            Hash = fragment.emote.id.GetHashCode(),
+                                            URL = EmoteURL + $"/{fragment.emote.id}/static/light/2.0",
+                                        };
+                                    else if (fragment.text != null)
+                                        m.Text = new MC_Message.Text { Content = fragments[f].text };
+
+                                    parts.Add(m);
+                                }
+
+                                Enqueue(new MC_Message
+                                {
+                                    Nick = message.payload.@event.chatter_user_name,
+                                    Color = message.payload.@event.color,
+                                    Parts = parts,
+                                });
+                            }
+                            break;
+                        }
+                    }
+                    break;
                 }
-
-                if (Socket != null)
-                    Socket.Close();
-
-                Socket = new WebSocket(SocketURL);
-                Socket.SslConfiguration.EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12;
-                Socket.SslConfiguration.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
-
-                Socket.OnOpen += OnOpen;
-                Socket.OnMessage += OnMessage;
-                Socket.OnClose += OnClose;
-                Socket.OnError += OnError;
-
-                Socket.Connect();
             }
-
-            void OnOpen(object sender, EventArgs e)
-            {
-            }
-            void OnMessage(object sender, MessageEventArgs e) => Responses.Enqueue(JsonConvert.DeserializeObject<Notification>(e.Data));
-            void OnClose(object sender, CloseEventArgs e) => Debug.Log(e.Reason);
-            void OnError(object sender, ErrorEventArgs e) => Debug.Log(e.Message);
         }
-
-        internal static void StartAuth() =>
-            Application.OpenURL($"{AuthPath}?response_type=token&client_id={AppID}&redirect_uri={RedirectPath}&scope=user%3Aread%3Achat");
 
         #region SUB REQUEST
         [Serializable]
@@ -208,9 +188,9 @@ namespace MultiChat
         }
         #endregion
 
-        #region NOTIFICATION
+        #region SOCKET MESSAGE
         [Serializable]
-        class Notification
+        class SocketMessage
         {
             public Metadata metadata;
             public Payload payload;
@@ -237,6 +217,7 @@ namespace MultiChat
                 public class Event
                 {
                     public string chatter_user_name;
+                    public string color;
                     public Message message;
                     public Badge[] badges;
                     public Cheer cheer;
@@ -267,9 +248,7 @@ namespace MultiChat
                             public class Emote
                             {
                                 public string id;
-                                public string emote_set_id;
                                 public string owner_id;
-                                public string[] format;
                             }
 
                             [Serializable]

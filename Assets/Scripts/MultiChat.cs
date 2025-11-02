@@ -17,8 +17,6 @@ namespace MultiChat
 {
     internal class MultiChatManager : UIManagerBase
     {
-        public List<Texture2D> Textures = new List<Texture2D>();
-
         [SerializeField] float RefreshPeriod = 2f;
 
         float T;
@@ -80,7 +78,6 @@ namespace MultiChat
                 }
             }
         }
-
         void Update()
         {
             T += Time.deltaTime;
@@ -90,7 +87,7 @@ namespace MultiChat
 
                 for (int p = 0; p < Platforms.Count; p++)
                     if (Platforms[p].Enabled)
-                        Platforms[p].RefreshChat();
+                        Platforms[p].Refresh();
             }
 
             var process = true;
@@ -108,7 +105,7 @@ namespace MultiChat
                     if (got)
                     {
                         // MESSAGE PROCESSING
-                        var text = message.Nick + ": ";
+                        var text = $"<color={message.Color}>" + message.Nick + "</color>: ";
                         for (int pt = 0; pt < message.Parts.Count; pt++)
                         {
                             var part = message.Parts[pt];
@@ -117,7 +114,7 @@ namespace MultiChat
                             if (!string.IsNullOrEmpty(part.Smile.URL))
                             {
                                 var id = Smiles[part.Smile.Hash].Item1;
-                                text += $" <sprite name=\"Smiles_{id}\"> ";
+                                text += $"    <sprite name=\"Smiles_{id}\">    ";
                             }
                         }
 
@@ -127,6 +124,11 @@ namespace MultiChat
                     }
                 }
             }
+        }
+        void OnDestroy()
+        {
+            for (int p = 0; p < Platforms.Count; p++)
+                Platforms[p].Disconnect();
         }
 
         public void CreatePlatform()
@@ -162,10 +164,9 @@ namespace MultiChat
             Smiles[hash] = (id, new List<GameObject>());
 
             smile = DataUtil.ResizeBilinear(smile, 64, 64);
-            Textures.Add(smile);
-
             var x = 64 * (id % SpriteWidth);
             var y = SmileTexture.height - 64 * (id / SpriteWidth + 1);
+
             SmileTexture.SetPixels32(x, y, 64, 64, smile.GetPixels32());
             SmileTexture.Apply();
             SmileAsset.UpdateLookupTables();

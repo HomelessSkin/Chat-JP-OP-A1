@@ -76,8 +76,13 @@ namespace MultiChat
 
             SubscribeToEvent("chat");
         }
-        protected override void OnMessage(object sender, MessageEventArgs e) =>
+        protected override void OnMessage(object sender, MessageEventArgs e)
+        {
+            if (MultiChatManager.DebugSocket)
+                Debug.Log(e.Data);
+
             Responses.Enqueue(JsonConvert.DeserializeObject<SocketMessage>(e.Data));
+        }
         protected override async void SubscribeToEvent(string type)
         {
             using (var request = UnityWebRequest.Post(EntryPath +
@@ -137,17 +142,32 @@ namespace MultiChat
                     continue;
                 }
 
-                var message = socket.push.pub.data.data.chat_message;
-                if (message.author.nick == "ChatBot")
-                    continue;
-
-                if (GetParts(message, out var parts))
-                    Enqueue(new MC_Message
+                var data = socket.push.pub.data;
+                switch (data.type)
+                {
+                    case "channel_chat_message_send":
                     {
-                        Nick = message.author.nick,
-                        Color = $"#{Colors[message.author.nick_color]}",
-                        Parts = parts,
-                    });
+                        var message = data.data.chat_message;
+                        if (message.author.nick == "ChatBot")
+                            continue;
+
+                        if (GetParts(message, out var parts))
+                            Enqueue(new MC_Message
+                            {
+                                Platform = 0,
+                                ID = message.id.ToString(),
+                                Nick = message.author.nick,
+                                Color = $"#{Colors[message.author.nick_color]}",
+                                Parts = parts,
+                            });
+                    }
+                    break;
+                    case "channel_chat_message_delete":
+                    {
+                        Manager.DeleteMessage(0, data.data.chat_message.id.ToString());
+                    }
+                    break;
+                }
             }
 
             bool GetParts(SocketMessage.Push.Pub.Data.DataData.ChatMessage message, out List<MC_Message.MessagePart> parts)
@@ -167,11 +187,11 @@ namespace MultiChat
                     }
 
                     if (part.mention != null)
-                        mc.Mention = new MC_Message.Mention { Nick = part.mention.nick };
+                        mc.Reply = new MC_Message.MessagePart.Mention { Nick = part.mention.nick };
                     if (part.smile != null && !string.IsNullOrEmpty(part.smile.medium_url))
-                        mc.Smile = new MC_Message.Smile { Hash = part.smile.id.GetHashCode(), URL = part.smile.medium_url };
+                        mc.Emote = new MC_Message.MessagePart.Smile { Hash = part.smile.id.GetHashCode(), URL = part.smile.medium_url };
                     if (part.text != null)
-                        mc.Text = new MC_Message.Text { Content = part.text.content };
+                        mc.Message = new MC_Message.MessagePart.Text { Content = part.text.content };
 
                     parts.Add(mc);
                 }

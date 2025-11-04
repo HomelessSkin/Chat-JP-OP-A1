@@ -17,44 +17,74 @@ namespace MultiChat
 {
     internal class MultiChatManager : UIManagerBase
     {
+        internal static bool DebugSocket;
+
+        [SerializeField] bool DebugSocketMessages;
         [SerializeField] float RefreshPeriod = 2f;
 
         float T;
 
         [Space]
-        [Header("Auth")]
-        [SerializeField] Transform AuthPanel;
-        [SerializeField] MenuButton SubmitButton;
-        [SerializeField] TMP_InputField TokenField;
+        [SerializeField] Authentication _Authentication;
+        #region AUTHENTICATION
+        [Serializable]
+        class Authentication
+        {
+            public Transform Panel;
+            public MenuButton SubmitButton;
+            public TMP_InputField TokenField;
+        }
+        #endregion
 
         [Space]
-        [Header("Platform Creation")]
-        [SerializeField] TMP_Dropdown PlatformSwitch;
-        [SerializeField] TMP_InputField PlatformNameInput;
-        [SerializeField] TMP_InputField PlatformURLInput;
+        [SerializeField] PlatformCreation _PlatformCreation;
+        #region PLATFORM CREATION
+        [Serializable]
+        class PlatformCreation
+        {
+            public TMP_Dropdown Switch;
+            public TMP_InputField NameInput;
+            public TMP_InputField URLInput;
+        }
+        #endregion
 
         [Space]
-        [Header("Chat")]
-        [SerializeField] Transform ChatContent;
-        [SerializeField] GameObject MessagePrefab;
+        [SerializeField] Chat _Chat;
+        #region CHAT
+        [Serializable]
+        class Chat
+        {
+            public int MaxChatCount = 100;
+            public Transform Content;
+            public GameObject MessagePrefab;
 
-        List<Platform> Platforms = new List<Platform>();
+            public List<Platform> Platforms = new List<Platform>();
+            public List<Message> Messages = new List<Message>();
+            public List<Message> Pool = new List<Message>();
+        }
+        #endregion
 
         [Space]
-        [Header("Smiles")]
-        [SerializeField] int DefaultSpritesCount;
-        [SerializeField] int SpriteWidth;
-        [SerializeField] Texture2D SmileTexture;
-        [SerializeField] TMP_SpriteAsset SmileAsset;
+        [SerializeField] TextSprite Smiles;
+        #region TEXT SPRITE
+        [Serializable]
+        public class TextSprite
+        {
+            public int DefaultSpritesCount;
+            public int SpriteWidth;
+            public Texture2D Texture;
+            public TMP_SpriteAsset Asset;
 
-        bool[] TextureMap;
-        Dictionary<int, (int, List<GameObject>)> Smiles = new Dictionary<int, (int, List<GameObject>)>();
+            public bool[] TextureMap;
+            public Dictionary<int, (int, List<GameObject>)> HashSprite = new Dictionary<int, (int, List<GameObject>)>();
+        }
+        #endregion
 
         protected override void Start()
         {
             base.Start();
 
-            TextureMap = new bool[SpriteWidth * SpriteWidth];
+            Smiles.TextureMap = new bool[Smiles.SpriteWidth * Smiles.SpriteWidth];
 
             LoadPlatforms();
 
@@ -67,10 +97,10 @@ namespace MultiChat
                     switch (data.PlatformType)
                     {
                         case "vk":
-                        Platforms.Add(new VK(data, index, this));
+                        _Chat.Platforms.Add(new VK(data, index, this));
                         break;
                         case "twitch":
-                        Platforms.Add(new Twitch(data, index, this));
+                        _Chat.Platforms.Add(new Twitch(data, index, this));
                         break;
                     }
 
@@ -85,73 +115,125 @@ namespace MultiChat
             {
                 T = 0f;
 
-                for (int p = 0; p < Platforms.Count; p++)
-                    if (Platforms[p].Enabled)
-                        Platforms[p].Refresh();
+                for (int p = 0; p < _Chat.Platforms.Count; p++)
+                    if (_Chat.Platforms[p].Enabled)
+                        _Chat.Platforms[p].Refresh();
             }
 
-            var process = true;
-            while (process)
+            UpdateChat();
+
+            void UpdateChat()
             {
-                process = false;
-                for (int p = 0; p < Platforms.Count; p++)
+                var process = true;
+                while (process)
                 {
-                    if (!Platforms[p].Enabled)
-                        continue;
-
-                    var got = Platforms[p].GetMessage(out var message);
-                    process |= got;
-
-                    if (got)
+                    process = false;
+                    for (int p = 0; p < _Chat.Platforms.Count; p++)
                     {
-                        // MESSAGE PROCESSING
-                        var text = $"<color={message.Color}>" + message.Nick + "</color>: ";
-                        for (int pt = 0; pt < message.Parts.Count; pt++)
-                        {
-                            var part = message.Parts[pt];
-                            if (!string.IsNullOrEmpty(part.Text.Content))
-                                text += part.Text.Content;
-                            if (!string.IsNullOrEmpty(part.Smile.URL))
-                            {
-                                var id = Smiles[part.Smile.Hash].Item1;
-                                text += $"    <sprite name=\"Smiles_{id}\">    ";
-                            }
-                        }
+                        if (!_Chat.Platforms[p].Enabled)
+                            continue;
 
-                        var go = Instantiate(MessagePrefab, ChatContent, false);
-                        var m = go.GetComponent<Message>();
-                        m.Init(text);
+                        var got = _Chat.Platforms[p].GetMessage(out var message);
+                        process |= got;
+
+                        if (got)
+                        {
+                            var m = FromPool();
+                            m.Init(message, this);
+
+                            _Chat.Messages.Add(m);
+                        }
                     }
+                }
+
+                Message FromPool()
+                {
+                    Message message;
+                    if (_Chat.Messages.Count >= _Chat.MaxChatCount)
+                    {
+                        message = _Chat.Messages[0];
+
+                        message.transform.SetParent(null);
+                        message.transform.SetParent(_Chat.Content);
+
+                        _Chat.Messages.RemoveAt(0);
+                    }
+                    else if (_Chat.Pool.Count > 0)
+                    {
+                        message = _Chat.Pool[0];
+                        message.transform.SetParent(_Chat.Content);
+                        message.gameObject.SetActive(true);
+
+                        _Chat.Pool.RemoveAt(0);
+                    }
+                    else
+                        message = Instantiate(_Chat.MessagePrefab, _Chat.Content, false).GetComponent<Message>();
+
+                    return message;
                 }
             }
         }
+        void OnValidate()
+        {
+            DebugSocket = DebugSocketMessages;
+        }
         void OnDestroy()
         {
-            for (int p = 0; p < Platforms.Count; p++)
-                Platforms[p].Disconnect();
+            for (int p = 0; p < _Chat.Platforms.Count; p++)
+                _Chat.Platforms[p].Disconnect();
         }
 
         public void CreatePlatform()
         {
-            if (!string.IsNullOrEmpty(PlatformNameInput.text) &&
-                 !string.IsNullOrEmpty(PlatformURLInput.text))
-                switch (PlatformSwitch.value)
+            if (!string.IsNullOrEmpty(_PlatformCreation.NameInput.text) &&
+                 !string.IsNullOrEmpty(_PlatformCreation.URLInput.text))
+                switch (_PlatformCreation.Switch.value)
                 {
                     case 0:
-                    Platforms.Add(new VK(PlatformNameInput.text, PlatformURLInput.text, Platforms.Count, this));
+                    _Chat.Platforms.Add(new VK(_PlatformCreation.NameInput.text, _PlatformCreation.URLInput.text, _Chat.Platforms.Count, this));
                     break;
                     case 1:
-                    Platforms.Add(new Twitch(PlatformNameInput.text, PlatformURLInput.text, Platforms.Count, this));
+                    _Chat.Platforms.Add(new Twitch(_PlatformCreation.NameInput.text, _PlatformCreation.URLInput.text, _Chat.Platforms.Count, this));
                     break;
                 }
+        }
+        public void ClearChat()
+        {
+            for (int m = 0; m < _Chat.Messages.Count; m++)
+                RemoveMessage(_Chat.Messages[m]);
+
+            _Chat.Messages.Clear();
+        }
+
+        internal bool HasSmile(int hash, out int id)
+        {
+            if (Smiles.HashSprite.TryGetValue(hash, out var value))
+                id = value.Item1;
+            else
+                id = -1;
+
+            return id >= 0;
+        }
+        internal int GetSmile(int key, GameObject requester)
+        {
+            var smile = Smiles.HashSprite[key];
+
+            if (!smile.Item2.Contains(requester))
+            {
+                smile.Item2.Add(requester);
+
+                Smiles.HashSprite[key] = smile;
+            }
+
+            return smile.Item1;
         }
         internal void DrawSmile(Texture2D smile, int hash)
         {
             var id = -1;
-            for (int t = DefaultSpritesCount + 1; t < TextureMap.Length; t++)
-                if (!TextureMap[t])
+            for (int t = Smiles.DefaultSpritesCount; t < Smiles.TextureMap.Length; t++)
+                if (!Smiles.TextureMap[t])
                 {
-                    TextureMap[t] = true;
+                    Smiles.TextureMap[t] = true;
 
                     id = t;
 
@@ -159,50 +241,72 @@ namespace MultiChat
                 }
 
             if (id < 0)
-                id = Random.Range(DefaultSpritesCount + 1, SpriteWidth * SpriteWidth);
+                id = Random.Range(Smiles.DefaultSpritesCount, Smiles.SpriteWidth * Smiles.SpriteWidth);
 
-            Smiles[hash] = (id, new List<GameObject>());
+            Smiles.HashSprite[hash] = (id, new List<GameObject>());
 
             smile = DataUtil.ResizeBilinear(smile, 64, 64);
-            var x = 64 * (id % SpriteWidth);
-            var y = SmileTexture.height - 64 * (id / SpriteWidth + 1);
+            var x = 64 * (id % Smiles.SpriteWidth);
+            var y = Smiles.Texture.height - 64 * (id / Smiles.SpriteWidth + 1);
 
-            SmileTexture.SetPixels32(x, y, 64, 64, smile.GetPixels32());
-            SmileTexture.Apply();
-            SmileAsset.UpdateLookupTables();
+            Smiles.Texture.SetPixels32(x, y, 64, 64, smile.GetPixels32());
+            Smiles.Texture.Apply();
+            Smiles.Asset.UpdateLookupTables();
         }
-        internal bool HasSmile(int hash, out int id)
+        internal void DeleteMessage(byte platform, string id)
         {
-            if (Smiles.TryGetValue(hash, out var value))
-                id = value.Item1;
-            else
-                id = -1;
+            var index = -1;
+            for (int m = 0; m < _Chat.Messages.Count; m++)
+            {
+                var message = _Chat.Messages[m];
+                if (message.GetPlatform() == platform &&
+                     message.GetID() == id)
+                {
+                    index = m;
 
-            return id >= 0;
+                    RemoveMessage(message);
+
+                    break;
+                }
+            }
+
+            if (index >= 0)
+                _Chat.Messages.RemoveAt(index);
         }
 
-        #region VK
-        public void StartAuthVK()
+        void RemoveMessage(Message message)
         {
-            SubmitButton.RemoveAllListeners();
-            SubmitButton.AddListener(SubmitVKToken);
+            var smiles = message.GetSmiles();
+            for (int s = 0; s < smiles.Count; s++)
+            {
+                var key = smiles[s];
+                var smile = Smiles.HashSprite[key];
 
-            VK.StartAuth();
+                if (smile.Item2.Contains(message.gameObject))
+                {
+                    smile.Item2.Remove(message.gameObject);
+
+                    if (smile.Item2.Count == 0)
+                    {
+                        Smiles.TextureMap[smile.Item1] = false;
+
+                        Smiles.HashSprite.Remove(key);
+                    }
+                    else
+                        Smiles.HashSprite[key] = smile;
+                }
+            }
+
+            ToPool(message);
+
+            void ToPool(Message message)
+            {
+                message.transform.SetParent(null);
+                message.gameObject.SetActive(false);
+
+                _Chat.Pool.Add(message);
+            }
         }
-        public void SubmitVKToken() => SubmitToken();
-        #endregion
-
-        #region TWITCH
-        public void StartAuthTwitch()
-        {
-            SubmitButton.RemoveAllListeners();
-            SubmitButton.AddListener(SubmitTwitchToken);
-
-            Twitch.StartAuth();
-        }
-        public void SubmitTwitchToken() => SubmitToken(1);
-        #endregion
-
         void SubmitToken(byte platform = 0)
         {
             var pref = VK.TokenPref;
@@ -217,9 +321,9 @@ namespace MultiChat
 
             bool SubmitToken()
             {
-                if (TokenField.text.Contains("access_token="))
+                if (_Authentication.TokenField.text.Contains("access_token="))
                 {
-                    var uri = new Uri(TokenField.text);
+                    var uri = new Uri(_Authentication.TokenField.text);
                     var token = System.Web.HttpUtility.ParseQueryString(uri.Fragment.TrimStart('#'))["access_token"];
 
                     if (!string.IsNullOrEmpty(token))
@@ -233,5 +337,27 @@ namespace MultiChat
                 return false;
             }
         }
+
+        #region VK
+        public void StartAuthVK()
+        {
+            _Authentication.SubmitButton.RemoveAllListeners();
+            _Authentication.SubmitButton.AddListener(SubmitVKToken);
+
+            VK.StartAuth();
+        }
+        public void SubmitVKToken() => SubmitToken();
+        #endregion
+
+        #region TWITCH
+        public void StartAuthTwitch()
+        {
+            _Authentication.SubmitButton.RemoveAllListeners();
+            _Authentication.SubmitButton.AddListener(SubmitTwitchToken);
+
+            Twitch.StartAuth();
+        }
+        public void SubmitTwitchToken() => SubmitToken(1);
+        #endregion
     }
 }

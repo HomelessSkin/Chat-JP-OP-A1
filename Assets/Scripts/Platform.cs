@@ -14,7 +14,6 @@ namespace MultiChat
     [System.Serializable]
     internal abstract class Platform
     {
-        protected static int MessagesLimit = 100;
         protected static string RedirectPath = "https://oauth.vk.com/blank.html";
 
         internal bool Enabled
@@ -89,16 +88,16 @@ namespace MultiChat
             {
                 var part = message.Parts[p];
 
-                if (!string.IsNullOrEmpty(part.Smile.URL))
+                if (!string.IsNullOrEmpty(part.Emote.URL))
                 {
-                    var smile = await Web.DownloadSpriteTexture(part.Smile.URL);
+                    var smile = await Web.DownloadSpriteTexture(part.Emote.URL);
                     if (smile)
                     {
-                        if (!Manager.HasSmile(part.Smile.Hash, out var id))
-                            Manager.DrawSmile(smile, part.Smile.Hash);
+                        if (!Manager.HasSmile(part.Emote.Hash, out var id))
+                            Manager.DrawSmile(smile, part.Emote.Hash);
                     }
                     else
-                        part.Smile.URL = null;
+                        part.Emote.URL = null;
                 }
 
                 message.Parts[p] = part;
@@ -150,31 +149,33 @@ namespace MultiChat
     #region MESSAGE
     internal struct MC_Message
     {
+        public byte Platform;
+        public string ID;
         public string Nick;
         public string Color;
         public List<MessagePart> Parts;
 
         public struct MessagePart
         {
-            public Mention Mention;
-            public Smile Smile;
-            public Text Text;
-        }
+            public Mention Reply;
+            public Smile Emote;
+            public Text Message;
 
-        public struct Mention
-        {
-            public string Nick;
-        }
+            public struct Mention
+            {
+                public string Nick;
+            }
 
-        public struct Smile
-        {
-            public int Hash;
-            public string URL;
-        }
+            public struct Smile
+            {
+                public int Hash;
+                public string URL;
+            }
 
-        public struct Text
-        {
-            public string Content;
+            public struct Text
+            {
+                public string Content;
+            }
         }
     }
     #endregion

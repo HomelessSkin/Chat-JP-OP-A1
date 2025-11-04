@@ -1792,20 +1792,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79607ef6f50d2ae4990cddc4591a9109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MultiChatRenderer
-  Textures: []
+  DebugSocketMessages: 0
   RefreshPeriod: 2
-  AuthPanel: {fileID: 1435092684}
-  SubmitButton: {fileID: 2054043761}
-  TokenField: {fileID: 1663921314}
-  PlatformSwitch: {fileID: 1763854749}
-  PlatformNameInput: {fileID: 1637700835}
-  PlatformURLInput: {fileID: 1821605884}
-  ChatContent: {fileID: 622463374}
-  MessagePrefab: {fileID: 7890616675190739281, guid: 1af6ad4e3d2a6b246b51856bfeeaaaff, type: 3}
-  DefaultSpritesCount: 1
-  SpriteWidth: 25
-  SmileTexture: {fileID: 2800000, guid: 0b460f0b1bdc8374f8668451357d194f, type: 3}
-  SmileAsset: {fileID: 11400000, guid: 3a1423e8d0562554d99c96a9ede40c10, type: 2}
+  _Authentication:
+    Panel: {fileID: 1435092684}
+    SubmitButton: {fileID: 2054043761}
+    TokenField: {fileID: 1663921314}
+  _PlatformCreation:
+    Switch: {fileID: 1763854749}
+    NameInput: {fileID: 1637700835}
+    URLInput: {fileID: 1821605884}
+  _Chat:
+    MaxChatCount: 100
+    Content: {fileID: 622463374}
+    MessagePrefab: {fileID: 7890616675190739281, guid: 1af6ad4e3d2a6b246b51856bfeeaaaff, type: 3}
+    Messages: []
+    Pool: []
+  Smiles:
+    DefaultSpritesCount: 1
+    SpriteWidth: 25
+    Texture: {fileID: 2800000, guid: 0b460f0b1bdc8374f8668451357d194f, type: 3}
+    Asset: {fileID: 11400000, guid: 3a1423e8d0562554d99c96a9ede40c10, type: 2}
+    TextureMap: 
 --- !u!4 &1068677826
 Transform:
   m_ObjectHideFlags: 0

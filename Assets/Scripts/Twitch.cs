@@ -65,8 +65,13 @@ namespace MultiChat
         protected override void OnOpen(object sender, EventArgs e)
         {
         }
-        protected override void OnMessage(object sender, MessageEventArgs e) =>
+        protected override void OnMessage(object sender, MessageEventArgs e)
+        {
+            if (MultiChatManager.DebugSocket)
+            Debug.Log(e.Data);
+
             Responses.Enqueue(JsonConvert.DeserializeObject<SocketMessage>(e.Data));
+        }
         protected override async void SubscribeToEvent(string type)
         {
             var data = JsonConvert.SerializeObject(new EventSubRequest
@@ -122,6 +127,7 @@ namespace MultiChat
                         Data.SessionID = message.payload.session.id;
 
                         SubscribeToEvent("channel.chat.message");
+                        SubscribeToEvent("channel.chat.message_delete");
                     }
                     break;
                     case "notification":
@@ -137,23 +143,31 @@ namespace MultiChat
                                     var fragment = fragments[f];
                                     var m = new MC_Message.MessagePart();
                                     if (fragment.emote != null)
-                                        m.Smile = new MC_Message.Smile
+                                        m.Emote = new MC_Message.MessagePart.Smile
                                         {
                                             Hash = fragment.emote.id.GetHashCode(),
                                             URL = EmoteURL + $"/{fragment.emote.id}/static/light/2.0",
                                         };
                                     else if (fragment.text != null)
-                                        m.Text = new MC_Message.Text { Content = fragments[f].text };
+                                        m.Message = new MC_Message.MessagePart.Text { Content = fragments[f].text };
 
                                     parts.Add(m);
                                 }
 
                                 Enqueue(new MC_Message
                                 {
+                                    Platform = 1,
+                                    ID = message.payload.@event.message_id,
                                     Nick = message.payload.@event.chatter_user_name,
                                     Color = message.payload.@event.color,
                                     Parts = parts,
                                 });
+                            }
+                            break;
+                            case "channel.chat.message_delete":
+                            {
+                                Manager.DeleteMessage(1, message.payload.@event.message_id);
+                                Debug.Log("delete");
                             }
                             break;
                         }
@@ -218,6 +232,7 @@ namespace MultiChat
                 {
                     public string chatter_user_name;
                     public string color;
+                    public string message_id;
                     public Message message;
                     public Badge[] badges;
                     public Cheer cheer;

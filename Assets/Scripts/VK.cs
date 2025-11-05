@@ -189,7 +189,11 @@ namespace MultiChat
                     if (part.mention != null)
                         mc.Reply = new MC_Message.Part.Mention { Nick = part.mention.nick };
                     if (part.smile != null && !string.IsNullOrEmpty(part.smile.medium_url))
-                        mc.Emote = new MC_Message.Part.Smile { Hash = part.smile.id.GetHashCode(), URL = part.smile.medium_url };
+                    {
+                        var hash = part.smile.id.GetHashCode();
+                        if (!Manager.HasSmile(hash))
+                            mc.Emote = new MC_Message.Part.Smile { Hash = hash, URL = part.smile.medium_url };
+                    }
                     if (part.text != null)
                         mc.Message = new MC_Message.Part.Text { Content = part.text.content };
 

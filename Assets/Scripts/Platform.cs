@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-using Core.Util;
+using Core.Util.Core.Util;
 
 using Newtonsoft.Json;
 
@@ -93,10 +93,7 @@ namespace MultiChat
                     {
                         var smile = await Web.DownloadSpriteTexture(part.Emote.URL);
                         if (smile)
-                        {
-                            if (!Manager.HasSmile(part.Emote.Hash, out var id))
-                                Manager.DrawSmile(smile, part.Emote.Hash);
-                        }
+                            Manager.DrawSmile(smile, part.Emote.Hash);
                         else
                             part.Emote.Hash = 0;
                     }

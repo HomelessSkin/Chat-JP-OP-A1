@@ -15,8 +15,6 @@ namespace MultiChat
 {
     internal class MultiChatManager : UIManagerBase
     {
-        public List<Texture2D> BadgeList;
-
         internal static bool DebugSocket;
 
         [SerializeField] bool DebugSocketMessages;
@@ -239,6 +237,27 @@ namespace MultiChat
                 }
             }
 
+            var badges = message.GetBadges();
+            for (int b = 0; b < badges.Count; b++)
+            {
+                var key = badges[b];
+                var badge = Badges.HashSprite[key];
+
+                if (badge.Item2.Contains(message.gameObject))
+                {
+                    badge.Item2.Remove(message.gameObject);
+
+                    if (badge.Item2.Count == 0)
+                    {
+                        Badges.TextureMap[badge.Item1] = false;
+
+                        Badges.HashSprite.Remove(key);
+                    }
+                    else
+                        Badges.HashSprite[key] = badge;
+                }
+            }
+
             ToPool(message);
 
             void ToPool(Message message)
@@ -303,13 +322,13 @@ namespace MultiChat
         #endregion
 
         #region SMILES
-        internal bool HasSmile(int hash, out int id) => Smiles.HasSprite(hash, out id);
+        internal bool HasSmile(int hash) => Smiles.HasSprite(hash);
         internal int GetSmileID(int key, GameObject requester) => Smiles.GetSpriteID(key, requester);
         internal void DrawSmile(Texture2D smile, int hash) => Smiles.Draw(smile, hash);
         #endregion
 
         #region BADGES
-        internal bool HasBadge(int hash, out int id) => Badges.HasSprite(hash, out id);
+        internal bool HasBadge(int hash) => Badges.HasSprite(hash);
         internal int GetBadgeID(int key, GameObject requester) => Badges.GetSpriteID(key, requester);
         internal void DrawBadge(Texture2D badge, int hash) => Badges.Draw(badge, hash);
         #endregion

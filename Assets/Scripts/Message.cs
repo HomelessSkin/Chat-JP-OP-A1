@@ -15,10 +15,12 @@ namespace MultiChat
         MultiChatManager Manager;
 
         List<int> Smiles = new List<int>();
+        List<int> Badges = new List<int>();
 
         internal byte GetPlatform() => MC.Platform;
         internal string GetID() => MC.ID;
         internal List<int> GetSmiles() => Smiles;
+        internal List<int> GetBadges() => Badges;
 
         internal void Init(MC_Message message, MultiChatManager manager)
         {
@@ -32,27 +34,35 @@ namespace MultiChat
                 color = message.Color;
 
             var text = "";
-            for (int b = 0; b < message.Badges.Count; b++)
-            {
-                var id = Manager.GetBadgeID(message.Badges[b].Hash, gameObject);
-                text += $"<sprite name=\"Badges_{id}\">";
-            }
+
+            if (message.Badges != null)
+                for (int b = 0; b < message.Badges.Count; b++)
+                {
+                    var badge = message.Badges[b];
+                    text += $"<sprite name=\"Badges_{Manager.GetBadgeID(badge.Hash, gameObject)}\">";
+
+                    if (!Badges.Contains(badge.Hash))
+                        Badges.Add(badge.Hash);
+                }
 
             text += $"<color={color}>" + message.Nick + "</color>: ";
-            for (int pt = 0; pt < message.Parts.Count; pt++)
-            {
-                var part = message.Parts[pt];
-                if (!string.IsNullOrEmpty(part.Message.Content))
-                    text += part.Message.Content;
-                if (!string.IsNullOrEmpty(part.Emote.URL))
-                {
-                    var id = Manager.GetSmileID(part.Emote.Hash, gameObject);
-                    text += $"    <sprite name=\"Smiles_{id}\">    ";
 
-                    if (!Smiles.Contains(part.Emote.Hash))
-                        Smiles.Add(part.Emote.Hash);
+            if (message.Parts != null)
+                for (int pt = 0; pt < message.Parts.Count; pt++)
+                {
+                    var part = message.Parts[pt];
+                    if (!string.IsNullOrEmpty(part.Message.Content))
+                        text += part.Message.Content;
+                    if (!string.IsNullOrEmpty(part.Emote.URL))
+                    {
+                        var id = Manager.GetSmileID(part.Emote.Hash, gameObject);
+                        text += $"    <sprite name=\"Smiles_{id}\">    ";
+
+                        if (!Smiles.Contains(part.Emote.Hash))
+                            Smiles.Add(part.Emote.Hash);
+                    }
                 }
-            }
+
             Content.text = text;
         }
     }

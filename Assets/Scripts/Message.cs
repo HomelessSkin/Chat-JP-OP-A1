@@ -31,7 +31,14 @@ namespace MultiChat
             if (!string.IsNullOrEmpty(message.Color))
                 color = message.Color;
 
-            var text = $"<color={color}>" + message.Nick + "</color>: ";
+            var text = "";
+            for (int b = 0; b < message.Badges.Count; b++)
+            {
+                var id = Manager.GetBadgeID(message.Badges[b].Hash, gameObject);
+                text += $"<sprite name=\"Badges_{id}\">";
+            }
+
+            text += $"<color={color}>" + message.Nick + "</color>: ";
             for (int pt = 0; pt < message.Parts.Count; pt++)
             {
                 var part = message.Parts[pt];
@@ -39,7 +46,7 @@ namespace MultiChat
                     text += part.Message.Content;
                 if (!string.IsNullOrEmpty(part.Emote.URL))
                 {
-                    var id = Manager.GetSmile(part.Emote.Hash, gameObject);
+                    var id = Manager.GetSmileID(part.Emote.Hash, gameObject);
                     text += $"    <sprite name=\"Smiles_{id}\">    ";
 
                     if (!Smiles.Contains(part.Emote.Hash))

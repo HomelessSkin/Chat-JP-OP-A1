@@ -14,7 +14,7 @@
       "dependencies": {
         "com.unity.entities": "1.3.14"
       },
-      "hash": "d4f062dda92fab50401ffb68b71ae8380edb70e9"
+      "hash": "bee0f02e741c1d55bddc458338d17978f6f494c8"
     },
     "com.homelessskin.ui": {
       "version": "https://github.com/HomelessSkin/com.homelessskin.ui.git",

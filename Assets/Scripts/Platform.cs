@@ -11,7 +11,7 @@ using WebSocketSharp;
 
 namespace MultiChat
 {
-    [System.Serializable]
+    [Serializable]
     internal abstract class Platform
     {
         protected static string RedirectPath = "https://oauth.vk.com/blank.html";
@@ -84,24 +84,38 @@ namespace MultiChat
 
         protected async void Enqueue(MC_Message message)
         {
-            for (int p = 0; p < message.Parts.Count; p++)
-            {
-                var part = message.Parts[p];
-
-                if (!string.IsNullOrEmpty(part.Emote.URL))
+            if (message.Parts != null)
+                for (int p = 0; p < message.Parts.Count; p++)
                 {
-                    var smile = await Web.DownloadSpriteTexture(part.Emote.URL);
-                    if (smile)
+                    var part = message.Parts[p];
+
+                    if (!string.IsNullOrEmpty(part.Emote.URL))
                     {
-                        if (!Manager.HasSmile(part.Emote.Hash, out var id))
-                            Manager.DrawSmile(smile, part.Emote.Hash);
+                        var smile = await Web.DownloadSpriteTexture(part.Emote.URL);
+                        if (smile)
+                        {
+                            if (!Manager.HasSmile(part.Emote.Hash, out var id))
+                                Manager.DrawSmile(smile, part.Emote.Hash);
+                        }
+                        else
+                            part.Emote.Hash = 0;
                     }
-                    else
-                        part.Emote.URL = null;
+
+                    message.Parts[p] = part;
                 }
 
-                message.Parts[p] = part;
-            }
+            if (message.Badges != null)
+                for (int b = 0; b < message.Badges.Count; b++)
+                {
+                    var part = message.Badges[b];
+
+                    if (!string.IsNullOrEmpty(part.URL))
+                    {
+                        var badge = await Web.DownloadSpriteTexture(part.URL);
+                        if (badge)
+                            Manager.DrawBadge(badge, part.Hash);
+                    }
+                }
 
             MC_Messages.Enqueue(message);
         }
@@ -151,11 +165,22 @@ namespace MultiChat
     {
         public byte Platform;
         public string ID;
-        public string Nick;
-        public string Color;
-        public List<MessagePart> Parts;
 
-        public struct MessagePart
+        public List<Badge> Badges;
+        public string Color;
+        public string Nick;
+        public List<Part> Parts;
+
+        public struct Badge
+        {
+            public bool IsNeeded;
+            public int Hash;
+            public string SetID;
+            public string ID;
+            public string URL;
+        }
+
+        public struct Part
         {
             public Mention Reply;
             public Smile Emote;

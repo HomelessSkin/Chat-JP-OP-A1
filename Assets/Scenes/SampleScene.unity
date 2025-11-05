@@ -1809,10 +1809,17 @@ MonoBehaviour:
     Messages: []
     Pool: []
   Smiles:
-    DefaultSpritesCount: 1
-    SpriteWidth: 25
+    SpriteDensity: 25
     Texture: {fileID: 2800000, guid: 0b460f0b1bdc8374f8668451357d194f, type: 3}
+    DefaultSprites:
+    - {fileID: 2800000, guid: b657603946f8b0f47a57ef19e4f9dc37, type: 3}
     Asset: {fileID: 11400000, guid: 3a1423e8d0562554d99c96a9ede40c10, type: 2}
+    TextureMap: 
+  Badges:
+    SpriteDensity: 25
+    Texture: {fileID: 2800000, guid: e4f623689c6ea50489ad3c8271405c22, type: 3}
+    DefaultSprites: []
+    Asset: {fileID: 11400000, guid: a127f0bf1c8711a44bb9ba6c74f04d6e, type: 2}
     TextureMap: 
 --- !u!4 &1068677826
 Transform:

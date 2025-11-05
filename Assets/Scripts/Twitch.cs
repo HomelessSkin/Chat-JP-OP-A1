@@ -68,7 +68,7 @@ namespace MultiChat
         protected override void OnMessage(object sender, MessageEventArgs e)
         {
             if (MultiChatManager.DebugSocket)
-            Debug.Log(e.Data);
+                Debug.Log(e.Data);
 
             Responses.Enqueue(JsonConvert.DeserializeObject<SocketMessage>(e.Data));
         }
@@ -109,7 +109,7 @@ namespace MultiChat
                     Debug.LogError($"Failed to create subscription: {request.error}");
             }
         }
-        protected override void ProcessSocketMessages()
+        protected override async void ProcessSocketMessages()
         {
             while (Responses.Count > 0)
             {
@@ -136,43 +136,164 @@ namespace MultiChat
                         {
                             case "channel.chat.message":
                             {
-                                var parts = new List<MC_Message.MessagePart>();
-                                var fragments = message.payload.@event.message.fragments;
-                                for (int f = 0; f < fragments.Length; f++)
-                                {
-                                    var fragment = fragments[f];
-                                    var m = new MC_Message.MessagePart();
-                                    if (fragment.emote != null)
-                                        m.Emote = new MC_Message.MessagePart.Smile
-                                        {
-                                            Hash = fragment.emote.id.GetHashCode(),
-                                            URL = EmoteURL + $"/{fragment.emote.id}/static/light/2.0",
-                                        };
-                                    else if (fragment.text != null)
-                                        m.Message = new MC_Message.MessagePart.Text { Content = fragments[f].text };
-
-                                    parts.Add(m);
-                                }
-
                                 Enqueue(new MC_Message
                                 {
                                     Platform = 1,
                                     ID = message.payload.@event.message_id,
-                                    Nick = message.payload.@event.chatter_user_name,
+
+                                    Badges = await GetBadges(message.payload.@event.badges),
                                     Color = message.payload.@event.color,
-                                    Parts = parts,
+                                    Nick = message.payload.@event.chatter_user_name,
+                                    Parts = GetParts(message.payload.@event.message.fragments),
                                 });
                             }
                             break;
                             case "channel.chat.message_delete":
                             {
                                 Manager.DeleteMessage(1, message.payload.@event.message_id);
-                                Debug.Log("delete");
                             }
                             break;
                         }
                     }
                     break;
+                }
+            }
+
+            List<MC_Message.Part> GetParts(SocketMessage.Payload.Event.Message.Fragment[] fragments)
+            {
+                var parts = new List<MC_Message.Part>();
+                for (int f = 0; f < fragments.Length; f++)
+                {
+                    var fragment = fragments[f];
+                    var m = new MC_Message.Part();
+                    if (fragment.emote != null)
+                        m.Emote = new MC_Message.Part.Smile
+                        {
+                            Hash = fragment.emote.id.GetHashCode(),
+                            URL = EmoteURL + $"/{fragment.emote.id}/static/light/2.0",
+                        };
+                    else if (fragment.text != null)
+                        m.Message = new MC_Message.Part.Text { Content = fragments[f].text };
+
+                    parts.Add(m);
+                }
+
+                return parts;
+            }
+            async Task<List<MC_Message.Badge>> GetBadges(SocketMessage.Payload.Event.Badge[] badges)
+            {
+                var parts = new List<MC_Message.Badge>();
+                var refreshGlobal = false;
+                var refreshSub = false;
+                for (int f = 0; f < badges.Length; f++)
+                {
+                    var badge = badges[f];
+                    var hash = (badge.set_id + badge.id).GetHashCode();
+
+                    var needed = !Manager.HasBadge(hash, out var id);
+                    if (badge.set_id == "subscriber")
+                        refreshSub |= needed;
+                    else
+                        refreshGlobal |= needed;
+
+                    var b = new MC_Message.Badge
+                    {
+                        IsNeeded = needed,
+                        Hash = hash,
+                        SetID = badge.set_id,
+                        ID = badge.id,
+                    };
+
+                    parts.Add(b);
+                }
+
+                if (refreshGlobal)
+                    await RefreshGlobalSet();
+                if (refreshSub)
+                    await RefreshSubSet();
+
+                return parts;
+
+                async Task RefreshGlobalSet()
+                {
+                    using (var request = UnityWebRequest.Get($"https://api.twitch.tv/helix/chat/badges" + "/global"))
+                    {
+                        request.SetRequestHeader("Authorization", $"Bearer {PlayerPrefs.GetString(TokenPref)}");
+                        request.SetRequestHeader("Client-ID", AppID);
+
+                        await request.SendWebRequest();
+
+                        if (request.result == UnityWebRequest.Result.Success)
+                        {
+                            var list = new List<Task<Texture2D>>();
+                            var response = JsonConvert.DeserializeObject<BadgesResponse>(request.downloadHandler.text);
+
+                            for (int p = 0; p < parts.Count; p++)
+                            {
+                                var badge = parts[p];
+                                if (badge.IsNeeded && badge.SetID != "subscriber")
+                                {
+                                    SetBadgeURL(response, ref badge);
+
+                                    parts[p] = badge;
+                                }
+                            }
+                        }
+                        else
+                            Debug.Log(request.error);
+                    }
+                }
+                async Task RefreshSubSet()
+                {
+                    using (var request = UnityWebRequest.Get($"https://api.twitch.tv/helix/chat/badges" +
+                        $"?broadcaster_id={Data.ChannelID}"))
+                    {
+                        request.SetRequestHeader("Authorization", $"Bearer {PlayerPrefs.GetString(TokenPref)}");
+                        request.SetRequestHeader("Client-ID", AppID);
+
+                        await request.SendWebRequest();
+
+                        if (request.result == UnityWebRequest.Result.Success)
+                        {
+                            var list = new List<Task<Texture2D>>();
+                            var response = JsonConvert.DeserializeObject<BadgesResponse>(request.downloadHandler.text);
+
+                            for (int p = 0; p < parts.Count; p++)
+                            {
+                                var badge = parts[p];
+                                if (badge.IsNeeded && badge.SetID == "subscriber")
+                                {
+                                    SetBadgeURL(response, ref badge);
+
+                                    parts[p] = badge;
+                                }
+                            }
+                        }
+                        else
+                            Debug.Log(request.error);
+                    }
+                }
+
+                void SetBadgeURL(BadgesResponse response, ref MC_Message.Badge badge)
+                {
+                    for (int r = 0; r < response.data.Count; r++)
+                        if (response.data[r].set_id == badge.SetID)
+                        {
+                            var stop = false;
+                            var versions = response.data[r].versions;
+                            for (int v = 0; v < versions.Count; v++)
+                                if (versions[v].id == badge.ID)
+                                {
+                                    stop = true;
+
+                                    badge.URL = versions[v].image_url_2x;
+
+                                    break;
+                                }
+
+                            if (stop)
+                                break;
+                        }
                 }
             }
         }
@@ -230,12 +351,20 @@ namespace MultiChat
                 [Serializable]
                 public class Event
                 {
-                    public string chatter_user_name;
-                    public string color;
                     public string message_id;
-                    public Message message;
+
                     public Badge[] badges;
+                    public string color;
+                    public string chatter_user_name;
+                    public Message message;
                     public Cheer cheer;
+
+                    [Serializable]
+                    public class Badge
+                    {
+                        public string set_id;
+                        public string id;
+                    }
 
                     [Serializable]
                     public class Message
@@ -263,7 +392,6 @@ namespace MultiChat
                             public class Emote
                             {
                                 public string id;
-                                public string owner_id;
                             }
 
                             [Serializable]
@@ -272,12 +400,6 @@ namespace MultiChat
                                 public string user_name;
                             }
                         }
-                    }
-
-                    [Serializable]
-                    public class Badge
-                    {
-                        public string id;
                     }
 
                     [Serializable]
@@ -300,6 +422,28 @@ namespace MultiChat
             public class User
             {
                 public string id;
+            }
+        }
+        #endregion
+
+        #region BADGES
+        [Serializable]
+        public class BadgesResponse
+        {
+            public List<BadgeSet> data;
+
+            [Serializable]
+            public class BadgeSet
+            {
+                public string set_id;
+                public List<BadgeVersion> versions;
+
+                [Serializable]
+                public class BadgeVersion
+                {
+                    public string id;
+                    public string image_url_2x;
+                }
             }
         }
         #endregion

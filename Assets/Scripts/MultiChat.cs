@@ -11,12 +11,12 @@ using UI;
 
 using UnityEngine;
 
-using Random = UnityEngine.Random;
-
 namespace MultiChat
 {
     internal class MultiChatManager : UIManagerBase
     {
+        public List<Texture2D> BadgeList;
+
         internal static bool DebugSocket;
 
         [SerializeField] bool DebugSocketMessages;
@@ -65,26 +65,16 @@ namespace MultiChat
         #endregion
 
         [Space]
-        [SerializeField] TextSprite Smiles;
-        #region TEXT SPRITE
-        [Serializable]
-        public class TextSprite
-        {
-            public int DefaultSpritesCount;
-            public int SpriteWidth;
-            public Texture2D Texture;
-            public TMP_SpriteAsset Asset;
-
-            public bool[] TextureMap;
-            public Dictionary<int, (int, List<GameObject>)> HashSprite = new Dictionary<int, (int, List<GameObject>)>();
-        }
-        #endregion
+        [SerializeField] StreamingSprites Smiles;
+        [Space]
+        [SerializeField] StreamingSprites Badges;
 
         protected override void Start()
         {
             base.Start();
 
-            Smiles.TextureMap = new bool[Smiles.SpriteWidth * Smiles.SpriteWidth];
+            Smiles.Prepare();
+            Badges.Prepare();
 
             LoadPlatforms();
 
@@ -205,54 +195,6 @@ namespace MultiChat
             _Chat.Messages.Clear();
         }
 
-        internal bool HasSmile(int hash, out int id)
-        {
-            if (Smiles.HashSprite.TryGetValue(hash, out var value))
-                id = value.Item1;
-            else
-                id = -1;
-
-            return id >= 0;
-        }
-        internal int GetSmile(int key, GameObject requester)
-        {
-            var smile = Smiles.HashSprite[key];
-
-            if (!smile.Item2.Contains(requester))
-            {
-                smile.Item2.Add(requester);
-
-                Smiles.HashSprite[key] = smile;
-            }
-
-            return smile.Item1;
-        }
-        internal void DrawSmile(Texture2D smile, int hash)
-        {
-            var id = -1;
-            for (int t = Smiles.DefaultSpritesCount; t < Smiles.TextureMap.Length; t++)
-                if (!Smiles.TextureMap[t])
-                {
-                    Smiles.TextureMap[t] = true;
-
-                    id = t;
-
-                    break;
-                }
-
-            if (id < 0)
-                id = Random.Range(Smiles.DefaultSpritesCount, Smiles.SpriteWidth * Smiles.SpriteWidth);
-
-            Smiles.HashSprite[hash] = (id, new List<GameObject>());
-
-            smile = DataUtil.ResizeBilinear(smile, 64, 64);
-            var x = 64 * (id % Smiles.SpriteWidth);
-            var y = Smiles.Texture.height - 64 * (id / Smiles.SpriteWidth + 1);
-
-            Smiles.Texture.SetPixels32(x, y, 64, 64, smile.GetPixels32());
-            Smiles.Texture.Apply();
-            Smiles.Asset.UpdateLookupTables();
-        }
         internal void DeleteMessage(byte platform, string id)
         {
             var index = -1;
@@ -358,6 +300,18 @@ namespace MultiChat
             Twitch.StartAuth();
         }
         public void SubmitTwitchToken() => SubmitToken(1);
+        #endregion
+
+        #region SMILES
+        internal bool HasSmile(int hash, out int id) => Smiles.HasSprite(hash, out id);
+        internal int GetSmileID(int key, GameObject requester) => Smiles.GetSpriteID(key, requester);
+        internal void DrawSmile(Texture2D smile, int hash) => Smiles.Draw(smile, hash);
+        #endregion
+
+        #region BADGES
+        internal bool HasBadge(int hash, out int id) => Badges.HasSprite(hash, out id);
+        internal int GetBadgeID(int key, GameObject requester) => Badges.GetSpriteID(key, requester);
+        internal void DrawBadge(Texture2D badge, int hash) => Badges.Draw(badge, hash);
         #endregion
     }
 }

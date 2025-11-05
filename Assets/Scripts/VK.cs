@@ -170,14 +170,14 @@ namespace MultiChat
                 }
             }
 
-            bool GetParts(SocketMessage.Push.Pub.Data.DataData.ChatMessage message, out List<MC_Message.MessagePart> parts)
+            bool GetParts(SocketMessage.Push.Pub.Data.DataData.ChatMessage message, out List<MC_Message.Part> parts)
             {
-                parts = new List<MC_Message.MessagePart>();
+                parts = new List<MC_Message.Part>();
                 var tasks = new List<Task>();
                 for (int p = 0; p < message.parts.Count; p++)
                 {
                     var part = message.parts[p];
-                    var mc = new MC_Message.MessagePart { };
+                    var mc = new MC_Message.Part { };
 
                     if (part.link != null && !string.IsNullOrEmpty(part.link.content))
                     {
@@ -187,11 +187,11 @@ namespace MultiChat
                     }
 
                     if (part.mention != null)
-                        mc.Reply = new MC_Message.MessagePart.Mention { Nick = part.mention.nick };
+                        mc.Reply = new MC_Message.Part.Mention { Nick = part.mention.nick };
                     if (part.smile != null && !string.IsNullOrEmpty(part.smile.medium_url))
-                        mc.Emote = new MC_Message.MessagePart.Smile { Hash = part.smile.id.GetHashCode(), URL = part.smile.medium_url };
+                        mc.Emote = new MC_Message.Part.Smile { Hash = part.smile.id.GetHashCode(), URL = part.smile.medium_url };
                     if (part.text != null)
-                        mc.Message = new MC_Message.MessagePart.Text { Content = part.text.content };
+                        mc.Message = new MC_Message.Part.Text { Content = part.text.content };
 
                     parts.Add(mc);
                 }

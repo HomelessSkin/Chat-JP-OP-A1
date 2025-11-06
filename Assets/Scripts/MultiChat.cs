@@ -56,8 +56,11 @@ namespace MultiChat
             public Transform Content;
             public GameObject MessagePrefab;
 
+            [HideInInspector]
             public List<Platform> Platforms = new List<Platform>();
+            [HideInInspector]
             public List<Message> Messages = new List<Message>();
+            [HideInInspector]
             public List<Message> Pool = new List<Message>();
         }
         #endregion

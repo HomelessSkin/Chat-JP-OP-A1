@@ -169,12 +169,10 @@ namespace MultiChat
                     if (fragment.emote != null)
                     {
                         var hash = fragment.emote.id.GetHashCode();
-                        if (!Manager.HasSmile(hash))
-                            m.Emote = new MC_Message.Part.Smile
-                            {
-                                Hash = hash,
-                                URL = EmoteURL + $"/{fragment.emote.id}/static/light/2.0",
-                            };
+                        m.Emote = new MC_Message.Part.Smile { Hash = hash, Draw = true };
+
+                        if (!Manager.HasSmile(hash, true))
+                            m.Emote.URL = EmoteURL + $"/{fragment.emote.id}/static/light/2.0";
                     }
                     else if (fragment.text != null)
                         m.Message = new MC_Message.Part.Text { Content = fragments[f].text };
@@ -186,7 +184,8 @@ namespace MultiChat
             }
             async Task<List<MC_Message.Badge>> GetBadges(SocketMessage.Payload.Event.Badge[] badges)
             {
-                var parts = new List<MC_Message.Badge>();
+                var parts = new List<MC_Message.Badge>() { new MC_Message.Badge { Hash = 1 } };
+
                 var refreshGlobal = false;
                 var refreshSub = false;
                 for (int f = 0; f < badges.Length; f++)
@@ -194,7 +193,7 @@ namespace MultiChat
                     var badge = badges[f];
                     var hash = (badge.set_id + badge.id).GetHashCode();
 
-                    var needed = !Manager.HasBadge(hash);
+                    var needed = !Manager.HasBadge(hash, true);
                     if (badge.set_id == "subscriber")
                         refreshSub |= needed;
                     else

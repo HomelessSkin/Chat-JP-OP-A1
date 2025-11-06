@@ -156,8 +156,10 @@ namespace MultiChat
                             {
                                 Platform = 0,
                                 ID = message.id.ToString(),
-                                Nick = message.author.nick,
+
+                                Badges = GetBadges(message.author),
                                 Color = $"#{Colors[message.author.nick_color]}",
+                                Nick = message.author.nick,
                                 Parts = parts,
                             });
                     }
@@ -191,8 +193,10 @@ namespace MultiChat
                     if (part.smile != null && !string.IsNullOrEmpty(part.smile.medium_url))
                     {
                         var hash = part.smile.id.GetHashCode();
-                        if (!Manager.HasSmile(hash))
-                            mc.Emote = new MC_Message.Part.Smile { Hash = hash, URL = part.smile.medium_url };
+                        mc.Emote = new MC_Message.Part.Smile { Hash = hash, Draw = true };
+
+                        if (!Manager.HasSmile(hash, true))
+                            mc.Emote.URL = part.smile.medium_url;
                     }
                     if (part.text != null)
                         mc.Message = new MC_Message.Part.Text { Content = part.text.content };
@@ -201,6 +205,36 @@ namespace MultiChat
                 }
 
                 return true;
+            }
+            List<MC_Message.Badge> GetBadges(SocketMessage.Push.Pub.Data.DataData.ChatMessage.Author author)
+            {
+                var badges = new List<MC_Message.Badge>() { new MC_Message.Badge { Hash = 0 } };
+
+                for (int r = 0; r < author.roles.Count; r++)
+                {
+                    var role = author.roles[r];
+                    var hash = role.id.GetHashCode();
+
+                    var b = new MC_Message.Badge { Hash = hash, };
+                    if (!Manager.HasBadge(hash, true))
+                        b.URL = role.medium_url;
+
+                    badges.Add(b);
+                }
+
+                for (int r = 0; r < author.badges.Count; r++)
+                {
+                    var badge = author.badges[r];
+                    var hash = badge.id.GetHashCode();
+
+                    var b = new MC_Message.Badge { Hash = hash, };
+                    if (!Manager.HasBadge(hash, true))
+                        b.URL = badge.medium_url;
+
+                    badges.Add(b);
+                }
+
+                return badges;
             }
         }
 
@@ -328,7 +362,8 @@ namespace MultiChat
                                     [Serializable]
                                     public class Role
                                     {
-
+                                        public string id;
+                                        public string medium_url;
                                     }
                                 }
 

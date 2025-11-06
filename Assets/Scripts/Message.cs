@@ -53,7 +53,7 @@ namespace MultiChat
                     var part = message.Parts[pt];
                     if (!string.IsNullOrEmpty(part.Message.Content))
                         text += part.Message.Content;
-                    if (!string.IsNullOrEmpty(part.Emote.URL))
+                    if (part.Emote.Draw)
                     {
                         var id = Manager.GetSmileID(part.Emote.Hash, gameObject);
                         text += $"    <sprite name=\"Smiles_{id}\">    ";

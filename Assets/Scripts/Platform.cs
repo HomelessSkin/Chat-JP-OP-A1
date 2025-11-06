@@ -190,6 +190,7 @@ namespace MultiChat
 
             public struct Smile
             {
+                public bool Draw;
                 public int Hash;
                 public string URL;
             }

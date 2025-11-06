@@ -1063,11 +1063,11 @@ PrefabInstance:
     - target: {fileID: -1983071796993563537, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1068677825}
+      objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1068677825}
+      objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1648,7 +1648,7 @@ PrefabInstance:
     - target: {fileID: -1983071796993563537, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1068677825}
+      objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1763,79 +1763,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3445150795387016123, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
   m_PrefabInstance: {fileID: 892231670}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1068677824
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1068677826}
-  - component: {fileID: 1068677825}
-  m_Layer: 0
-  m_Name: MultiChatEngine
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1068677825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1068677824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79607ef6f50d2ae4990cddc4591a9109, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MultiChatRenderer
-  DebugSocketMessages: 0
-  RefreshPeriod: 2
-  _Authentication:
-    Panel: {fileID: 1435092684}
-    SubmitButton: {fileID: 2054043761}
-    TokenField: {fileID: 1663921314}
-  _PlatformCreation:
-    Switch: {fileID: 1763854749}
-    NameInput: {fileID: 1637700835}
-    URLInput: {fileID: 1821605884}
-  _Chat:
-    MaxChatCount: 100
-    Content: {fileID: 622463374}
-    MessagePrefab: {fileID: 7890616675190739281, guid: 1af6ad4e3d2a6b246b51856bfeeaaaff, type: 3}
-    Messages: []
-    Pool: []
-  Smiles:
-    SpriteDensity: 25
-    Texture: {fileID: 2800000, guid: 0b460f0b1bdc8374f8668451357d194f, type: 3}
-    DefaultSprites:
-    - {fileID: 2800000, guid: b657603946f8b0f47a57ef19e4f9dc37, type: 3}
-    Asset: {fileID: 11400000, guid: 3a1423e8d0562554d99c96a9ede40c10, type: 2}
-    TextureMap: 
-  Badges:
-    SpriteDensity: 25
-    Texture: {fileID: 2800000, guid: e4f623689c6ea50489ad3c8271405c22, type: 3}
-    DefaultSprites: []
-    Asset: {fileID: 11400000, guid: a127f0bf1c8711a44bb9ba6c74f04d6e, type: 2}
-    TextureMap: 
---- !u!4 &1068677826
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1068677824}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1085113346
 GameObject:
   m_ObjectHideFlags: 0
@@ -3609,7 +3536,7 @@ PrefabInstance:
     - target: {fileID: -1983071796993563537, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1068677825}
+      objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -4676,11 +4603,11 @@ PrefabInstance:
     - target: {fileID: -1983071796993563537, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1068677825}
+      objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1068677825}
+      objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -4925,6 +4852,79 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2091775093}
   m_CullTransparentMesh: 1
+--- !u!4 &8096993130622998282
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8892105854657497135}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8892105854657497135
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8096993130622998282}
+  - component: {fileID: 8892105854657497136}
+  m_Layer: 0
+  m_Name: MultiChatEngine
+  m_TagString: UIManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &8892105854657497136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8892105854657497135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43d8bbf690d0faa41a11b25218dbca5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultiChat.MultiChatManager
+  DebugSocketMessages: 0
+  RefreshPeriod: 2
+  _Authentication:
+    Panel: {fileID: 1435092684}
+    SubmitButton: {fileID: 2054043761}
+    TokenField: {fileID: 1663921314}
+  _PlatformCreation:
+    Switch: {fileID: 1763854749}
+    NameInput: {fileID: 1637700835}
+    URLInput: {fileID: 1821605884}
+  _Chat:
+    MaxChatCount: 100
+    Content: {fileID: 622463374}
+    MessagePrefab: {fileID: 7890616675190739281, guid: 1af6ad4e3d2a6b246b51856bfeeaaaff, type: 3}
+    Messages: []
+    Pool: []
+  Smiles:
+    Asset: {fileID: 11400000, guid: 3a1423e8d0562554d99c96a9ede40c10, type: 2}
+    SpriteDensity: 25
+    Texture: {fileID: 2800000, guid: 0b460f0b1bdc8374f8668451357d194f, type: 3}
+    DefaultSprites:
+    - {fileID: 2800000, guid: b657603946f8b0f47a57ef19e4f9dc37, type: 3}
+  Badges:
+    Asset: {fileID: 11400000, guid: a127f0bf1c8711a44bb9ba6c74f04d6e, type: 2}
+    SpriteDensity: 25
+    Texture: {fileID: 2800000, guid: e4f623689c6ea50489ad3c8271405c22, type: 3}
+    DefaultSprites:
+    - {fileID: 2800000, guid: b6ba28f638694574c9c83b4e2f6e717d, type: 3}
+    - {fileID: 2800000, guid: 47606fa3f3ee7c648b7e0ebf46541446, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -4932,6 +4932,6 @@ SceneRoots:
   - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 832575519}
-  - {fileID: 1068677826}
+  - {fileID: 8096993130622998282}
   - {fileID: 1782815699}
   - {fileID: 1899794212}

@@ -216,47 +216,8 @@ namespace MultiChat
 
         void RemoveMessage(Message message)
         {
-            var smiles = message.GetSmiles();
-            for (int s = 0; s < smiles.Count; s++)
-            {
-                var key = smiles[s];
-                var smile = Smiles.HashSprite[key];
-
-                if (smile.Item2.Contains(message.gameObject))
-                {
-                    smile.Item2.Remove(message.gameObject);
-
-                    if (smile.Item2.Count == 0)
-                    {
-                        Smiles.TextureMap[smile.Item1] = false;
-
-                        Smiles.HashSprite.Remove(key);
-                    }
-                    else
-                        Smiles.HashSprite[key] = smile;
-                }
-            }
-
-            var badges = message.GetBadges();
-            for (int b = 0; b < badges.Count; b++)
-            {
-                var key = badges[b];
-                var badge = Badges.HashSprite[key];
-
-                if (badge.Item2.Contains(message.gameObject))
-                {
-                    badge.Item2.Remove(message.gameObject);
-
-                    if (badge.Item2.Count == 0)
-                    {
-                        Badges.TextureMap[badge.Item1] = false;
-
-                        Badges.HashSprite.Remove(key);
-                    }
-                    else
-                        Badges.HashSprite[key] = badge;
-                }
-            }
+            Smiles.RemoveRange(message.GetSmiles(), message.gameObject);
+            Badges.RemoveRange(message.GetBadges(), message.gameObject);
 
             ToPool(message);
 
@@ -322,12 +283,37 @@ namespace MultiChat
         #endregion
 
         #region SMILES
-        internal bool HasSmile(int hash) => Smiles.HasSprite(hash);
+        internal bool HasSmile(int hash, bool reserveIfFalse = false)
+        {
+            if (Smiles.HasSprite(hash))
+                return true;
+
+            if (Smiles.IsKeyReserved(hash))
+                return true;
+
+            if (reserveIfFalse)
+                Smiles.ReserveKey(hash);
+
+            return false;
+        }
         internal int GetSmileID(int key, GameObject requester) => Smiles.GetSpriteID(key, requester);
         internal void DrawSmile(Texture2D smile, int hash) => Smiles.Draw(smile, hash);
         #endregion
 
         #region BADGES
+        internal bool HasBadge(int hash, bool reserveIfFalse = false)
+        {
+            if (Badges.HasSprite(hash))
+                return true;
+
+            if (Badges.IsKeyReserved(hash))
+                return true;
+
+            if (reserveIfFalse)
+                Badges.ReserveKey(hash);
+
+            return false;
+        }
         internal bool HasBadge(int hash) => Badges.HasSprite(hash);
         internal int GetBadgeID(int key, GameObject requester) => Badges.GetSpriteID(key, requester);
         internal void DrawBadge(Texture2D badge, int hash) => Badges.Draw(badge, hash);

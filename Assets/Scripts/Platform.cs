@@ -164,8 +164,9 @@ namespace MultiChat
         public string ID;
 
         public List<Badge> Badges;
-        public string Color;
+        public string NickColor;
         public string Nick;
+        public bool IsSlashMe;
         public List<Part> Parts;
 
         public struct Badge

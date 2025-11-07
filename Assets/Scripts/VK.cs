@@ -158,7 +158,7 @@ namespace MultiChat
                                 ID = message.id.ToString(),
 
                                 Badges = GetBadges(message.author),
-                                Color = $"#{Colors[message.author.nick_color]}",
+                                NickColor = $"#{Colors[message.author.nick_color]}",
                                 Nick = message.author.nick,
                                 Parts = parts,
                             });

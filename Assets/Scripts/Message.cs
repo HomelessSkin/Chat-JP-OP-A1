@@ -30,8 +30,8 @@ namespace MultiChat
             Manager = manager;
 
             var color = "#808080";
-            if (!string.IsNullOrEmpty(message.Color))
-                color = message.Color;
+            if (!string.IsNullOrEmpty(message.NickColor))
+                color = message.NickColor;
 
             var text = "";
 
@@ -48,6 +48,10 @@ namespace MultiChat
             text += $"<color={color}>" + message.Nick + "</color>: ";
 
             if (message.Parts != null)
+            {
+                if (message.IsSlashMe)
+                    text += $"<color={message.NickColor}><i>";
+
                 for (int pt = 0; pt < message.Parts.Count; pt++)
                 {
                     var part = message.Parts[pt];
@@ -62,6 +66,10 @@ namespace MultiChat
                             Smiles.Add(part.Emote.Hash);
                     }
                 }
+
+                if (message.IsSlashMe)
+                    text += $"</color></i>";
+            }
 
             Content.text = text;
         }

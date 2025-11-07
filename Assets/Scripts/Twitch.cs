@@ -142,8 +142,9 @@ namespace MultiChat
                                     ID = message.payload.@event.message_id,
 
                                     Badges = await GetBadges(message.payload.@event.badges),
-                                    Color = message.payload.@event.color,
+                                    NickColor = message.payload.@event.color,
                                     Nick = message.payload.@event.chatter_user_name,
+                                    IsSlashMe = message.payload.@event.message.text.StartsWith("\u0001ACTION"),
                                     Parts = GetParts(message.payload.@event.message.fragments),
                                 });
                             }
@@ -372,6 +373,7 @@ namespace MultiChat
                     [Serializable]
                     public class Message
                     {
+                        public string text;
                         public Fragment[] fragments;
 
                         [Serializable]

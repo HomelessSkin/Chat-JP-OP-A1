@@ -44,6 +44,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d8bbf690d0faa41a11b25218dbca5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MultiChat.MultiChatManager
+  _Localizator:
+    Localizables: []
+    DefaultLanguage: {fileID: 0}
+    Localizations: []
+    DefaultStyles: []
+    TextStyles: []
+  _Messenger:
+    Panel: {fileID: 0}
+    MessageText: {fileID: 0}
+    AdditionText: {fileID: 0}
+    Messages: []
+  _Confirm:
+    Panel: {fileID: 0}
+    Text: {fileID: 0}
+    ConfirmButton: {fileID: 0}
+    DeclineButton: {fileID: 0}
+    Keys: []
+  _Tutorial:
+    Panel: {fileID: 0}
+    Text: {fileID: 0}
+    Key: 
+    Value: 
   DebugSocketMessages: 0
   RefreshPeriod: 2
   _Authentication:
@@ -51,25 +73,24 @@ MonoBehaviour:
     SubmitButton: {fileID: 0}
     TokenField: {fileID: 0}
   _PlatformCreation:
+    Panel: {fileID: 0}
     Switch: {fileID: 0}
     NameInput: {fileID: 0}
-    URLInput: {fileID: 0}
+    ChannelInput: {fileID: 0}
   _Chat:
+    Panel: {fileID: 0}
     MaxChatCount: 100
     Content: {fileID: 0}
-    MessagePrefab: {fileID: 7890616675190739281, guid: 1af6ad4e3d2a6b246b51856bfeeaaaff, type: 3}
+    MessagePrefab: {fileID: 0}
     Messages: []
     Pool: []
   Smiles:
-    Asset: {fileID: 11400000, guid: 3a1423e8d0562554d99c96a9ede40c10, type: 2}
-    SpriteDensity: 25
-    Texture: {fileID: 2800000, guid: 0b460f0b1bdc8374f8668451357d194f, type: 3}
-    DefaultSprites:
-    - {fileID: 2800000, guid: b657603946f8b0f47a57ef19e4f9dc37, type: 3}
+    Asset: {fileID: 0}
+    SpriteDensity: 0
+    Texture: {fileID: 0}
+    DefaultSprites: []
   Badges:
-    Asset: {fileID: 11400000, guid: a127f0bf1c8711a44bb9ba6c74f04d6e, type: 2}
-    SpriteDensity: 25
-    Texture: {fileID: 2800000, guid: e4f623689c6ea50489ad3c8271405c22, type: 3}
-    DefaultSprites:
-    - {fileID: 2800000, guid: b6ba28f638694574c9c83b4e2f6e717d, type: 3}
-    - {fileID: 2800000, guid: 47606fa3f3ee7c648b7e0ebf46541446, type: 3}
+    Asset: {fileID: 0}
+    SpriteDensity: 0
+    Texture: {fileID: 0}
+    DefaultSprites: []

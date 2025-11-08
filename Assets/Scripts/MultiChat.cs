@@ -10,6 +10,7 @@ using TMPro;
 using UI;
 
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MultiChat
 {
@@ -17,6 +18,7 @@ namespace MultiChat
     {
         internal static bool DebugSocket;
 
+        [Space]
         [SerializeField] bool DebugSocketMessages;
         [SerializeField] float RefreshPeriod = 2f;
 
@@ -26,9 +28,8 @@ namespace MultiChat
         [SerializeField] Authentication _Authentication;
         #region AUTHENTICATION
         [Serializable]
-        class Authentication
+        class Authentication : WindowBase
         {
-            public Transform Panel;
             public MenuButton SubmitButton;
             public TMP_InputField TokenField;
         }
@@ -38,11 +39,52 @@ namespace MultiChat
         [SerializeField] PlatformCreation _PlatformCreation;
         #region PLATFORM CREATION
         [Serializable]
-        class PlatformCreation
+        class PlatformCreation : WindowBase
         {
-            public TMP_Dropdown Switch;
+            public DropDown Switch;
             public TMP_InputField NameInput;
-            public TMP_InputField URLInput;
+            public TMP_InputField ChannelInput;
+        }
+        #endregion
+
+        [Space]
+        [SerializeField] Platforms _Platforms;
+        #region PLATFORM LIST
+        [Serializable]
+        class Platforms : WindowBase
+        {
+            public ScrollRect Scroll;
+            public Transform View;
+            public GameObject ContentPrefab;
+            public GameObject PlatformPrefab;
+
+            public List<Platform> List = new List<Platform>();
+        }
+
+        public void OpenPlatforms()
+        {
+            _Platforms.Scroll.content = Instantiate(_Platforms.ContentPrefab, _Platforms.View).transform as RectTransform;
+        }
+
+        void LoadPlatforms()
+        {
+
+            var index = 0;
+            while (PlayerPrefs.HasKey("platform_" + index))
+            {
+                var data = JsonConvert.DeserializeObject<PlatformData>(PlayerPrefs.GetString("platform_" + index));
+                switch (data.PlatformType)
+                {
+                    case "vk":
+                    _Platforms.List.Add(new VK(data, index, this));
+                    break;
+                    case "twitch":
+                    _Platforms.List.Add(new Twitch(data, index, this));
+                    break;
+                }
+
+                index++;
+            }
         }
         #endregion
 
@@ -50,18 +92,16 @@ namespace MultiChat
         [SerializeField] Chat _Chat;
         #region CHAT
         [Serializable]
-        class Chat
+        class Chat : WindowBase
         {
             public int MaxChatCount = 100;
             public Transform Content;
             public GameObject MessagePrefab;
 
             [HideInInspector]
-            public List<Platform> Platforms = new List<Platform>();
+            public List<ChatMessage> Messages = new List<ChatMessage>();
             [HideInInspector]
-            public List<Message> Messages = new List<Message>();
-            [HideInInspector]
-            public List<Message> Pool = new List<Message>();
+            public List<ChatMessage> Pool = new List<ChatMessage>();
         }
         #endregion
 
@@ -74,41 +114,25 @@ namespace MultiChat
         {
             base.Start();
 
+            SetLanguage("en");
+
             Smiles.Prepare();
             Badges.Prepare();
 
             LoadPlatforms();
-
-            void LoadPlatforms()
-            {
-                var index = 0;
-                while (PlayerPrefs.HasKey("platform_" + index))
-                {
-                    var data = JsonConvert.DeserializeObject<PlatformData>(PlayerPrefs.GetString("platform_" + index));
-                    switch (data.PlatformType)
-                    {
-                        case "vk":
-                        _Chat.Platforms.Add(new VK(data, index, this));
-                        break;
-                        case "twitch":
-                        _Chat.Platforms.Add(new Twitch(data, index, this));
-                        break;
-                    }
-
-                    index++;
-                }
-            }
         }
-        void Update()
+        protected override void Update()
         {
+            base.Update();
+
             T += Time.deltaTime;
             if (T >= RefreshPeriod)
             {
                 T = 0f;
 
-                for (int p = 0; p < _Chat.Platforms.Count; p++)
-                    if (_Chat.Platforms[p].Enabled)
-                        _Chat.Platforms[p].Refresh();
+                for (int p = 0; p < _Platforms.List.Count; p++)
+                    if (_Platforms.List[p].Enabled)
+                        _Platforms.List[p].Refresh();
             }
 
             UpdateChat();
@@ -119,12 +143,12 @@ namespace MultiChat
                 while (process)
                 {
                     process = false;
-                    for (int p = 0; p < _Chat.Platforms.Count; p++)
+                    for (int p = 0; p < _Platforms.List.Count; p++)
                     {
-                        if (!_Chat.Platforms[p].Enabled)
+                        if (!_Platforms.List[p].Enabled)
                             continue;
 
-                        var got = _Chat.Platforms[p].GetMessage(out var message);
+                        var got = _Platforms.List[p].GetMessage(out var message);
                         process |= got;
 
                         if (got)
@@ -137,9 +161,9 @@ namespace MultiChat
                     }
                 }
 
-                Message FromPool()
+                ChatMessage FromPool()
                 {
-                    Message message;
+                    ChatMessage message;
                     if (_Chat.Messages.Count >= _Chat.MaxChatCount)
                     {
                         message = _Chat.Messages[0];
@@ -158,35 +182,55 @@ namespace MultiChat
                         _Chat.Pool.RemoveAt(0);
                     }
                     else
-                        message = Instantiate(_Chat.MessagePrefab, _Chat.Content, false).GetComponent<Message>();
+                        message = Instantiate(_Chat.MessagePrefab, _Chat.Content, false).GetComponent<ChatMessage>();
 
                     return message;
                 }
             }
         }
-        void OnValidate()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
+
+            for (int p = 0; p < _Platforms.List.Count; p++)
+                _Platforms.List[p].Disconnect();
+        }
+#if UNITY_EDITOR
+        protected override void OnValidate()
+        {
+            base.OnValidate();
+
             DebugSocket = DebugSocketMessages;
         }
-        void OnDestroy()
-        {
-            for (int p = 0; p < _Chat.Platforms.Count; p++)
-                _Chat.Platforms[p].Disconnect();
-        }
+#endif
 
         public void CreatePlatform()
         {
-            if (!string.IsNullOrEmpty(_PlatformCreation.NameInput.text) &&
-                 !string.IsNullOrEmpty(_PlatformCreation.URLInput.text))
-                switch (_PlatformCreation.Switch.value)
-                {
-                    case 0:
-                    _Chat.Platforms.Add(new VK(_PlatformCreation.NameInput.text, _PlatformCreation.URLInput.text, _Chat.Platforms.Count, this));
-                    break;
-                    case 1:
-                    _Chat.Platforms.Add(new Twitch(_PlatformCreation.NameInput.text, _PlatformCreation.URLInput.text, _Chat.Platforms.Count, this));
-                    break;
-                }
+            if (string.IsNullOrEmpty(_PlatformCreation.NameInput.text))
+            {
+                AddMessage(0, 2f);
+
+                return;
+            }
+
+            if (string.IsNullOrEmpty(_PlatformCreation.ChannelInput.text))
+            {
+                AddMessage(1, 2f);
+
+                return;
+            }
+
+            switch (_PlatformCreation.Switch.GetValue())
+            {
+                case 0:
+                _Platforms.List.Add(new VK(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text, _Platforms.List.Count, this));
+                break;
+                case 1:
+                _Platforms.List.Add(new Twitch(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text, _Platforms.List.Count, this));
+                break;
+            }
+
+            _PlatformCreation.SetEnabled(false);
         }
         public void ClearChat()
         {
@@ -217,14 +261,14 @@ namespace MultiChat
                 _Chat.Messages.RemoveAt(index);
         }
 
-        void RemoveMessage(Message message)
+        void RemoveMessage(ChatMessage message)
         {
             Smiles.RemoveRange(message.GetSmiles(), message.gameObject);
             Badges.RemoveRange(message.GetBadges(), message.gameObject);
 
             ToPool(message);
 
-            void ToPool(Message message)
+            void ToPool(ChatMessage message)
             {
                 message.transform.SetParent(null);
                 message.gameObject.SetActive(false);

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace MultiChat
 {
-    internal class Message : MonoBehaviour
+    internal class ChatMessage : MonoBehaviour
     {
         [SerializeField] TMP_Text Content;
 

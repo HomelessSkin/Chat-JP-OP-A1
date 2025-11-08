@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f484e433d48c3ec488cf2603e5a1d883, type: 2}
-  m_sharedMaterial: {fileID: 6710165243363806722, guid: f484e433d48c3ec488cf2603e5a1d883, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 16df6f5684981d040a0b7287836e7b31, type: 2}
+  m_sharedMaterial: {fileID: 6710165243363806722, guid: 16df6f5684981d040a0b7287836e7b31, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_TextWrappingMode: 3
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 1
+  m_overflowMode: 2
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
@@ -203,8 +203,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f484e433d48c3ec488cf2603e5a1d883, type: 2}
-  m_sharedMaterial: {fileID: 6710165243363806722, guid: f484e433d48c3ec488cf2603e5a1d883, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 16df6f5684981d040a0b7287836e7b31, type: 2}
+  m_sharedMaterial: {fileID: 6710165243363806722, guid: 16df6f5684981d040a0b7287836e7b31, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -338,10 +338,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enter text...
+  m_text: ...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f484e433d48c3ec488cf2603e5a1d883, type: 2}
-  m_sharedMaterial: {fileID: 6710165243363806722, guid: f484e433d48c3ec488cf2603e5a1d883, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 16df6f5684981d040a0b7287836e7b31, type: 2}
+  m_sharedMaterial: {fileID: 6710165243363806722, guid: 16df6f5684981d040a0b7287836e7b31, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -597,7 +597,7 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_RichText: 1
-  m_GlobalFontAsset: {fileID: 11400000, guid: 77f0f1610d2f93f468920a704fbfab09, type: 2}
+  m_GlobalFontAsset: {fileID: 11400000, guid: 16df6f5684981d040a0b7287836e7b31, type: 2}
   m_OnFocusSelectAll: 1
   m_ResetOnDeActivation: 1
   m_KeepTextSelectionVisible: 0

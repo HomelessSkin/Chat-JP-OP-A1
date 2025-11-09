@@ -33,6 +33,60 @@ namespace MultiChat
             public MenuButton SubmitButton;
             public TMP_InputField TokenField;
         }
+
+        void SubmitToken(byte platform = 0)
+        {
+            var pref = VK.TokenPref;
+            switch (platform)
+            {
+                case 1:
+                pref = Twitch.TokenPref;
+                break;
+            }
+
+            SubmitToken();
+
+            bool SubmitToken()
+            {
+                if (_Authentication.TokenField.text.Contains("access_token="))
+                {
+                    var uri = new Uri(_Authentication.TokenField.text);
+                    var token = System.Web.HttpUtility.ParseQueryString(uri.Fragment.TrimStart('#'))["access_token"];
+
+                    if (!string.IsNullOrEmpty(token))
+                    {
+                        PlayerPrefs.SetString(pref, token);
+
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+        }
+
+        #region VK
+        public void StartAuthVK()
+        {
+            _Authentication.SubmitButton.RemoveAllListeners();
+            _Authentication.SubmitButton.AddListener(SubmitVKToken);
+
+            VK.StartAuth();
+        }
+        public void SubmitVKToken() => SubmitToken();
+        #endregion
+
+        #region TWITCH
+        public void StartAuthTwitch()
+        {
+            _Authentication.SubmitButton.RemoveAllListeners();
+            _Authentication.SubmitButton.AddListener(SubmitTwitchToken);
+
+            Twitch.StartAuth();
+        }
+        public void SubmitTwitchToken() => SubmitToken(1);
+        #endregion
+
         #endregion
 
         [Space]
@@ -44,6 +98,38 @@ namespace MultiChat
             public DropDown Switch;
             public TMP_InputField NameInput;
             public TMP_InputField ChannelInput;
+        }
+
+        public void CreatePlatform()
+        {
+            if (string.IsNullOrEmpty(_PlatformCreation.NameInput.text))
+            {
+                AddMessage(0, 2f);
+
+                return;
+            }
+
+            if (string.IsNullOrEmpty(_PlatformCreation.ChannelInput.text))
+            {
+                AddMessage(1, 2f);
+
+                return;
+            }
+
+            switch (_PlatformCreation.Switch.GetValue())
+            {
+                case 0:
+                _Platforms.List.Add(new VK(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text, _Platforms.List.Count + 1, this));
+                break;
+                case 1:
+                _Platforms.List.Add(new Twitch(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text, _Platforms.List.Count + 1, this));
+                break;
+            }
+
+            _PlatformCreation.NameInput.text = "";
+            _PlatformCreation.ChannelInput.text = "";
+
+            _PlatformCreation.SetEnabled(false);
         }
         #endregion
 
@@ -64,12 +150,26 @@ namespace MultiChat
         public void OpenPlatforms()
         {
             _Platforms.Scroll.content = Instantiate(_Platforms.ContentPrefab, _Platforms.View).transform as RectTransform;
+
+            for (int l = 0; l < _Platforms.List.Count; l++)
+            {
+                var go = Instantiate(_Platforms.PlatformPrefab, _Platforms.Scroll.content);
+                var lp = go.GetComponent<ListPlatform>();
+                lp.Init(_Platforms.List[l], this);
+            }
+
+            _Platforms.SetEnabled(true);
+        }
+        public void ClosePlatforms()
+        {
+            Destroy(_Platforms.Scroll.content.gameObject);
+
+            _Platforms.SetEnabled(false);
         }
 
         void LoadPlatforms()
         {
-
-            var index = 0;
+            var index = 1;
             while (PlayerPrefs.HasKey("platform_" + index))
             {
                 var data = JsonConvert.DeserializeObject<PlatformData>(PlayerPrefs.GetString("platform_" + index));
@@ -103,10 +203,93 @@ namespace MultiChat
             [HideInInspector]
             public List<ChatMessage> Pool = new List<ChatMessage>();
         }
+
+        public void ClearChat()
+        {
+            for (int m = 0; m < _Chat.Messages.Count; m++)
+                RemoveMessage(_Chat.Messages[m]);
+
+            _Chat.Messages.Clear();
+        }
+        internal void DeleteMessage(byte platform, string id)
+        {
+            var index = -1;
+            for (int m = 0; m < _Chat.Messages.Count; m++)
+            {
+                var message = _Chat.Messages[m];
+                if (message.GetPlatform() == platform &&
+                     message.GetID() == id)
+                {
+                    index = m;
+
+                    RemoveMessage(message);
+
+                    break;
+                }
+            }
+
+            if (index >= 0)
+                _Chat.Messages.RemoveAt(index);
+        }
+
+        void RemoveMessage(ChatMessage message)
+        {
+            Smiles.RemoveRange(message.GetSmiles(), message.gameObject);
+            Badges.RemoveRange(message.GetBadges(), message.gameObject);
+
+            ToPool(message);
+
+            void ToPool(ChatMessage message)
+            {
+                message.transform.SetParent(null);
+                message.gameObject.SetActive(false);
+
+                _Chat.Pool.Add(message);
+            }
+        }
+
+        #region SMILES
+        internal bool HasSmile(int hash, bool reserveIfFalse = false)
+        {
+            if (Smiles.HasSprite(hash))
+                return true;
+
+            if (Smiles.IsKeyReserved(hash))
+                return true;
+
+            if (reserveIfFalse)
+                Smiles.ReserveKey(hash);
+
+            return false;
+        }
+        internal int GetSmileID(int key, GameObject requester) => Smiles.GetSpriteID(key, requester);
+        internal void DrawSmile(Texture2D smile, int hash) => Smiles.Draw(smile, hash);
+        #endregion
+
+        #region BADGES
+        internal bool HasBadge(int hash, bool reserveIfFalse = false)
+        {
+            if (Badges.HasSprite(hash))
+                return true;
+
+            if (Badges.IsKeyReserved(hash))
+                return true;
+
+            if (reserveIfFalse)
+                Badges.ReserveKey(hash);
+
+            return false;
+        }
+        internal bool HasBadge(int hash) => Badges.HasSprite(hash);
+        internal int GetBadgeID(int key, GameObject requester) => Badges.GetSpriteID(key, requester);
+        internal void DrawBadge(Texture2D badge, int hash) => Badges.Draw(badge, hash);
+        #endregion
+
         #endregion
 
         [Space]
         [SerializeField] StreamingSprites Smiles;
+
         [Space]
         [SerializeField] StreamingSprites Badges;
 
@@ -120,6 +303,7 @@ namespace MultiChat
             Badges.Prepare();
 
             LoadPlatforms();
+            OpenPlatforms();
         }
         protected override void Update()
         {
@@ -203,167 +387,5 @@ namespace MultiChat
             DebugSocket = DebugSocketMessages;
         }
 #endif
-
-        public void CreatePlatform()
-        {
-            if (string.IsNullOrEmpty(_PlatformCreation.NameInput.text))
-            {
-                AddMessage(0, 2f);
-
-                return;
-            }
-
-            if (string.IsNullOrEmpty(_PlatformCreation.ChannelInput.text))
-            {
-                AddMessage(1, 2f);
-
-                return;
-            }
-
-            switch (_PlatformCreation.Switch.GetValue())
-            {
-                case 0:
-                _Platforms.List.Add(new VK(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text, _Platforms.List.Count, this));
-                break;
-                case 1:
-                _Platforms.List.Add(new Twitch(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text, _Platforms.List.Count, this));
-                break;
-            }
-
-            _PlatformCreation.SetEnabled(false);
-        }
-        public void ClearChat()
-        {
-            for (int m = 0; m < _Chat.Messages.Count; m++)
-                RemoveMessage(_Chat.Messages[m]);
-
-            _Chat.Messages.Clear();
-        }
-
-        internal void DeleteMessage(byte platform, string id)
-        {
-            var index = -1;
-            for (int m = 0; m < _Chat.Messages.Count; m++)
-            {
-                var message = _Chat.Messages[m];
-                if (message.GetPlatform() == platform &&
-                     message.GetID() == id)
-                {
-                    index = m;
-
-                    RemoveMessage(message);
-
-                    break;
-                }
-            }
-
-            if (index >= 0)
-                _Chat.Messages.RemoveAt(index);
-        }
-
-        void RemoveMessage(ChatMessage message)
-        {
-            Smiles.RemoveRange(message.GetSmiles(), message.gameObject);
-            Badges.RemoveRange(message.GetBadges(), message.gameObject);
-
-            ToPool(message);
-
-            void ToPool(ChatMessage message)
-            {
-                message.transform.SetParent(null);
-                message.gameObject.SetActive(false);
-
-                _Chat.Pool.Add(message);
-            }
-        }
-        void SubmitToken(byte platform = 0)
-        {
-            var pref = VK.TokenPref;
-            switch (platform)
-            {
-                case 1:
-                pref = Twitch.TokenPref;
-                break;
-            }
-
-            SubmitToken();
-
-            bool SubmitToken()
-            {
-                if (_Authentication.TokenField.text.Contains("access_token="))
-                {
-                    var uri = new Uri(_Authentication.TokenField.text);
-                    var token = System.Web.HttpUtility.ParseQueryString(uri.Fragment.TrimStart('#'))["access_token"];
-
-                    if (!string.IsNullOrEmpty(token))
-                    {
-                        PlayerPrefs.SetString(pref, token);
-
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-        }
-
-        #region VK
-        public void StartAuthVK()
-        {
-            _Authentication.SubmitButton.RemoveAllListeners();
-            _Authentication.SubmitButton.AddListener(SubmitVKToken);
-
-            VK.StartAuth();
-        }
-        public void SubmitVKToken() => SubmitToken();
-        #endregion
-
-        #region TWITCH
-        public void StartAuthTwitch()
-        {
-            _Authentication.SubmitButton.RemoveAllListeners();
-            _Authentication.SubmitButton.AddListener(SubmitTwitchToken);
-
-            Twitch.StartAuth();
-        }
-        public void SubmitTwitchToken() => SubmitToken(1);
-        #endregion
-
-        #region SMILES
-        internal bool HasSmile(int hash, bool reserveIfFalse = false)
-        {
-            if (Smiles.HasSprite(hash))
-                return true;
-
-            if (Smiles.IsKeyReserved(hash))
-                return true;
-
-            if (reserveIfFalse)
-                Smiles.ReserveKey(hash);
-
-            return false;
-        }
-        internal int GetSmileID(int key, GameObject requester) => Smiles.GetSpriteID(key, requester);
-        internal void DrawSmile(Texture2D smile, int hash) => Smiles.Draw(smile, hash);
-        #endregion
-
-        #region BADGES
-        internal bool HasBadge(int hash, bool reserveIfFalse = false)
-        {
-            if (Badges.HasSprite(hash))
-                return true;
-
-            if (Badges.IsKeyReserved(hash))
-                return true;
-
-            if (reserveIfFalse)
-                Badges.ReserveKey(hash);
-
-            return false;
-        }
-        internal bool HasBadge(int hash) => Badges.HasSprite(hash);
-        internal int GetBadgeID(int key, GameObject requester) => Badges.GetSpriteID(key, requester);
-        internal void DrawBadge(Texture2D badge, int hash) => Badges.Draw(badge, hash);
-        #endregion
     }
 }

@@ -38,6 +38,9 @@ namespace MultiChat
                 SaveData();
             }
         }
+        internal string Type { get => Data.PlatformType; }
+        internal string Name { get => Data.PlatformName; }
+        internal string Channel { get => Data.ChannelName; }
 
         protected int Index;
         protected long LastMessage;
@@ -50,9 +53,7 @@ namespace MultiChat
 
         internal Platform(string name, string channel, int index, MultiChatManager manager)
         {
-            Manager = manager;
-            Index = index;
-
+            CurrentIndex = index;
             Data = new PlatformData
             {
                 Enabled = true,
@@ -60,12 +61,15 @@ namespace MultiChat
                 PlatformName = name,
                 ChannelName = channel,
             };
+
+            Manager = manager;
         }
         internal Platform(PlatformData data, int index, MultiChatManager manager)
         {
-            Manager = manager;
-            Index = index;
+            CurrentIndex = index;
             Data = data;
+
+            Manager = manager;
         }
 
         protected abstract void Connect();
@@ -77,7 +81,7 @@ namespace MultiChat
         internal void Refresh() => ProcessSocketMessages();
         internal void Disconnect()
         {
-            if (Socket.IsAlive)
+            if (Socket != null && Socket.IsAlive)
                 Socket.Close();
         }
         internal bool GetMessage(out MC_Message message) => MC_Messages.TryDequeue(out message);

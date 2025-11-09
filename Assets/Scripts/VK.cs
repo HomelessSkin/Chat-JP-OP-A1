@@ -33,12 +33,12 @@ namespace MultiChat
         {
             Data.PlatformType = "vk";
 
+            Connect();
             SaveData();
         }
         internal VK(PlatformData data, int index, MultiChatManager manager) : base(data, index, manager)
         {
             Connect();
-
             SaveData();
         }
 

@@ -27,10 +27,14 @@ Key Types:
 public enum Type
 {
   Null = 0,
-  Button = 1,
+  MenuButton = 1,
   Field_Dark = 2,
   Field_Light = 3,
-  Twitch = 4,
+  ChatMessage = 4,
+  DropDownContent = 5,
+  DropDownItem = 6,
+  InputArea = 7,
+  Text = 8,
 
 }
 ```

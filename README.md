@@ -27,13 +27,13 @@ Key Types:
 public enum Type
 {
   Null = 0,
-  MenuButton = 1,
+  Menu_Button = 1,
   Field_Dark = 2,
   Field_Light = 3,
-  ChatMessage = 4,
-  DropDownContent = 5,
-  DropDownItem = 6,
-  InputArea = 7,
+  Chat_Message = 4,
+  Drop_Down_Content = 5,
+  Drop_Down_Item = 6,
+  Input_Area = 7,
   Text = 8,
 
 }

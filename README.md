@@ -20,3 +20,15 @@ Theme Manifest JSON File Structure:
   ]
 }
 ```
+/// Key Types
+```c#
+public enum Type
+{
+  Null = 0,
+  Button = 1,
+  Field_Dark = 2,
+  Field_Light = 3,
+  Twitch = 4,
+
+}
+```

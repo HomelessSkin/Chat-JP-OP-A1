@@ -20,7 +20,9 @@ Theme Manifest JSON File Structure:
   ]
 }
 ```
-/// Key Types
+
+Key Types:
+
 ```c#
 public enum Type
 {

@@ -1,5 +1,6 @@
 Theme Manifest JSON File Structure:
 
+```json
 {
   "name":"Test",
   "sprites":
@@ -18,3 +19,4 @@ Theme Manifest JSON File Structure:
     }
   ]
 }
+```

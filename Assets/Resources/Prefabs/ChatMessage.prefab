@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 6543408599918470067}
   - component: {fileID: 1338030089125317245}
   - component: {fileID: 1101250895857049254}
+  - component: {fileID: -4241119450408654502}
   m_Layer: 5
   m_Name: ChatMessage
   m_TagString: Untagged
@@ -268,3 +269,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MultiChat.Message
   Content: {fileID: 1203381583084898640}
+--- !u!114 &-4241119450408654502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7890616675190739281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22448c74e6c9ea4ebe87a0d74a56f7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.homelessskin.ui::UI.Drawable
+  _Type: 4
+  Key: 
+  Value: {fileID: 5413748718330999044}

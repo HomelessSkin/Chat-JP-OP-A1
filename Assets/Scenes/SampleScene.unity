@@ -3065,7 +3065,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 023991995d7acb34487a37b680125d40, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3f1691cbac1709c4fbd2aa6768299244, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4091,6 +4091,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7890616675190739281, guid: 1af6ad4e3d2a6b246b51856bfeeaaaff, type: 3}
     - target: {fileID: 7772898241695463305, guid: fd267cf32b958f945821a32df9c5870e, type: 3}
+      propertyPath: _Drawer.DefaultPath
+      value: UI/DefaultTheme/
+      objectReference: {fileID: 0}
+    - target: {fileID: 7772898241695463305, guid: fd267cf32b958f945821a32df9c5870e, type: 3}
       propertyPath: Badges.SpriteDensity
       value: 25
       objectReference: {fileID: 0}
@@ -4110,6 +4114,10 @@ PrefabInstance:
       propertyPath: _Messenger.MessageText
       value: 
       objectReference: {fileID: 1473977925}
+    - target: {fileID: 7772898241695463305, guid: fd267cf32b958f945821a32df9c5870e, type: 3}
+      propertyPath: _Drawer.DefaultManifest
+      value: 
+      objectReference: {fileID: 4900000, guid: c1b9b9962d399b344a418addf2c57cf0, type: 3}
     - target: {fileID: 7772898241695463305, guid: fd267cf32b958f945821a32df9c5870e, type: 3}
       propertyPath: _Messenger.AdditionText
       value: 

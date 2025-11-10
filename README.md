@@ -6,7 +6,7 @@ Theme Manifest JSON File Structure:
   "sprites":
   [
     {
-      "key":"Button",
+      "key":"Menu_Button",
       "fileName":"button.png",
       "pixelPerUnit":100,
       "borders":

@@ -9,6 +9,7 @@ Theme Manifest JSON File Structure:
       "key":"Menu_Button",
       "fileName":"button.png",
       "pixelPerUnit":100,
+      "filterMode":0,
       "borders":
       {
         "left":44,

@@ -14,9 +14,32 @@ using UnityEngine.UI;
 
 namespace MultiChat
 {
-    internal class MultiChatManager : UIManagerBase
+    public class MultiChatManager : UIManagerBase
     {
         internal static bool DebugSocket;
+
+        #region DRAWER
+        protected override void RedrawTheme(Theme theme)
+        {
+            base.RedrawTheme(theme);
+
+            for (int m = 0; m < _Chat.Messages.Count; m++)
+            {
+                var message = _Chat.Messages[m];
+                var drawable = message.GetComponent<Drawable>();
+                if (TryGetSprite(drawable.GetKey(), out var sprite))
+                    drawable.SetValue(sprite);
+            }
+
+            for (int m = 0; m < _Chat.Pool.Count; m++)
+            {
+                var message = _Chat.Pool[m];
+                var drawable = message.GetComponent<Drawable>();
+                if (TryGetSprite(drawable.GetKey(), out var sprite))
+                    drawable.SetValue(sprite);
+            }
+        }
+        #endregion
 
         [Space]
         [SerializeField] bool DebugSocketMessages;
@@ -293,9 +316,11 @@ namespace MultiChat
         [Space]
         [SerializeField] StreamingSprites Badges;
 
-        protected override void Start()
+
+
+        protected override void Awake()
         {
-            base.Start();
+            base.Awake();
 
             SetLanguage("en");
 
@@ -303,7 +328,9 @@ namespace MultiChat
             Badges.Prepare();
 
             LoadPlatforms();
-            OpenPlatforms();
+            //OpenPlatforms();
+
+            OpenThemes();
         }
         protected override void Update()
         {

@@ -5,6 +5,7 @@
             "key": "Menu_Button",
             "fileName": "Button",
             "pixelPerUnit": 100,
+            "filterMode": 1,
             "borders": {
                 "left": 20,
                 "right": 20,
@@ -16,6 +17,7 @@
             "key": "Field_Dark",
             "fileName": "Field_Dark",
             "pixelPerUnit": 100,
+            "filterMode": 1,
             "borders": {
                 "left": 20,
                 "right": 20,
@@ -27,6 +29,7 @@
             "key": "Field_Light",
             "fileName": "Field_Light",
             "pixelPerUnit": 100,
+            "filterMode": 1,
             "borders": {
                 "left": 20,
                 "right": 20,
@@ -38,11 +41,24 @@
             "key": "Chat_Message",
             "fileName": "ChatMessage",
             "pixelPerUnit": 100,
+            "filterMode": 1,
             "borders": {
                 "left": 44,
                 "right": 44,
                 "top": 44,
                 "bottom": 44
+            }
+        },
+        {
+            "key": "Text",
+            "fileName": "Text",
+            "pixelPerUnit": 100,
+            "filterMode": 1,
+            "borders": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
             }
         }
     ]

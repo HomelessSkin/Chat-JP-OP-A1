@@ -27,7 +27,7 @@ namespace MultiChat
             {
                 var message = _Chat.Messages[m];
                 var drawable = message.GetComponent<Drawable>();
-                if (TryGetSprite(drawable.GetKey(), out var sprite))
+                if (TryGetData(drawable.GetKey(), out var sprite))
                     drawable.SetValue(sprite);
             }
 
@@ -35,7 +35,7 @@ namespace MultiChat
             {
                 var message = _Chat.Pool[m];
                 var drawable = message.GetComponent<Drawable>();
-                if (TryGetSprite(drawable.GetKey(), out var sprite))
+                if (TryGetData(drawable.GetKey(), out var sprite))
                     drawable.SetValue(sprite);
             }
         }
@@ -315,8 +315,6 @@ namespace MultiChat
 
         [Space]
         [SerializeField] StreamingSprites Badges;
-
-
 
         protected override void Awake()
         {

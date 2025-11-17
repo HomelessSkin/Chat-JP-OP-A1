@@ -1,66 +1,193 @@
 {
-    "version":0,
-    "name": "Default",
-    "sprites": [
-        {
-            "key": "Menu_Button",
-            "fileName": "Button",
-            "pixelPerUnit": 100,
-            "filterMode": 1,
-            "borders": {
-                "left": 20,
-                "right": 20,
-                "top": 20,
-                "bottom": 20
-            }
-        },
-        {
-            "key": "Field_Dark",
-            "fileName": "Field_Dark",
-            "pixelPerUnit": 100,
-            "filterMode": 1,
-            "borders": {
-                "left": 20,
-                "right": 20,
-                "top": 20,
-                "bottom": 20
-            }
-        },
-        {
-            "key": "Field_Light",
-            "fileName": "Field_Light",
-            "pixelPerUnit": 100,
-            "filterMode": 1,
-            "borders": {
-                "left": 20,
-                "right": 20,
-                "top": 20,
-                "bottom": 20
-            }
-        },
-        {
-            "key": "Chat_Message",
-            "fileName": "ChatMessage",
-            "pixelPerUnit": 100,
-            "filterMode": 1,
-            "borders": {
-                "left": 44,
-                "right": 44,
-                "top": 44,
-                "bottom": 44
-            }
-        },
-        {
-            "key": "Text",
-            "fileName": "Text",
-            "pixelPerUnit": 100,
-            "filterMode": 1,
-            "borders": {
-                "left": 0,
-                "right": 0,
-                "top": 0,
-                "bottom": 0
-            }
+  "elements": [
+    {
+      "key": "Menu_Button",
+      "base": {
+        "fileName": "MenuButton",
+        "pixelPerUnit": 100,
+        "filterMode": 0,
+        "borders": {
+          "left": 6,
+          "right": 6,
+          "top": 6,
+          "bottom": 24
         }
-    ]
+      },
+      "mask": null,
+      "overlay": null,
+      "text": {
+        "fontSize": 32,
+        "characterSpacing": 0,
+        "wordSpacing": 0,
+        "xOffset": 0,
+        "yOffset": 6
+      }
+    },
+    {
+      "key": "Chat_Message",
+      "base": {
+        "fileName": "ChatMessage",
+        "pixelPerUnit": 100,
+        "filterMode": 0,
+        "borders": {
+          "left": 13,
+          "right": 13,
+          "top": 13,
+          "bottom": 13
+        }
+      },
+      "mask": null,
+      "overlay": null,
+      "text": {
+        "fontSize": 32,
+        "characterSpacing": 0,
+        "wordSpacing": 0,
+        "xOffset": 0,
+        "yOffset": 0
+      }
+    },
+    {
+      "key": "Big_Panel",
+      "base": {
+        "fileName": "FieldDark",
+        "pixelPerUnit": 100,
+        "filterMode": 0,
+        "borders": {
+          "left": 7,
+          "right": 7,
+          "top": 7,
+          "bottom": 7
+        }
+      },
+      "mask": null,
+      "overlay": null,
+      "text": {
+        "fontSize": 64,
+        "characterSpacing": 0,
+        "wordSpacing": 0,
+        "xOffset": 0,
+        "yOffset": 0
+      }
+    },
+    {
+      "key": "Mid_Panel",
+      "base": {
+        "fileName": "FieldLight",
+        "pixelPerUnit": 100,
+        "filterMode": 0,
+        "borders": {
+          "left": 7,
+          "right": 7,
+          "top": 7,
+          "bottom": 7
+        }
+      },
+      "mask": null,
+      "overlay": null,
+      "text": {
+        "fontSize": 32,
+        "characterSpacing": 0,
+        "wordSpacing": 0,
+        "xOffset": 0,
+        "yOffset": 0
+      }
+    },
+    {
+      "key": "Scroll",
+      "base": {
+        "fileName": "Scroll.png",
+        "pixelPerUnit": 100,
+        "filterMode": 0,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        }
+      },
+      "mask": {
+        "fileName": "Scroll_Mask.png",
+        "pixelPerUnit": 100,
+        "filterMode": 0,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        }
+      },
+      "overlay": {
+        "fileName": null,
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        }
+      },
+      "text": {
+        "fontSize": 32,
+        "characterSpacing": 0,
+        "wordSpacing": 0,
+        "xOffset": 0,
+        "yOffset": 0
+      }
+    },
+    {
+      "key": "Scroll_Area",
+      "base": {
+        "fileName": "ScrollArea.png",
+        "pixelPerUnit": 100,
+        "filterMode": 0,
+        "borders": {
+          "left": 9,
+          "right": 6,
+          "top": 9,
+          "bottom": 9
+        }
+      },
+      "mask": {
+        "fileName": null,
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        }
+      },
+      "overlay": {
+        "fileName": null,
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        }
+      },
+      "text": {
+        "fontSize": 32,
+        "characterSpacing": 0,
+        "wordSpacing": 0,
+        "xOffset": 0,
+        "yOffset": 0
+      }
+    }
+  ],
+  "v": {
+    "major": 0,
+    "minor": 0,
+    "patch": 2
+  },
+  "name": "Default",
+  "languageKey": "default",
+  "font": {
+    "assetName": "DelaGothicOne-Regular SDF.asset"
+  },
+  "V": "0.0.2"
 }

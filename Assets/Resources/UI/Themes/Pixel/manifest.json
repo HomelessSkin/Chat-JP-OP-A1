@@ -1,59 +1,193 @@
 {
-  "version":0,
-  "name":"Pixel",
-  "sprites":
-  [
+  "elements": [
     {
-      "key":"Menu_Button",
-      "fileName":"MenuButton",
-      "pixelPerUnit":100,
-      "filterMode":0,
-      "borders":
-      {
-        "left":6,
-        "right":6,
-        "top":6,
-        "bottom":24
+      "key": "Menu_Button",
+      "base": {
+        "fileName": "MenuButton",
+        "pixelPerUnit": 100,
+        "filterMode": 0,
+        "borders": {
+          "left": 6,
+          "right": 6,
+          "top": 6,
+          "bottom": 24
+        }
+      },
+      "mask": null,
+      "overlay": null,
+      "text": {
+        "fontSize": 32,
+        "characterSpacing": 0,
+        "wordSpacing": 0,
+        "xOffset": 0,
+        "yOffset": 6
       }
     },
     {
-      "key":"Chat_Message",
-      "fileName":"ChatMessage",
-      "pixelPerUnit":100,
-      "filterMode":0,
-      "borders":
-      {
-        "left":13,
-        "right":13,
-        "top":13,
-        "bottom":13
+      "key": "Chat_Message",
+      "base": {
+        "fileName": "ChatMessage",
+        "pixelPerUnit": 100,
+        "filterMode": 0,
+        "borders": {
+          "left": 13,
+          "right": 13,
+          "top": 13,
+          "bottom": 13
+        }
+      },
+      "mask": null,
+      "overlay": null,
+      "text": {
+        "fontSize": 32,
+        "characterSpacing": 0,
+        "wordSpacing": 0,
+        "xOffset": 0,
+        "yOffset": 0
       }
     },
     {
-      "key":"Field_Dark",
-      "fileName":"FieldDark",
-      "pixelPerUnit":100,
-      "filterMode":0,
-      "borders":
-      {
-        "left":7,
-        "right":7,
-        "top":7,
-        "bottom":7
+      "key": "Big_Panel",
+      "base": {
+        "fileName": "FieldDark",
+        "pixelPerUnit": 100,
+        "filterMode": 0,
+        "borders": {
+          "left": 7,
+          "right": 7,
+          "top": 7,
+          "bottom": 7
+        }
+      },
+      "mask": null,
+      "overlay": null,
+      "text": {
+        "fontSize": 64,
+        "characterSpacing": 0,
+        "wordSpacing": 0,
+        "xOffset": 0,
+        "yOffset": 0
       }
     },
     {
-      "key":"Field_Light",
-      "fileName":"FieldLight",
-      "pixelPerUnit":100,
-      "filterMode":0,
-      "borders":
-      {
-        "left":7,
-        "right":7,
-        "top":7,
-        "bottom":7
+      "key": "Mid_Panel",
+      "base": {
+        "fileName": "FieldLight",
+        "pixelPerUnit": 100,
+        "filterMode": 0,
+        "borders": {
+          "left": 7,
+          "right": 7,
+          "top": 7,
+          "bottom": 7
+        }
+      },
+      "mask": null,
+      "overlay": null,
+      "text": {
+        "fontSize": 32,
+        "characterSpacing": 0,
+        "wordSpacing": 0,
+        "xOffset": 0,
+        "yOffset": 0
+      }
+    },
+    {
+      "key": "Scroll",
+      "base": {
+        "fileName": "Scroll.png",
+        "pixelPerUnit": 100,
+        "filterMode": 0,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        }
+      },
+      "mask": {
+        "fileName": "Scroll_Mask.png",
+        "pixelPerUnit": 100,
+        "filterMode": 0,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        }
+      },
+      "overlay": {
+        "fileName": null,
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        }
+      },
+      "text": {
+        "fontSize": 32,
+        "characterSpacing": 0,
+        "wordSpacing": 0,
+        "xOffset": 0,
+        "yOffset": 0
+      }
+    },
+    {
+      "key": "Scroll_Area",
+      "base": {
+        "fileName": "ScrollArea.png",
+        "pixelPerUnit": 100,
+        "filterMode": 0,
+        "borders": {
+          "left": 9,
+          "right": 6,
+          "top": 9,
+          "bottom": 9
+        }
+      },
+      "mask": {
+        "fileName": null,
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        }
+      },
+      "overlay": {
+        "fileName": null,
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        }
+      },
+      "text": {
+        "fontSize": 32,
+        "characterSpacing": 0,
+        "wordSpacing": 0,
+        "xOffset": 0,
+        "yOffset": 0
       }
     }
-  ]
+  ],
+  "v": {
+    "major": 0,
+    "minor": 0,
+    "patch": 2
+  },
+  "name": "Pixel",
+  "languageKey": "default",
+  "font": {
+    "assetName": "Audiowide-Regular SDF.asset"
+  },
+  "V": "0.0.2"
 }

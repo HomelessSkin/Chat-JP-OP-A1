@@ -26,17 +26,29 @@ namespace MultiChat
             for (int m = 0; m < _Chat.Messages.Count; m++)
             {
                 var message = _Chat.Messages[m];
-                var drawable = message.GetComponent<Drawable>();
-                if (TryGetData(drawable.GetKey(), out var sprite))
-                    drawable.SetValue(sprite);
+                var drawables = message.GetComponentsInChildren<Drawable>();
+                for (int d = 0; d < drawables.Length; d++)
+                {
+                    var drawable = drawables[d];
+                    if (drawable.IsNonRedrawable())
+                        continue;
+                    if (TryGetData(drawable.GetKey(), out var sprite))
+                        drawable.SetValue(sprite);
+                }
             }
 
             for (int m = 0; m < _Chat.Pool.Count; m++)
             {
                 var message = _Chat.Pool[m];
-                var drawable = message.GetComponent<Drawable>();
-                if (TryGetData(drawable.GetKey(), out var sprite))
-                    drawable.SetValue(sprite);
+                var drawables = message.GetComponentsInChildren<Drawable>();
+                for (int d = 0; d < drawables.Length; d++)
+                {
+                    var drawable = drawables[d];
+                    if (drawable.IsNonRedrawable())
+                        continue;
+                    if (TryGetData(drawable.GetKey(), out var sprite))
+                        drawable.SetValue(sprite);
+                }
             }
         }
         #endregion

@@ -412,6 +412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: com.homelessskin.ui::UI.Drawable
   _Type: 10
   Key: 
+  NonRedrawable: 0
   Mask: {fileID: 613853685}
   Overlay: {fileID: 1888131075}
   Texts: []
@@ -952,6 +953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: com.homelessskin.ui::UI.Drawable
   _Type: 2
   Key: 
+  NonRedrawable: 0
   Mask: {fileID: 0}
   Overlay: {fileID: 0}
   Texts: []
@@ -1555,6 +1557,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &633438522 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1191462982083881911, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
+  m_PrefabInstance: {fileID: 1689717085}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22448c74e6c9ea4ebe87a0d74a56f7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.homelessskin.ui::UI.Drawable
 --- !u!1001 &666758858
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3581,6 +3594,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1473977923}
   m_CullTransparentMesh: 1
+--- !u!114 &1489600464 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1191462982083881911, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
+  m_PrefabInstance: {fileID: 30628226}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22448c74e6c9ea4ebe87a0d74a56f7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.homelessskin.ui::UI.Drawable
 --- !u!1001 &1536704049
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3913,6 +3937,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: com.homelessskin.ui::UI.Drawable
   _Type: 11
   Key: 
+  NonRedrawable: 0
   Mask: {fileID: 1267818099}
   Overlay: {fileID: 1251288338}
   Texts: []
@@ -4029,6 +4054,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3445150795387016123, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
   m_PrefabInstance: {fileID: 1648424070}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1682168718 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1191462982083881911, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
+  m_PrefabInstance: {fileID: 766628428}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22448c74e6c9ea4ebe87a0d74a56f7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.homelessskin.ui::UI.Drawable
 --- !u!1001 &1689717085
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4629,6 +4665,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: com.homelessskin.ui::UI.Drawable
   _Type: 2
   Key: 
+  NonRedrawable: 0
   Mask: {fileID: 0}
   Overlay: {fileID: 1264917346}
   Texts: []
@@ -5344,6 +5381,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2063671798}
   m_CullTransparentMesh: 1
+--- !u!114 &2083863659 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1191462982083881911, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
+  m_PrefabInstance: {fileID: 567902213}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22448c74e6c9ea4ebe87a0d74a56f7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.homelessskin.ui::UI.Drawable
 --- !u!1 &2091775093
 GameObject:
   m_ObjectHideFlags: 0
@@ -5512,6 +5560,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2114193510}
   m_CullTransparentMesh: 1
+--- !u!114 &2119690062 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1191462982083881911, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
+  m_PrefabInstance: {fileID: 723009749}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22448c74e6c9ea4ebe87a0d74a56f7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.homelessskin.ui::UI.Drawable
 --- !u!1001 &1529273988652814519
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5715,35 +5774,35 @@ PrefabInstance:
     - target: {fileID: 7772898241695463305, guid: fd267cf32b958f945821a32df9c5870e, type: 3}
       propertyPath: '_Drawer.Drawables.Array.data[0]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2119690062}
     - target: {fileID: 7772898241695463305, guid: fd267cf32b958f945821a32df9c5870e, type: 3}
       propertyPath: '_Drawer.Drawables.Array.data[1]'
       value: 
-      objectReference: {fileID: 1856091624}
+      objectReference: {fileID: 633438522}
     - target: {fileID: 7772898241695463305, guid: fd267cf32b958f945821a32df9c5870e, type: 3}
       propertyPath: '_Drawer.Drawables.Array.data[2]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 431140674}
     - target: {fileID: 7772898241695463305, guid: fd267cf32b958f945821a32df9c5870e, type: 3}
       propertyPath: '_Drawer.Drawables.Array.data[3]'
       value: 
-      objectReference: {fileID: 431140674}
+      objectReference: {fileID: 1682168718}
     - target: {fileID: 7772898241695463305, guid: fd267cf32b958f945821a32df9c5870e, type: 3}
       propertyPath: '_Drawer.Drawables.Array.data[4]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1856091624}
     - target: {fileID: 7772898241695463305, guid: fd267cf32b958f945821a32df9c5870e, type: 3}
       propertyPath: '_Drawer.Drawables.Array.data[5]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1562553411}
     - target: {fileID: 7772898241695463305, guid: fd267cf32b958f945821a32df9c5870e, type: 3}
       propertyPath: '_Drawer.Drawables.Array.data[6]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1489600464}
     - target: {fileID: 7772898241695463305, guid: fd267cf32b958f945821a32df9c5870e, type: 3}
       propertyPath: '_Drawer.Drawables.Array.data[7]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2083863659}
     - target: {fileID: 7772898241695463305, guid: fd267cf32b958f945821a32df9c5870e, type: 3}
       propertyPath: Badges.DefaultSprites.Array.size
       value: 2

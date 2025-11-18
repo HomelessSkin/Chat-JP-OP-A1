@@ -88,8 +88,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d22448c74e6c9ea4ebe87a0d74a56f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: com.homelessskin.ui::UI.Drawable
-  _Type: 3
+  _Type: 5
   Key: 
+  NonRedrawable: 0
   Mask: {fileID: 951460859060681964}
   Overlay: {fileID: 1271534969581789051}
   Texts:

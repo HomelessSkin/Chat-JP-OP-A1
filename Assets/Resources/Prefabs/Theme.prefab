@@ -126,7 +126,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5429063895298418607}
-  m_Father: {fileID: 3111524073360527947}
+  m_Father: {fileID: 656028320661656696}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -274,7 +274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: com.homelessskin.ui::UI.Drawable
   _Type: 5
   Key: 
-  NonRedrawable: 0
+  NonRedrawable: 1
   Mask: {fileID: 803476134915361093}
   Overlay: {fileID: 8712940329368226789}
   Texts: []
@@ -308,7 +308,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3111524073360527947}
+  m_Father: {fileID: 656028320661656696}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -511,6 +511,7 @@ MonoBehaviour:
   - {fileID: 8157784187658504539}
   - {fileID: 2939555124449136648}
   - {fileID: 7050253979026368535}
+  - {fileID: 1390743435217236851}
 --- !u!1 &6954645676979813279
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,8 +542,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4261345993191257754}
-  - {fileID: 6840555434114288909}
-  - {fileID: 107346936888179024}
   - {fileID: 5215379971981274599}
   m_Father: {fileID: 7804816315898947859}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -829,7 +828,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6840555434114288909}
+  - {fileID: 107346936888179024}
   m_Father: {fileID: 4261345993191257754}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -889,7 +890,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: com.homelessskin.ui::UI.Drawable
   _Type: 3
   Key: 
-  NonRedrawable: 0
+  NonRedrawable: 1
   Mask: {fileID: 5888325070342533886}
   Overlay: {fileID: 7353537405125559356}
   Texts: []

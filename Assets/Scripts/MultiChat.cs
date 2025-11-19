@@ -332,15 +332,15 @@ namespace MultiChat
         {
             base.Awake();
 
-            SetLanguage("en");
+            //SetLanguage("en");
 
             Smiles.Prepare();
             Badges.Prepare();
 
             LoadPlatforms();
-            //OpenPlatforms();
 
-            OpenThemes();
+            //OpenPlatforms();
+            //OpenThemes();
         }
         protected override void Update()
         {

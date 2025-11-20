@@ -3812,7 +3812,7 @@ MonoBehaviour:
   Group: 1
   Actions:
   - Key: 60
-    Type: 1
+    Type: 3
     _Action:
       RemoveInput: 0
       Event:

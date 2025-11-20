@@ -340,7 +340,7 @@ namespace MultiChat
             LoadPlatforms();
 
             //OpenPlatforms();
-            //OpenThemes();
+            OpenThemes();
         }
         protected override void Update()
         {

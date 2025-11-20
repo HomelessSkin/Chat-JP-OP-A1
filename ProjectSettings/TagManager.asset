@@ -6,6 +6,7 @@ TagManager:
   tags:
   - UIManager
   - LocalizationManager
+  - InputController
   layers:
   - Default
   - TransparentFX

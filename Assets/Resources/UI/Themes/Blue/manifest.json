@@ -218,7 +218,7 @@
     {
       "key": "Scroll_Area",
       "base": {
-        "fileName": "Scroll-controller-2.png",
+        "fileName": "Scroll.png",
         "pixelPerUnit": 100,
         "filterMode": 1,
         "borders": {
@@ -261,7 +261,7 @@
     {
       "key": "Scroll",
       "base": {
-        "fileName": "Scroll.png",
+        "fileName": "Scroll-controller-2.png",
         "pixelPerUnit": 100,
         "filterMode": 1,
         "borders": {

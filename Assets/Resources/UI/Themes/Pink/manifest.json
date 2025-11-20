@@ -218,7 +218,7 @@
     {
       "key": "Scroll",
       "base": {
-        "fileName": "Scroll.png",
+        "fileName": "Controller-2.png",
         "pixelPerUnit": 100,
         "filterMode": 1,
         "borders": {
@@ -261,7 +261,7 @@
     {
       "key": "Scroll_Area",
       "base": {
-        "fileName": "Controller-2.png",
+        "fileName": "Scroll.png",
         "pixelPerUnit": 100,
         "filterMode": 1,
         "borders": {
@@ -312,9 +312,9 @@
   "font": {
     "assetName": "Inter-VariableFont_opsz,wght SDF.asset",
     "color": {
-      "X": 255.0,
-      "Y": 0.0,
-      "Z": 128.0,
+      "X": 44.0,
+      "Y": 43.0,
+      "Z": 54.0,
       "W": 255.0
     }
   },

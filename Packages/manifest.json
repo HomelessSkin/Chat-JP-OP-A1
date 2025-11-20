@@ -2,6 +2,7 @@
   "dependencies": {
     "com.bgtools.playerprefseditor": "https://github.com/Dysman/bgTools-playerPrefsEditor.git#upm",
     "com.homelessskin.core": "https://github.com/HomelessSkin/com.homelessskin.core.git",
+    "com.homelessskin.input": "https://github.com/HomelessSkin/com.homelessskin.input.git",
     "com.homelessskin.ui": "https://github.com/HomelessSkin/com.homelessskin.ui.git",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.entities": "1.3.14",

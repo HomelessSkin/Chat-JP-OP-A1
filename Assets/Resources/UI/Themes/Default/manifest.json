@@ -3,7 +3,6 @@
     {
       "key": "Menu_Button",
       "base": {
-        "fileName": "MenuButton",
         "pixelPerUnit": 100,
         "filterMode": 0,
         "borders": {
@@ -11,10 +10,68 @@
           "right": 6,
           "top": 6,
           "bottom": 24
-        }
+        },
+        "fileName": "MenuButton"
       },
-      "mask": null,
-      "overlay": null,
+      "mask": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": null
+      },
+      "overlay": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": null
+      },
+      "selectable": {
+        "transition": 0,
+        "normalColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "pressedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "selectedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "disabledColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedSprite": null,
+        "pressedSprite": null,
+        "selectedSprite": null,
+        "disabledSprite": null
+      },
       "text": {
         "fontSize": 32,
         "characterSpacing": 0,
@@ -26,7 +83,6 @@
     {
       "key": "Chat_Message",
       "base": {
-        "fileName": "ChatMessage",
         "pixelPerUnit": 100,
         "filterMode": 0,
         "borders": {
@@ -34,10 +90,68 @@
           "right": 13,
           "top": 13,
           "bottom": 13
-        }
+        },
+        "fileName": "ChatMessage"
       },
-      "mask": null,
-      "overlay": null,
+      "mask": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": null
+      },
+      "overlay": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": null
+      },
+      "selectable": {
+        "transition": 0,
+        "normalColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "pressedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "selectedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "disabledColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedSprite": null,
+        "pressedSprite": null,
+        "selectedSprite": null,
+        "disabledSprite": null
+      },
       "text": {
         "fontSize": 32,
         "characterSpacing": 0,
@@ -49,7 +163,6 @@
     {
       "key": "Big_Panel",
       "base": {
-        "fileName": "FieldDark",
         "pixelPerUnit": 100,
         "filterMode": 0,
         "borders": {
@@ -57,10 +170,68 @@
           "right": 7,
           "top": 7,
           "bottom": 7
-        }
+        },
+        "fileName": "FieldDark"
       },
-      "mask": null,
-      "overlay": null,
+      "mask": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": null
+      },
+      "overlay": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": null
+      },
+      "selectable": {
+        "transition": 0,
+        "normalColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "pressedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "selectedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "disabledColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedSprite": null,
+        "pressedSprite": null,
+        "selectedSprite": null,
+        "disabledSprite": null
+      },
       "text": {
         "fontSize": 64,
         "characterSpacing": 0,
@@ -72,7 +243,6 @@
     {
       "key": "Mid_Panel",
       "base": {
-        "fileName": "FieldLight",
         "pixelPerUnit": 100,
         "filterMode": 0,
         "borders": {
@@ -80,10 +250,68 @@
           "right": 7,
           "top": 7,
           "bottom": 7
-        }
+        },
+        "fileName": "FieldLight"
       },
-      "mask": null,
-      "overlay": null,
+      "mask": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": null
+      },
+      "overlay": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": null
+      },
+      "selectable": {
+        "transition": 0,
+        "normalColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "pressedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "selectedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "disabledColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedSprite": null,
+        "pressedSprite": null,
+        "selectedSprite": null,
+        "disabledSprite": null
+      },
       "text": {
         "fontSize": 32,
         "characterSpacing": 0,
@@ -95,7 +323,6 @@
     {
       "key": "Scroll",
       "base": {
-        "fileName": "Scroll.png",
         "pixelPerUnit": 100,
         "filterMode": 0,
         "borders": {
@@ -103,10 +330,10 @@
           "right": 0,
           "top": 0,
           "bottom": 0
-        }
+        },
+        "fileName": "Scroll.png"
       },
       "mask": {
-        "fileName": "Scroll_Mask.png",
         "pixelPerUnit": 100,
         "filterMode": 0,
         "borders": {
@@ -114,10 +341,10 @@
           "right": 0,
           "top": 0,
           "bottom": 0
-        }
+        },
+        "fileName": "Scroll_Mask.png"
       },
       "overlay": {
-        "fileName": null,
         "pixelPerUnit": 100,
         "filterMode": 1,
         "borders": {
@@ -125,7 +352,45 @@
           "right": 0,
           "top": 0,
           "bottom": 0
-        }
+        },
+        "fileName": null
+      },
+      "selectable": {
+        "transition": 0,
+        "normalColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "pressedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "selectedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "disabledColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedSprite": null,
+        "pressedSprite": null,
+        "selectedSprite": null,
+        "disabledSprite": null
       },
       "text": {
         "fontSize": 32,
@@ -138,7 +403,6 @@
     {
       "key": "Scroll_Area",
       "base": {
-        "fileName": "ScrollArea.png",
         "pixelPerUnit": 100,
         "filterMode": 0,
         "borders": {
@@ -146,10 +410,10 @@
           "right": 6,
           "top": 9,
           "bottom": 9
-        }
+        },
+        "fileName": "ScrollArea.png"
       },
       "mask": {
-        "fileName": null,
         "pixelPerUnit": 100,
         "filterMode": 1,
         "borders": {
@@ -157,10 +421,10 @@
           "right": 0,
           "top": 0,
           "bottom": 0
-        }
+        },
+        "fileName": null
       },
       "overlay": {
-        "fileName": null,
         "pixelPerUnit": 100,
         "filterMode": 1,
         "borders": {
@@ -168,7 +432,45 @@
           "right": 0,
           "top": 0,
           "bottom": 0
-        }
+        },
+        "fileName": null
+      },
+      "selectable": {
+        "transition": 0,
+        "normalColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "pressedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "selectedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "disabledColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedSprite": null,
+        "pressedSprite": null,
+        "selectedSprite": null,
+        "disabledSprite": null
       },
       "text": {
         "fontSize": 32,
@@ -181,7 +483,6 @@
     {
       "key": "Text",
       "base": {
-        "fileName": "Text.png",
         "pixelPerUnit": 100,
         "filterMode": 0,
         "borders": {
@@ -189,10 +490,10 @@
           "right": 9,
           "top": 9,
           "bottom": 9
-        }
+        },
+        "fileName": "Text.png"
       },
       "mask": {
-        "fileName": null,
         "pixelPerUnit": 100,
         "filterMode": 1,
         "borders": {
@@ -200,10 +501,10 @@
           "right": 0,
           "top": 0,
           "bottom": 0
-        }
+        },
+        "fileName": null
       },
       "overlay": {
-        "fileName": null,
         "pixelPerUnit": 100,
         "filterMode": 1,
         "borders": {
@@ -211,7 +512,45 @@
           "right": 0,
           "top": 0,
           "bottom": 0
-        }
+        },
+        "fileName": null
+      },
+      "selectable": {
+        "transition": 0,
+        "normalColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "pressedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "selectedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "disabledColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedSprite": null,
+        "pressedSprite": null,
+        "selectedSprite": null,
+        "disabledSprite": null
       },
       "text": {
         "fontSize": 32,

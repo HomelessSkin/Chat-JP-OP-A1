@@ -322,6 +322,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &132292389 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1191462982083881911, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
+  m_PrefabInstance: {fileID: 2040829003}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22448c74e6c9ea4ebe87a0d74a56f7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.homelessskin.ui::UI.Drawable
 --- !u!1 &203595521
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,6 +426,7 @@ MonoBehaviour:
   NonRedrawable: 0
   Mask: {fileID: 613853685}
   Overlay: {fileID: 1888131075}
+  Selectable: {fileID: 0}
   Texts: []
 --- !u!1 &229204421
 GameObject:
@@ -538,6 +550,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!114 &293490236 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1191462982083881911, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
+  m_PrefabInstance: {fileID: 1116492075}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22448c74e6c9ea4ebe87a0d74a56f7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.homelessskin.ui::UI.Drawable
 --- !u!1 &329136291
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,6 +741,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1336034802535612084, guid: 4b3db9c72e296394f8958354e67719c9, type: 3}
   m_PrefabInstance: {fileID: 3689005265958622715}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &403107164 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1191462982083881911, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
+  m_PrefabInstance: {fileID: 1942026943}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22448c74e6c9ea4ebe87a0d74a56f7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.homelessskin.ui::UI.Drawable
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,6 +991,7 @@ MonoBehaviour:
   NonRedrawable: 0
   Mask: {fileID: 0}
   Overlay: {fileID: 0}
+  Selectable: {fileID: 0}
   Texts: []
 --- !u!114 &431140675
 MonoBehaviour:
@@ -1002,6 +1037,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: com.homelessskin.ui::UI.ShowButtonListener
   SkipSetEnabled: 0
   DependsOn: []
+--- !u!114 &434755128 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1191462982083881911, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
+  m_PrefabInstance: {fileID: 1703369125}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22448c74e6c9ea4ebe87a0d74a56f7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.homelessskin.ui::UI.Drawable
 --- !u!1 &522563029
 GameObject:
   m_ObjectHideFlags: 0
@@ -1470,10 +1516,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &633438522 stripped
+--- !u!114 &628269139 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1191462982083881911, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
-  m_PrefabInstance: {fileID: 1689717085}
+  m_PrefabInstance: {fileID: 1773111014}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -3509,17 +3555,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1473977923}
   m_CullTransparentMesh: 1
---- !u!114 &1489600464 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1191462982083881911, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
-  m_PrefabInstance: {fileID: 30628226}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d22448c74e6c9ea4ebe87a0d74a56f7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: com.homelessskin.ui::UI.Drawable
 --- !u!1001 &1536704049
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3753,6 +3788,7 @@ MonoBehaviour:
   NonRedrawable: 0
   Mask: {fileID: 1267818099}
   Overlay: {fileID: 1251288338}
+  Selectable: {fileID: 0}
   Texts: []
 --- !u!114 &1637700835 stripped
 MonoBehaviour:
@@ -3830,17 +3866,6 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 1
             m_CallState: 2
---- !u!114 &1682168718 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1191462982083881911, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
-  m_PrefabInstance: {fileID: 766628428}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d22448c74e6c9ea4ebe87a0d74a56f7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: com.homelessskin.ui::UI.Drawable
 --- !u!1001 &1689717085
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4267,6 +4292,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1754480934}
   m_CullTransparentMesh: 1
+--- !u!114 &1765803073 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1191462982083881911, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
+  m_PrefabInstance: {fileID: 1159875875}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22448c74e6c9ea4ebe87a0d74a56f7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.homelessskin.ui::UI.Drawable
 --- !u!1001 &1773111014
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4650,6 +4686,7 @@ MonoBehaviour:
   NonRedrawable: 0
   Mask: {fileID: 0}
   Overlay: {fileID: 1264917346}
+  Selectable: {fileID: 0}
   Texts: []
 --- !u!1 &1888131073
 GameObject:
@@ -5077,6 +5114,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 431140669}
     m_Modifications:
+    - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
+      propertyPath: m_Transition
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3445150795387016123, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5646,17 +5687,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2114193510}
   m_CullTransparentMesh: 1
---- !u!114 &2119690062 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1191462982083881911, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
-  m_PrefabInstance: {fileID: 723009749}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d22448c74e6c9ea4ebe87a0d74a56f7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: com.homelessskin.ui::UI.Drawable
 --- !u!1001 &1529273988652814519
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5860,35 +5890,35 @@ PrefabInstance:
     - target: {fileID: 7772898241695463305, guid: fd267cf32b958f945821a32df9c5870e, type: 3}
       propertyPath: '_Drawer.Drawables.Array.data[0]'
       value: 
-      objectReference: {fileID: 2119690062}
+      objectReference: {fileID: 293490236}
     - target: {fileID: 7772898241695463305, guid: fd267cf32b958f945821a32df9c5870e, type: 3}
       propertyPath: '_Drawer.Drawables.Array.data[1]'
       value: 
-      objectReference: {fileID: 633438522}
+      objectReference: {fileID: 1765803073}
     - target: {fileID: 7772898241695463305, guid: fd267cf32b958f945821a32df9c5870e, type: 3}
       propertyPath: '_Drawer.Drawables.Array.data[2]'
       value: 
-      objectReference: {fileID: 431140674}
+      objectReference: {fileID: 132292389}
     - target: {fileID: 7772898241695463305, guid: fd267cf32b958f945821a32df9c5870e, type: 3}
       propertyPath: '_Drawer.Drawables.Array.data[3]'
       value: 
-      objectReference: {fileID: 1682168718}
+      objectReference: {fileID: 434755128}
     - target: {fileID: 7772898241695463305, guid: fd267cf32b958f945821a32df9c5870e, type: 3}
       propertyPath: '_Drawer.Drawables.Array.data[4]'
       value: 
-      objectReference: {fileID: 1856091624}
+      objectReference: {fileID: 628269139}
     - target: {fileID: 7772898241695463305, guid: fd267cf32b958f945821a32df9c5870e, type: 3}
       propertyPath: '_Drawer.Drawables.Array.data[5]'
       value: 
-      objectReference: {fileID: 1562553411}
+      objectReference: {fileID: 203595525}
     - target: {fileID: 7772898241695463305, guid: fd267cf32b958f945821a32df9c5870e, type: 3}
       propertyPath: '_Drawer.Drawables.Array.data[6]'
       value: 
-      objectReference: {fileID: 1489600464}
+      objectReference: {fileID: 403107164}
     - target: {fileID: 7772898241695463305, guid: fd267cf32b958f945821a32df9c5870e, type: 3}
       propertyPath: '_Drawer.Drawables.Array.data[7]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1856091624}
     - target: {fileID: 7772898241695463305, guid: fd267cf32b958f945821a32df9c5870e, type: 3}
       propertyPath: Badges.DefaultSprites.Array.size
       value: 2

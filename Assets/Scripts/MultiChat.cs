@@ -184,6 +184,9 @@ namespace MultiChat
 
         public void OpenPlatforms()
         {
+            if (_Platforms.IsEnabled())
+                return;
+
             _Platforms.Scroll.content = Instantiate(_Platforms.ContentPrefab, _Platforms.View).transform as RectTransform;
 
             for (int l = 0; l < _Platforms.List.Count; l++)
@@ -197,7 +200,8 @@ namespace MultiChat
         }
         public void ClosePlatforms()
         {
-            Destroy(_Platforms.Scroll.content.gameObject);
+            if (_Platforms.Scroll.content)
+                Destroy(_Platforms.Scroll.content.gameObject);
 
             _Platforms.SetEnabled(false);
         }
@@ -340,7 +344,7 @@ namespace MultiChat
             LoadPlatforms();
 
             //OpenPlatforms();
-            OpenThemes();
+            //OpenThemes();
         }
         protected override void Update()
         {

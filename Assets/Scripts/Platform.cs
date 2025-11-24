@@ -5,6 +5,8 @@ using Core.Util.Core.Util;
 
 using Newtonsoft.Json;
 
+using UI;
+
 using UnityEngine;
 
 using WebSocketSharp;
@@ -12,9 +14,11 @@ using WebSocketSharp;
 namespace MultiChat
 {
     [Serializable]
-    internal abstract class Platform
+    internal abstract class Platform : IInitData
     {
         protected static string RedirectPath = "https://oauth.vk.com/blank.html";
+
+        public string _Name { get => Data.PlatformName; set => throw new NotImplementedException(); }
 
         internal bool Enabled
         {
@@ -39,7 +43,6 @@ namespace MultiChat
             }
         }
         internal string Type { get => Data.PlatformType; }
-        internal string Name { get => Data.PlatformName; }
         internal string Channel { get => Data.ChannelName; }
 
         protected int Index;

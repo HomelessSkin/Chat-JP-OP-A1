@@ -10,7 +10,6 @@ using TMPro;
 using UI;
 
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace MultiChat
 {
@@ -154,10 +153,10 @@ namespace MultiChat
             switch (_PlatformCreation.Switch.GetValue())
             {
                 case 0:
-                _Platforms.List.Add(new VK(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text, _Platforms.List.Count + 1, this));
+                _Platforms.InitData.Add(new VK(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text, _Platforms.InitData.Count + 1, this));
                 break;
                 case 1:
-                _Platforms.List.Add(new Twitch(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text, _Platforms.List.Count + 1, this));
+                _Platforms.InitData.Add(new Twitch(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text, _Platforms.InitData.Count + 1, this));
                 break;
             }
 
@@ -172,39 +171,10 @@ namespace MultiChat
         [SerializeField] Platforms _Platforms;
         #region PLATFORM LIST
         [Serializable]
-        class Platforms : WindowBase
-        {
-            public ScrollRect Scroll;
-            public Transform View;
-            public GameObject ContentPrefab;
-            public GameObject PlatformPrefab;
+        class Platforms : ScrollBase { }
 
-            public List<Platform> List = new List<Platform>();
-        }
-
-        public void OpenPlatforms()
-        {
-            if (_Platforms.IsEnabled())
-                return;
-
-            _Platforms.Scroll.content = Instantiate(_Platforms.ContentPrefab, _Platforms.View).transform as RectTransform;
-
-            for (int l = 0; l < _Platforms.List.Count; l++)
-            {
-                var go = Instantiate(_Platforms.PlatformPrefab, _Platforms.Scroll.content);
-                var lp = go.GetComponent<ListPlatform>();
-                lp.Init(_Platforms.List[l], this);
-            }
-
-            _Platforms.SetEnabled(true);
-        }
-        public void ClosePlatforms()
-        {
-            if (_Platforms.Scroll.content)
-                Destroy(_Platforms.Scroll.content.gameObject);
-
-            _Platforms.SetEnabled(false);
-        }
+        public void OpenPlatforms() => _Platforms.Open<ListPlatform>(this);
+        public void ClosePlatforms() => _Platforms.Close();
 
         void LoadPlatforms()
         {
@@ -215,10 +185,10 @@ namespace MultiChat
                 switch (data.PlatformType)
                 {
                     case "vk":
-                    _Platforms.List.Add(new VK(data, index, this));
+                    _Platforms.InitData.Add(new VK(data, index, this));
                     break;
                     case "twitch":
-                    _Platforms.List.Add(new Twitch(data, index, this));
+                    _Platforms.InitData.Add(new Twitch(data, index, this));
                     break;
                 }
 
@@ -355,9 +325,12 @@ namespace MultiChat
             {
                 T = 0f;
 
-                for (int p = 0; p < _Platforms.List.Count; p++)
-                    if (_Platforms.List[p].Enabled)
-                        _Platforms.List[p].Refresh();
+                for (int p = 0; p < _Platforms.InitData.Count; p++)
+                {
+                    var platform = (Platform)_Platforms.InitData[p];
+                    if (platform.Enabled)
+                        platform.Refresh();
+                }
             }
 
             UpdateChat();
@@ -368,12 +341,13 @@ namespace MultiChat
                 while (process)
                 {
                     process = false;
-                    for (int p = 0; p < _Platforms.List.Count; p++)
+                    for (int p = 0; p < _Platforms.InitData.Count; p++)
                     {
-                        if (!_Platforms.List[p].Enabled)
+                        var platform = (Platform)_Platforms.InitData[p];
+                        if (!platform.Enabled)
                             continue;
 
-                        var got = _Platforms.List[p].GetMessage(out var message);
+                        var got = platform.GetMessage(out var message);
                         process |= got;
 
                         if (got)
@@ -417,8 +391,11 @@ namespace MultiChat
         {
             base.OnDestroy();
 
-            for (int p = 0; p < _Platforms.List.Count; p++)
-                _Platforms.List[p].Disconnect();
+            for (int p = 0; p < _Platforms.InitData.Count; p++)
+            {
+                var platform = (Platform)_Platforms.InitData[p];
+                platform.Disconnect();
+            }
         }
 #if UNITY_EDITOR
         protected override void OnValidate()

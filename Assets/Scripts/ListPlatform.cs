@@ -1,28 +1,28 @@
 using TMPro;
 
+using UI;
+
 using UnityEngine;
 
 namespace MultiChat
 {
-    public class ListPlatform : MonoBehaviour
+    public class ListPlatform : ScrollItem
     {
         [SerializeField] TMP_Text Index;
         [SerializeField] TMP_Text Enabled;
         [SerializeField] TMP_Text Type;
-        [SerializeField] TMP_Text Name;
         [SerializeField] TMP_Text Channel;
 
-        MultiChatManager Manager;
-
-        internal void Init(Platform data, MultiChatManager manager)
+        public override void Init(int index, IInitData data, UIManagerBase manager)
         {
-            Index.text = $"{data.CurrentIndex}";
-            Enabled.text = $"{data.Enabled}";
-            Type.text = $"{data.Type}";
-            Name.text = $"{data.Name}";
-            Channel.text = $"{data.Channel}";
+            base.Init(index, data, manager);
 
-            Manager = manager;
+            var platform = (Platform)data;
+
+            Index.text = $"{platform.CurrentIndex}";
+            Enabled.text = $"{platform.Enabled}";
+            Type.text = $"{platform.Type}";
+            Channel.text = $"{platform.Channel}";
         }
     }
 }

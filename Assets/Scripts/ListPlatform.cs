@@ -13,7 +13,7 @@ namespace MultiChat
         [SerializeField] TMP_Text Type;
         [SerializeField] TMP_Text Channel;
 
-        public override void Init(int index, IInitData data, UIManagerBase manager)
+        public override void Init(int index, Storage.Data data, UIManagerBase manager)
         {
             base.Init(index, data, manager);
 

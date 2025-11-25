@@ -1,3 +1,17 @@
- ; 
-empty name ; empty name
-empty channel ; empty channel
+{
+    "name": "en",
+    "dictionary": [
+        {
+            "key": "",
+            "value": ""
+        },
+        {
+            "key": "empty name",
+            "value": "empty name"
+        },
+        {
+            "key": "empty channel",
+            "value": "empty channel"
+        }
+    ]
+}

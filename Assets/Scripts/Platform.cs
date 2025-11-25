@@ -14,11 +14,9 @@ using WebSocketSharp;
 namespace MultiChat
 {
     [Serializable]
-    internal abstract class Platform : IInitData
+    internal abstract class Platform : Storage.Data
     {
         protected static string RedirectPath = "https://oauth.vk.com/blank.html";
-
-        public string _Name { get => Data.PlatformName; set => throw new NotImplementedException(); }
 
         internal bool Enabled
         {

@@ -14,7 +14,7 @@
       "dependencies": {
         "com.unity.entities": "1.3.14"
       },
-      "hash": "f2baa7380954ddadc697eb074c1935f88671494d"
+      "hash": "dd6c7e98e1b360ff71ad68c35c22a19ac68941cc"
     },
     "com.homelessskin.input": {
       "version": "https://github.com/HomelessSkin/com.homelessskin.input.git",
@@ -35,7 +35,7 @@
         "com.unity.ugui": "2.0.0",
         "com.unity.nuget.newtonsoft-json": "3.2.2"
       },
-      "hash": "7000a6ef4e5bde457e71275ff48a36408297ca7f"
+      "hash": "b69338d110af530b478d3108f4ab9ce569908417"
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",

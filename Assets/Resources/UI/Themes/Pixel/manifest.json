@@ -503,6 +503,86 @@
         "xOffset": 0,
         "yOffset": 0
       }
+    },
+    {
+      "key": "Small_Panel",
+      "base": {
+        "pixelPerUnit": 100,
+        "filterMode": 0,
+        "borders": {
+          "left": 7,
+          "right": 7,
+          "top": 7,
+          "bottom": 7
+        },
+        "fileName": "FieldDark.png"
+      },
+      "mask": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": null
+      },
+      "overlay": {
+        "pixelPerUnit": 50,
+        "filterMode": 0,
+        "borders": {
+          "left": 7,
+          "right": 7,
+          "top": 7,
+          "bottom": 7
+        },
+        "fileName": "FieldDark_Overlay.png"
+      },
+      "selectable": {
+        "transition": 0,
+        "normalColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "pressedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "selectedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "disabledColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedSprite": null,
+        "pressedSprite": null,
+        "selectedSprite": null,
+        "disabledSprite": null
+      },
+      "text": {
+        "fontSize": 32,
+        "characterSpacing": 0,
+        "wordSpacing": 0,
+        "xOffset": 0,
+        "yOffset": 0
+      }
     }
   ],
   "v": {
@@ -511,7 +591,7 @@
     "patch": 2
   },
   "name": "Pixel",
-  "languageKey": "default",
+  "languageKey": "en",
   "font": {
     "assetName": "Audiowide-Regular SDF.asset",
     "color": {

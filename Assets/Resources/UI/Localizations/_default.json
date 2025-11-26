@@ -2,8 +2,64 @@
     "name": "en",
     "dictionary": [
         {
+            "key": "exit",
+            "value": "Exit"
+        },
+        {
+            "key": "name",
+            "value": "Name:"
+        },
+        {
+            "key": "enter redirect",
+            "value": "Enter redirect URL"
+        },
+        {
+            "key": "type",
+            "value": "Type:"
+        },
+        {
+            "key": "localizations",
+            "value": "Localizations"
+        },
+        {
+            "key": "submit",
+            "value": "Submit"
+        },
+        {
+            "key": "auth",
+            "value": "Authentication"
+        },
+        {
+            "key": "enabled",
+            "value": "Enabled:"
+        },
+        {
+            "key": "themes",
+            "value": "Themes"
+        },
+        {
+            "key": "index",
+            "value": "Index:"
+        },
+        {
+            "key": "select",
+            "value": "Select"
+        },
+        {
+            "key": "channel",
+            "value": "Channel:"
+        },
+        {
             "key": "",
             "value": ""
+        },
+        {
+            "key": "platforms",
+            "value": "Platforms"
+        },
+        {
+            "key": "create",
+            "value": "Create"
         },
         {
             "key": "empty name",
@@ -12,6 +68,18 @@
         {
             "key": "empty channel",
             "value": "empty channel"
+        },
+        {
+            "key": "theme lang override",
+            "value": "theme lang override"
+        },
+        {
+            "key": "success",
+            "value": "success"
+        },
+        {
+            "key": "error",
+            "value": "error"
         }
     ]
 }

@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using Newtonsoft.Json;
-
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -50,14 +48,12 @@ namespace MultiChat
                 {
                     request.SetRequestHeader("Authorization", $"Bearer {PlayerPrefs.GetString(TokenPref)}");
 
-                    var oper = request.SendWebRequest();
-                    while (!oper.isDone)
-                        await System.Threading.Tasks.Task.Yield();
+                    await request.SendWebRequest();
 
                     if (request.result == UnityWebRequest.Result.Success)
-                        Data.ChannelID = JsonConvert.DeserializeObject<JWT>(request.downloadHandler.text).data.token;
+                        Data.ChannelID = JsonUtility.FromJson<JWT>(request.downloadHandler.text).data.token;
                     else
-                        Debug.Log(request.error);
+                        Manager.AddMessage($"{request.error}\n{Type}_Connect", 10f);
                 }
 
                 InitializeSocket(SocketURL);
@@ -65,7 +61,7 @@ namespace MultiChat
         }
         protected override void OnOpen(object sender, EventArgs e)
         {
-            Socket.Send(JsonConvert.SerializeObject(new ClientMessage
+            Socket.Send(JsonUtility.ToJson(new ClientMessage
             {
                 id = (uint)MessageType.Connection,
                 connect = new ClientMessage.Connect
@@ -81,32 +77,30 @@ namespace MultiChat
             if (MultiChatManager.DebugSocket)
                 Debug.Log(e.Data);
 
-            Responses.Enqueue(JsonConvert.DeserializeObject<SocketMessage>(e.Data));
+            Responses.Enqueue(JsonUtility.FromJson<SocketMessage>(e.Data));
         }
         protected override async void SubscribeToEvent(string type)
         {
             using (var request = UnityWebRequest.Post(EntryPath +
                 $"/v1/channels" +
-                $"?body={Data.ChannelName}", "", "application/json"))
+                $"?body={Channel.ToLower()}", "", "application/json"))
             {
                 request.SetRequestHeader("Authorization", $"Bearer {PlayerPrefs.GetString(TokenPref)}");
 
                 var body = new ChannelsRequest
                 {
-                    channels = new ChannelsRequest.Channel[] { new ChannelsRequest.Channel { url = "ru_1ned" } }
+                    channels = new ChannelsRequest.Channel[] { new ChannelsRequest.Channel { url = Channel.ToLower() } }
                 };
 
-                var handler = new UploadHandlerRaw(new System.Text.UTF8Encoding().GetBytes(JsonConvert.SerializeObject(body)));
+                var handler = new UploadHandlerRaw(new System.Text.UTF8Encoding().GetBytes(JsonUtility.ToJson(body)));
                 request.uploadHandler = handler;
                 request.downloadHandler = new DownloadHandlerBuffer();
 
-                var oper = request.SendWebRequest();
-                while (!oper.isDone)
-                    await Task.Yield();
+                await request.SendWebRequest();
 
                 if (request.result == UnityWebRequest.Result.Success)
                 {
-                    var channel = JsonConvert.DeserializeObject<ChannelsResponse>(request.downloadHandler.text).data.channels[0].channel;
+                    var channel = JsonUtility.FromJson<ChannelsResponse>(request.downloadHandler.text).data.channels[0].channel;
 
                     var message = new ClientMessage { };
                     switch (type)
@@ -117,10 +111,12 @@ namespace MultiChat
                         break;
                     }
 
-                    Socket.Send(JsonConvert.SerializeObject(message));
+                    Socket.Send(JsonUtility.ToJson(message));
+
+                    Manager.AddMessage($"Subscribed successfully to:\n{type} event\n{Type}_Sub");
                 }
                 else
-                    Debug.Log(request.error);
+                    Manager.AddMessage($"{request.error}\n{Type}_Sub", 10f);
             }
         }
         protected override void ProcessSocketMessages()
@@ -130,7 +126,7 @@ namespace MultiChat
                 var socket = Responses.Dequeue();
                 if (socket.id != 0u)
                 {
-                    Debug.Log($"Successfull {(MessageType)socket.id}");
+                    Manager.AddMessage($"Successfull {(MessageType)socket.id}\n{Type}_SocketMsg");
 
                     continue;
                 }

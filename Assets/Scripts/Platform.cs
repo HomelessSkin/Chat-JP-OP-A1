@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 using Core.Util.Core.Util;
 
-using Newtonsoft.Json;
-
 using UI;
 
 using UnityEngine;
@@ -123,7 +121,7 @@ namespace MultiChat
         }
         protected void SaveData()
         {
-            PlayerPrefs.SetString("platform_" + Index, JsonConvert.SerializeObject(Data));
+            PlayerPrefs.SetString("platform_" + Index, JsonUtility.ToJson(Data));
             PlayerPrefs.Save();
         }
         protected void InitializeSocket(string url)
@@ -142,8 +140,11 @@ namespace MultiChat
 
             Socket.Connect();
         }
-        protected void OnClose(object sender, CloseEventArgs e) => Debug.Log(e.Reason);
-        protected void OnError(object sender, ErrorEventArgs e) => Debug.Log(e.Message);
+        protected void OnClose(object sender, CloseEventArgs e)
+        {
+            Manager.AddMessage($"{e.Reason}\n{e.Code}\n{Type}_Close", 10f);
+        }
+        protected void OnError(object sender, ErrorEventArgs e) => Manager.AddMessage($" {e.Message}\n{Type}_Error", 10f);
     }
 
     #region DATA

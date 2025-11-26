@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 1448701043370983570}
   - component: {fileID: 6559596476314553883}
   - component: {fileID: 8283593416758262670}
+  - component: {fileID: 2334945127198808038}
   m_Layer: 5
   m_Name: Header
   m_TagString: Untagged
@@ -272,6 +273,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2334945127198808038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105325208884470477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce18320626dd31e4bbf6b49520cd20ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.homelessskin.ui::UI.Localizable
+  _Type: 9
+  Key: 
+  Value: {fileID: 8283593416758262670}
 --- !u!1 &6848328105082926736
 GameObject:
   m_ObjectHideFlags: 0

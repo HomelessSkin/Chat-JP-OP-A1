@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using Newtonsoft.Json;
-
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -53,8 +51,8 @@ namespace MultiChat
                         await Task.Yield();
 
                     if (request.result == UnityWebRequest.Result.Success)
-                        Data.ChannelID = JsonConvert
-                            .DeserializeObject<UserResponse>(request.downloadHandler.text)
+                        Data.ChannelID = JsonUtility
+                            .FromJson<UserResponse>(request.downloadHandler.text)
                             .data[0]
                             .id;
                 }
@@ -70,11 +68,11 @@ namespace MultiChat
             if (MultiChatManager.DebugSocket)
                 Debug.Log(e.Data);
 
-            Responses.Enqueue(JsonConvert.DeserializeObject<SocketMessage>(e.Data));
+            Responses.Enqueue(JsonUtility.FromJson<SocketMessage>(e.Data));
         }
         protected override async void SubscribeToEvent(string type)
         {
-            var data = JsonConvert.SerializeObject(new EventSubRequest
+            var data = JsonUtility.ToJson(new EventSubRequest
             {
                 type = type,
                 version = "1",
@@ -104,9 +102,9 @@ namespace MultiChat
                     await Task.Yield();
 
                 if (request.result == UnityWebRequest.Result.Success)
-                    Debug.Log($"Subscribed successfully to a {type} event");
+                    Manager.AddMessage($"Subscribed successfully to:\n{type} event");
                 else
-                    Debug.LogError($"Failed to create subscription: {request.error}");
+                    Manager.AddMessage($"Failed to create subscription to:\n{type} event.\nWith error:\n{request.error}", 10f);
             }
         }
         protected override async void ProcessSocketMessages()
@@ -114,7 +112,6 @@ namespace MultiChat
             while (Responses.Count > 0)
             {
                 var message = Responses.Dequeue();
-
                 switch (message.metadata.message_type)
                 {
                     case "session_keepalive":
@@ -167,7 +164,7 @@ namespace MultiChat
                 {
                     var fragment = fragments[f];
                     var m = new MC_Message.Part();
-                    if (fragment.emote != null)
+                    if (!string.IsNullOrEmpty(fragment.emote.id))
                     {
                         var hash = fragment.emote.id.GetHashCode();
                         m.Emote = new MC_Message.Part.Smile { Hash = hash, Draw = true };
@@ -230,7 +227,7 @@ namespace MultiChat
                         if (request.result == UnityWebRequest.Result.Success)
                         {
                             var list = new List<Task<Texture2D>>();
-                            var response = JsonConvert.DeserializeObject<BadgesResponse>(request.downloadHandler.text);
+                            var response = JsonUtility.FromJson<BadgesResponse>(request.downloadHandler.text);
 
                             for (int p = 0; p < parts.Count; p++)
                             {
@@ -260,7 +257,7 @@ namespace MultiChat
                         if (request.result == UnityWebRequest.Result.Success)
                         {
                             var list = new List<Task<Texture2D>>();
-                            var response = JsonConvert.DeserializeObject<BadgesResponse>(request.downloadHandler.text);
+                            var response = JsonUtility.FromJson<BadgesResponse>(request.downloadHandler.text);
 
                             for (int p = 0; p < parts.Count; p++)
                             {
@@ -332,8 +329,6 @@ namespace MultiChat
         class SocketMessage
         {
             public Metadata metadata;
-            public Payload payload;
-
             [Serializable]
             public class Metadata
             {
@@ -341,28 +336,26 @@ namespace MultiChat
                 public string subscription_type;
             }
 
+            public Payload payload;
             [Serializable]
             public class Payload
             {
                 public Session session;
-                public Event @event;
-
+                [Serializable]
                 public class Session
                 {
                     public string id;
                 }
 
+                public Event @event;
                 [Serializable]
                 public class Event
                 {
                     public string message_id;
-
-                    public Badge[] badges;
                     public string color;
                     public string chatter_user_name;
-                    public Message message;
-                    public Cheer cheer;
 
+                    public Badge[] badges;
                     [Serializable]
                     public class Badge
                     {
@@ -370,21 +363,20 @@ namespace MultiChat
                         public string id;
                     }
 
+                    public Message message;
                     [Serializable]
                     public class Message
                     {
                         public string text;
-                        public Fragment[] fragments;
 
+                        public Fragment[] fragments;
                         [Serializable]
                         public class Fragment
                         {
                             public string type;
                             public string text;
-                            public Cheermote cheermote;
-                            public Emote emote;
-                            public Mention mention;
 
+                            public Cheermote cheermote;
                             [Serializable]
                             public class Cheermote
                             {
@@ -393,12 +385,14 @@ namespace MultiChat
                                 public int tier;
                             }
 
+                            public Emote emote;
                             [Serializable]
                             public class Emote
                             {
                                 public string id;
                             }
 
+                            public Mention mention;
                             [Serializable]
                             public class Mention
                             {
@@ -407,6 +401,7 @@ namespace MultiChat
                         }
                     }
 
+                    public Cheer cheer;
                     [Serializable]
                     public class Cheer
                     {

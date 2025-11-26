@@ -93,6 +93,7 @@ MonoBehaviour:
   NonRedrawable: 1
   Mask: {fileID: 5875491059763598777}
   Overlay: {fileID: 3116773314378766607}
+  Selectable: {fileID: 0}
   Texts: []
 --- !u!1 &1094787158171402974
 GameObject:
@@ -277,6 +278,7 @@ MonoBehaviour:
   NonRedrawable: 1
   Mask: {fileID: 803476134915361093}
   Overlay: {fileID: 8712940329368226789}
+  Selectable: {fileID: 0}
   Texts: []
 --- !u!1 &2720747037077423837
 GameObject:
@@ -456,7 +458,7 @@ GameObject:
   - component: {fileID: -8162578058549107092}
   m_Layer: 5
   m_Name: Theme
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -468,7 +470,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6507086678074882969}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -893,6 +895,7 @@ MonoBehaviour:
   NonRedrawable: 1
   Mask: {fileID: 5888325070342533886}
   Overlay: {fileID: 7353537405125559356}
+  Selectable: {fileID: 0}
   Texts: []
 --- !u!1001 &6270479952615320463
 PrefabInstance:
@@ -902,6 +905,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7804816315898947859}
     m_Modifications:
+    - target: {fileID: 412660016067569928, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
+      propertyPath: Key
+      value: select
+      objectReference: {fileID: 0}
     - target: {fileID: 1191462982083881911, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: NonRedrawable
       value: 1
@@ -1115,6 +1122,10 @@ PrefabInstance:
     - target: {fileID: 5497514576938554527, guid: 7f56838b1cf620f4c8a77734244db78f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6383470722798562333, guid: 7f56838b1cf620f4c8a77734244db78f, type: 3}
+      propertyPath: Key
+      value: name
       objectReference: {fileID: 0}
     - target: {fileID: 8818914633503616839, guid: 7f56838b1cf620f4c8a77734244db78f, type: 3}
       propertyPath: m_Name

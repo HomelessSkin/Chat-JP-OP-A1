@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <sectionGroup name="system.net">
+      <section name="settings" type="System.Net.Configuration.NetSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    </sectionGroup>
+  </configSections>
+  <system.net>
+    <settings>
+      <httpWebRequest useUnsafeHeaderParsing="true" />
+    </settings>
+  </system.net>
+  <startup>
+    <supportedRuntime version="v4.0" />
+  </startup>
+</configuration>

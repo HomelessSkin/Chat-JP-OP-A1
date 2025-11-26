@@ -32,10 +32,9 @@
       "source": "git",
       "dependencies": {
         "com.unity.entities": "1.3.14",
-        "com.unity.ugui": "2.0.0",
-        "com.unity.nuget.newtonsoft-json": "3.2.2"
+        "com.unity.ugui": "2.0.0"
       },
-      "hash": "b69338d110af530b478d3108f4ab9ce569908417"
+      "hash": "28f26e85b5fabf271d8ec88e19a4059d93838576"
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
@@ -122,13 +121,6 @@
     "com.unity.nuget.mono-cecil": {
       "version": "1.11.5",
       "depth": 1,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.nuget.newtonsoft-json": {
-      "version": "3.2.2",
-      "depth": 0,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"

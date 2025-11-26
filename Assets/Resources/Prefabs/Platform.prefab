@@ -90,10 +90,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f00a8a8aa6a9fd34e8d3adfcf1bf831a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MultiChat.ListPlatform
+  Name: {fileID: 2123530992680580299}
   Index: {fileID: 2701777798863777447}
   Enabled: {fileID: 8833829033928162169}
   Type: {fileID: 1063717649177338261}
-  Name: {fileID: 2123530992680580299}
   Channel: {fileID: 424306860735426614}
 --- !u!1 &2521580482524097247
 GameObject:
@@ -694,6 +694,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6383470722798562333, guid: 7f56838b1cf620f4c8a77734244db78f, type: 3}
+      propertyPath: Key
+      value: enabled
+      objectReference: {fileID: 0}
     - target: {fileID: 7915397960884045934, guid: 7f56838b1cf620f4c8a77734244db78f, type: 3}
       propertyPath: m_text
       value: False
@@ -1148,6 +1152,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6383470722798562333, guid: 7f56838b1cf620f4c8a77734244db78f, type: 3}
+      propertyPath: Key
+      value: index
+      objectReference: {fileID: 0}
     - target: {fileID: 7915397960884045934, guid: 7f56838b1cf620f4c8a77734244db78f, type: 3}
       propertyPath: m_text
       value: 0
@@ -1268,6 +1276,10 @@ PrefabInstance:
     - target: {fileID: 5497514576938554527, guid: 7f56838b1cf620f4c8a77734244db78f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6383470722798562333, guid: 7f56838b1cf620f4c8a77734244db78f, type: 3}
+      propertyPath: Key
+      value: type
       objectReference: {fileID: 0}
     - target: {fileID: 7915397960884045934, guid: 7f56838b1cf620f4c8a77734244db78f, type: 3}
       propertyPath: m_text
@@ -1390,6 +1402,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6383470722798562333, guid: 7f56838b1cf620f4c8a77734244db78f, type: 3}
+      propertyPath: Key
+      value: channel
+      objectReference: {fileID: 0}
     - target: {fileID: 8818914633503616839, guid: 7f56838b1cf620f4c8a77734244db78f, type: 3}
       propertyPath: m_Name
       value: Channel
@@ -1502,6 +1518,10 @@ PrefabInstance:
     - target: {fileID: 5497514576938554527, guid: 7f56838b1cf620f4c8a77734244db78f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6383470722798562333, guid: 7f56838b1cf620f4c8a77734244db78f, type: 3}
+      propertyPath: Key
+      value: name
       objectReference: {fileID: 0}
     - target: {fileID: 8818914633503616839, guid: 7f56838b1cf620f4c8a77734244db78f, type: 3}
       propertyPath: m_Name

@@ -1,0 +1,85 @@
+{
+    "name": "ru",
+    "dictionary": [
+        {
+            "key": "",
+            "value": ""
+        },
+        {
+            "key": "empty name",
+            "value": "введите имя"
+        },
+        {
+            "key": "empty channel",
+            "value": "введите название канала"
+        },
+        {
+            "key": "auth",
+            "value": "Авторизация"
+        },
+        {
+            "key": "localizations",
+            "value": "Локализация"
+        },
+        {
+            "key": "platforms",
+            "value": "Платформы"
+        },
+        {
+            "key": "themes",
+            "value": "Темы"
+        },
+        {
+            "key": "theme lang override",
+            "value": "переопределение языка темой"
+        },
+        {
+            "key": "select",
+            "value": "Выбрать"
+        },
+        {
+            "key": "name",
+            "value": "Имя:"
+        },
+        {
+            "key": "channel",
+            "value": "Канал:"
+        },
+        {
+            "key": "index",
+            "value": "Индекс:"
+        },
+        {
+            "key": "enabled",
+            "value": "Активно:"
+        },
+        {
+            "key": "type",
+            "value": "Тип:"
+        },
+        {
+            "key": "enter redirect",
+            "value": "Введите конечный URL"
+        },
+        {
+            "key": "submit",
+            "value": "Принять"
+        },
+        {
+            "key": "exit",
+            "value": "Выход"
+        },
+        {
+            "key": "success",
+            "value": "успех"
+        },
+        {
+            "key": "error",
+            "value": "ошибка"
+        },
+        {
+            "key": "create",
+            "value": "Создать"
+        }
+    ]
+}

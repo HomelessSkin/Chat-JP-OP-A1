@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 using Core.Util;
 
-using Newtonsoft.Json;
-
 using TMPro;
 
 using UI;
@@ -78,7 +76,10 @@ namespace MultiChat
                 break;
             }
 
-            SubmitToken();
+            if (SubmitToken())
+                AddMessage("success", 2f);
+            else
+                AddMessage("error", 2f);
 
             bool SubmitToken()
             {
@@ -150,20 +151,28 @@ namespace MultiChat
                 return;
             }
 
+            Platform platform = null;
             switch (_PlatformCreation.Switch.GetValue())
             {
                 case 0:
-                _Platforms.AllData.Add(new VK(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text, _Platforms.AllData.Count + 1, this));
+                platform = new VK(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text, _Platforms.AllData.Count + 1, this);
                 break;
                 case 1:
-                _Platforms.AllData.Add(new Twitch(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text, _Platforms.AllData.Count + 1, this));
+                platform = new Twitch(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text, _Platforms.AllData.Count + 1, this);
                 break;
             }
 
-            _PlatformCreation.NameInput.text = "";
-            _PlatformCreation.ChannelInput.text = "";
+            if (platform != null)
+            {
+                _Platforms.Close();
+                _Platforms.AddData(platform);
+                _Platforms.Open<ListPlatform>(this);
 
-            _PlatformCreation.SetEnabled(false);
+                _PlatformCreation.NameInput.text = "";
+                _PlatformCreation.ChannelInput.text = "";
+
+                _PlatformCreation.SetEnabled(false);
+            }
         }
         #endregion
 
@@ -185,14 +194,22 @@ namespace MultiChat
         }
 
         public void OpenPlatforms() => _Platforms.Open<ListPlatform>(this);
-        public void ClosePlatforms() => _Platforms.Close();
+        public void ClosePlatforms()
+        {
+            if (_PlatformCreation.IsEnabled())
+                return;
+
+            _Platforms.Close();
+        }
 
         void LoadPlatforms()
         {
+            _Platforms.AllData.Clear();
+
             var index = 1;
             while (PlayerPrefs.HasKey("platform_" + index))
             {
-                var data = JsonConvert.DeserializeObject<PlatformData>(PlayerPrefs.GetString("platform_" + index));
+                var data = JsonUtility.FromJson<PlatformData>(PlayerPrefs.GetString("platform_" + index));
                 switch (data.PlatformType)
                 {
                     case "vk":
@@ -409,7 +426,7 @@ namespace MultiChat
             }
         }
 #if UNITY_EDITOR
-        protected override void OnValidate()
+        public override void OnValidate()
         {
             base.OnValidate();
 

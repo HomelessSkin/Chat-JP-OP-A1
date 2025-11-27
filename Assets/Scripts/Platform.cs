@@ -60,6 +60,7 @@ namespace MultiChat
                 PlatformName = name,
                 ChannelName = channel,
             };
+            Name = name;
 
             Manager = manager;
         }
@@ -67,6 +68,7 @@ namespace MultiChat
         {
             CurrentIndex = index;
             Data = data;
+            Name = data.PlatformName;
 
             Manager = manager;
         }
@@ -140,11 +142,8 @@ namespace MultiChat
 
             Socket.Connect();
         }
-        protected void OnClose(object sender, CloseEventArgs e)
-        {
-            Manager.AddMessage($"{e.Reason}\n{e.Code}\n{Type}_Close", 10f);
-        }
-        protected void OnError(object sender, ErrorEventArgs e) => Manager.AddMessage($" {e.Message}\n{Type}_Error", 10f);
+        protected void OnClose(object sender, CloseEventArgs e) => Manager.AddMessage($"{e.Reason}\n{e.Code}\n{Type}_Close", UIManagerBase.LogLevel.Error);
+        protected void OnError(object sender, ErrorEventArgs e) => Manager.AddMessage($"{e.Message}\n{Type}_Error", UIManagerBase.LogLevel.Error);
     }
 
     #region DATA

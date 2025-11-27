@@ -2,6 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using MultiChat.JSON;
+
+using UI;
+
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -76,12 +80,12 @@ namespace MultiChat
             {
                 type = type,
                 version = "1",
-                condition = new EventSubRequest.Condition
+                condition = new Condition
                 {
                     broadcaster_user_id = Data.ChannelID,
                     user_id = Data.ChannelID,
                 },
-                transport = new EventSubRequest.Transport
+                transport = new Transport
                 {
                     method = "websocket",
                     session_id = $"{Data.SessionID}",
@@ -97,14 +101,12 @@ namespace MultiChat
                 request.uploadHandler = new UploadHandlerRaw(bodyRaw);
                 request.downloadHandler = new DownloadHandlerBuffer();
 
-                var oper = request.SendWebRequest();
-                while (!oper.isDone)
-                    await Task.Yield();
+                await request.SendWebRequest();
 
                 if (request.result == UnityWebRequest.Result.Success)
                     Manager.AddMessage($"Subscribed successfully to:\n{type} event");
                 else
-                    Manager.AddMessage($"Failed to create subscription to:\n{type} event.\nWith error:\n{request.error}", 10f);
+                    Manager.AddMessage($"Failed to create subscription to:\n{type} event.\nWith error:\n{request.error}", UIManagerBase.LogLevel.Error);
             }
         }
         protected override async void ProcessSocketMessages()
@@ -157,7 +159,7 @@ namespace MultiChat
                 }
             }
 
-            List<MC_Message.Part> GetParts(SocketMessage.Payload.Event.Message.Fragment[] fragments)
+            List<MC_Message.Part> GetParts(Fragment[] fragments)
             {
                 var parts = new List<MC_Message.Part>();
                 for (int f = 0; f < fragments.Length; f++)
@@ -180,7 +182,7 @@ namespace MultiChat
 
                 return parts;
             }
-            async Task<List<MC_Message.Badge>> GetBadges(SocketMessage.Payload.Event.Badge[] badges)
+            async Task<List<MC_Message.Badge>> GetBadges(Badge[] badges)
             {
                 var parts = new List<MC_Message.Badge>() { new MC_Message.Badge { Hash = 1 } };
 
@@ -298,154 +300,5 @@ namespace MultiChat
                 }
             }
         }
-
-        #region SUB REQUEST
-        [Serializable]
-        class EventSubRequest
-        {
-            public string type;
-            public string version;
-            public Condition condition;
-            public Transport transport;
-
-            [Serializable]
-            public class Condition
-            {
-                public string broadcaster_user_id;
-                public string user_id;
-            }
-
-            [Serializable]
-            public class Transport
-            {
-                public string method;
-                public string session_id;
-            }
-        }
-        #endregion
-
-        #region SOCKET MESSAGE
-        [Serializable]
-        class SocketMessage
-        {
-            public Metadata metadata;
-            [Serializable]
-            public class Metadata
-            {
-                public string message_type;
-                public string subscription_type;
-            }
-
-            public Payload payload;
-            [Serializable]
-            public class Payload
-            {
-                public Session session;
-                [Serializable]
-                public class Session
-                {
-                    public string id;
-                }
-
-                public Event @event;
-                [Serializable]
-                public class Event
-                {
-                    public string message_id;
-                    public string color;
-                    public string chatter_user_name;
-
-                    public Badge[] badges;
-                    [Serializable]
-                    public class Badge
-                    {
-                        public string set_id;
-                        public string id;
-                    }
-
-                    public Message message;
-                    [Serializable]
-                    public class Message
-                    {
-                        public string text;
-
-                        public Fragment[] fragments;
-                        [Serializable]
-                        public class Fragment
-                        {
-                            public string type;
-                            public string text;
-
-                            public Cheermote cheermote;
-                            [Serializable]
-                            public class Cheermote
-                            {
-                                public string prefix;
-                                public int bits;
-                                public int tier;
-                            }
-
-                            public Emote emote;
-                            [Serializable]
-                            public class Emote
-                            {
-                                public string id;
-                            }
-
-                            public Mention mention;
-                            [Serializable]
-                            public class Mention
-                            {
-                                public string user_name;
-                            }
-                        }
-                    }
-
-                    public Cheer cheer;
-                    [Serializable]
-                    public class Cheer
-                    {
-                        public int bits;
-                    }
-                }
-            }
-        }
-        #endregion
-
-        #region USER INFO
-        [Serializable]
-        class UserResponse
-        {
-            public User[] data;
-
-            [Serializable]
-            public class User
-            {
-                public string id;
-            }
-        }
-        #endregion
-
-        #region BADGES
-        [Serializable]
-        public class BadgesResponse
-        {
-            public List<BadgeSet> data;
-
-            [Serializable]
-            public class BadgeSet
-            {
-                public string set_id;
-                public List<BadgeVersion> versions;
-
-                [Serializable]
-                public class BadgeVersion
-                {
-                    public string id;
-                    public string image_url_2x;
-                }
-            }
-        }
-        #endregion
     }
 }

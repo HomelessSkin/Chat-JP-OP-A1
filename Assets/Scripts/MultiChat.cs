@@ -76,10 +76,7 @@ namespace MultiChat
                 break;
             }
 
-            if (SubmitToken())
-                AddMessage("success", 2f);
-            else
-                AddMessage("error", 2f);
+            AddMessage(SubmitToken() ? "success" : "error", LogLevel.Warning);
 
             bool SubmitToken()
             {
@@ -139,14 +136,14 @@ namespace MultiChat
         {
             if (string.IsNullOrEmpty(_PlatformCreation.NameInput.text))
             {
-                AddMessage(0, 2f);
+                AddMessage(0, LogLevel.Warning);
 
                 return;
             }
 
             if (string.IsNullOrEmpty(_PlatformCreation.ChannelInput.text))
             {
-                AddMessage(1, 2f);
+                AddMessage(1, LogLevel.Warning);
 
                 return;
             }

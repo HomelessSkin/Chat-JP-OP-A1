@@ -28,14 +28,14 @@ namespace MultiChat
 
         Queue<SocketMessage> Responses = new Queue<SocketMessage>();
 
-        internal Twitch(string name, string channel, int index, MultiChatManager manager) : base(name, channel, index, manager)
+        internal Twitch(string name, string channel) : base(name, channel)
         {
-            Data.PlatformType = "twitch";
+            Data.Type = "twitch";
 
             Connect();
             SaveData();
         }
-        internal Twitch(PlatformData data, int index, MultiChatManager manager) : base(data, index, manager)
+        internal Twitch(PlatformData data) : base(data)
         {
             Connect();
             SaveData();
@@ -45,7 +45,7 @@ namespace MultiChat
         {
             if (Data.Enabled)
             {
-                using (var request = UnityWebRequest.Get(GetUsersURL + $"?login={Data.ChannelName}"))
+                using (var request = UnityWebRequest.Get(GetUsersURL + $"?login={Data.Channel}"))
                 {
                     request.SetRequestHeader("Authorization", $"Bearer {PlayerPrefs.GetString(TokenPref)}");
                     request.SetRequestHeader("Client-ID", AppID);

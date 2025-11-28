@@ -11,10 +11,11 @@ using WebSocketSharp;
 
 namespace MultiChat
 {
-    [Serializable]
-    internal abstract class Platform : Storage.Data
+    internal abstract class Platform
     {
         protected static string RedirectPath = "https://oauth.vk.com/blank.html";
+
+        public PlatformData Data;
 
         internal bool Enabled
         {
@@ -26,51 +27,35 @@ namespace MultiChat
                 Data.Enabled = value;
             }
         }
-        internal int CurrentIndex
-        {
-            get => Index;
-            set
-            {
-                PlayerPrefs.DeleteKey("platform_" + Index);
-
-                Index = value;
-
-                SaveData();
-            }
-        }
-        internal string Type { get => Data.PlatformType; }
-        internal string Channel { get => Data.ChannelName; }
-
-        protected int Index;
-        protected long LastMessage;
-        protected PlatformData Data;
+        internal string Type { get => Data.Type; }
+        internal string Channel { get => Data.Channel; }
 
         protected WebSocket Socket;
         protected MultiChatManager Manager;
 
         protected Queue<MC_Message> MC_Messages = new Queue<MC_Message>();
 
-        internal Platform(string name, string channel, int index, MultiChatManager manager)
+        internal Platform(string name, string channel)
         {
-            CurrentIndex = index;
             Data = new PlatformData
             {
                 Enabled = true,
 
-                PlatformName = name,
-                ChannelName = channel,
+                Name = name,
+                Channel = channel,
             };
-            Name = name;
 
-            Manager = manager;
+            Manager = GameObject
+                .FindGameObjectWithTag("UIManager")
+                .GetComponent<MultiChatManager>();
         }
-        internal Platform(PlatformData data, int index, MultiChatManager manager)
+        internal Platform(PlatformData data)
         {
-            CurrentIndex = index;
             Data = data;
-            Name = data.PlatformName;
 
-            Manager = manager;
+            Manager = GameObject
+                .FindGameObjectWithTag("UIManager")
+                .GetComponent<MultiChatManager>();
         }
 
         protected abstract void Connect();
@@ -123,8 +108,8 @@ namespace MultiChat
         }
         protected void SaveData()
         {
-            PlayerPrefs.SetString("platform_" + Index, JsonUtility.ToJson(Data));
-            PlayerPrefs.Save();
+            //PlayerPrefs.SetString("platform_" + Index, JsonUtility.ToJson(Data));
+            //PlayerPrefs.Save();
         }
         protected void InitializeSocket(string url)
         {
@@ -144,21 +129,18 @@ namespace MultiChat
         }
         protected void OnClose(object sender, CloseEventArgs e) => Manager.AddMessage($"{e.Reason}\n{e.Code}\n{Type}_Close", UIManagerBase.LogLevel.Error);
         protected void OnError(object sender, ErrorEventArgs e) => Manager.AddMessage($"{e.Message}\n{Type}_Error", UIManagerBase.LogLevel.Error);
-    }
 
-    #region DATA
-    [Serializable]
-    internal struct PlatformData
-    {
-        public bool Enabled;
+        #region DATA
+        [Serializable]
+        public class PlatformData : Storage.Data
+        {
+            public bool Enabled;
 
-        public string PlatformName;
-        public string PlatformType;
+            public string ChannelID;
+            public string Channel;
 
-        public string ChannelID;
-        public string ChannelName;
-
-        public string SessionID;
+            public string SessionID;
+        }
     }
     #endregion
 

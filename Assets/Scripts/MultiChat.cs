@@ -152,17 +152,20 @@ namespace MultiChat
             switch (_PlatformCreation.Switch.GetValue())
             {
                 case 0:
-                platform = new VK(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text, _Platforms.AllData.Count + 1, this);
+                platform = new VK(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text);
                 break;
                 case 1:
-                platform = new Twitch(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text, _Platforms.AllData.Count + 1, this);
+                platform = new Twitch(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text);
                 break;
             }
 
             if (platform != null)
             {
+                _Platforms.List.Add(platform);
+
                 _Platforms.Close();
-                _Platforms.AddData(platform);
+                _Platforms.AddData(platform.Data);
+                _Platforms.Store(platform.Data);
                 _Platforms.Open<ListPlatform>(this);
 
                 _PlatformCreation.NameInput.text = "";
@@ -179,15 +182,27 @@ namespace MultiChat
         [Serializable]
         class Platforms : ScrollBase
         {
+            public List<Platform> List = new List<Platform>();
+
             public override void AddData(string serialized, string path, bool fromResources = false)
             {
-                throw new NotImplementedException();
+                var data = JsonUtility.FromJson<Platform.PlatformData>(serialized);
+                Platform platform = null;
+                switch (data.Type)
+                {
+                    case "vk":
+                    platform = new VK(data);
+                    break;
+                    case "twitch":
+                    platform = new Twitch(data);
+                    break;
+                }
+
+                List.Add(platform);
+                AllData.Add(data);
             }
 
-            protected override void LoadDefault()
-            {
-                throw new NotImplementedException();
-            }
+            protected override void LoadDefault() { }
         }
 
         public void OpenPlatforms() => _Platforms.Open<ListPlatform>(this);
@@ -201,23 +216,20 @@ namespace MultiChat
 
         void LoadPlatforms()
         {
-            _Platforms.AllData.Clear();
+            _Platforms.Collect();
 
-            var index = 1;
-            while (PlayerPrefs.HasKey("platform_" + index))
+            for (int d = 0; d < _Platforms.AllData.Count; d++)
             {
-                var data = JsonUtility.FromJson<PlatformData>(PlayerPrefs.GetString("platform_" + index));
-                switch (data.PlatformType)
+                var data = _Platforms.AllData[d] as Platform.PlatformData;
+                switch (data.Type)
                 {
                     case "vk":
-                    _Platforms.AllData.Add(new VK(data, index, this));
+                    _Platforms.List.Add(new VK(data));
                     break;
                     case "twitch":
-                    _Platforms.AllData.Add(new Twitch(data, index, this));
+                    _Platforms.List.Add(new Twitch(data));
                     break;
                 }
-
-                index++;
             }
         }
         #endregion
@@ -331,15 +343,10 @@ namespace MultiChat
         {
             base.Awake();
 
-            //SetLanguage("en");
-
             Smiles.Prepare();
             Badges.Prepare();
 
             LoadPlatforms();
-
-            //OpenPlatforms();
-            //OpenThemes();
         }
         protected override void Update()
         {
@@ -350,9 +357,9 @@ namespace MultiChat
             {
                 T = 0f;
 
-                for (int p = 0; p < _Platforms.AllData.Count; p++)
+                for (int p = 0; p < _Platforms.List.Count; p++)
                 {
-                    var platform = (Platform)_Platforms.AllData[p];
+                    var platform = _Platforms.List[p];
                     if (platform.Enabled)
                         platform.Refresh();
                 }
@@ -366,9 +373,9 @@ namespace MultiChat
                 while (process)
                 {
                     process = false;
-                    for (int p = 0; p < _Platforms.AllData.Count; p++)
+                    for (int p = 0; p < _Platforms.List.Count; p++)
                     {
-                        var platform = (Platform)_Platforms.AllData[p];
+                        var platform = _Platforms.List[p];
                         if (!platform.Enabled)
                             continue;
 
@@ -416,9 +423,9 @@ namespace MultiChat
         {
             base.OnDestroy();
 
-            for (int p = 0; p < _Platforms.AllData.Count; p++)
+            for (int p = 0; p < _Platforms.List.Count; p++)
             {
-                var platform = (Platform)_Platforms.AllData[p];
+                var platform = _Platforms.List[p];
                 platform.Disconnect();
             }
         }

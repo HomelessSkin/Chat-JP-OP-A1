@@ -31,14 +31,14 @@ namespace MultiChat
 
         Queue<SocketMessage> Responses = new Queue<SocketMessage>();
 
-        internal VK(string name, string channel, int index, MultiChatManager manager) : base(name, channel, index, manager)
+        internal VK(string name, string channel) : base(name, channel)
         {
-            Data.PlatformType = "vk";
+            Data.Type = "vk";
 
             Connect();
             SaveData();
         }
-        internal VK(PlatformData data, int index, MultiChatManager manager) : base(data, index, manager)
+        internal VK(PlatformData data) : base(data)
         {
             Connect();
             SaveData();
@@ -106,7 +106,7 @@ namespace MultiChat
                     }
 
                     Manager.AddMessage($"Send subscription\nto channel:\n{message.subscribe.channel}\n{Type}_Sub");
-                    Socket.Send(Newtonsoft.Json.JsonConvert.SerializeObject(message));
+                    Socket.Send(JsonUtility.ToJson(message));
                 }
                 else
                     Manager.AddMessage($"{request.error}\n{Type}_Sub", UIManagerBase.LogLevel.Error);
@@ -119,7 +119,7 @@ namespace MultiChat
                 var socket = Responses.Dequeue();
                 if (socket.id != 0u)
                 {
-                    Manager.AddMessage($"{(MessageType)socket.id}\n{Type}_{Name}_SocketMsg");
+                    Manager.AddMessage($"{(MessageType)socket.id}\n{Type}_{Data.Name}_SocketMsg");
                     switch ((MessageType)socket.id)
                     {
                         case MessageType.Connection:

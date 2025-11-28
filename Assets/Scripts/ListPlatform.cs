@@ -17,9 +17,8 @@ namespace MultiChat
         {
             base.Init(index, data, manager);
 
-            var platform = (Platform)data;
+            var platform = (Platform.PlatformData)data;
 
-            Index.text = $"{platform.CurrentIndex}";
             Enabled.text = $"{platform.Enabled}";
             Type.text = $"{platform.Type}";
             Channel.text = $"{platform.Channel}";

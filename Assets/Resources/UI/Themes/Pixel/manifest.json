@@ -1,4 +1,50 @@
 {
+  "icons": [
+    {
+      "pixelPerUnit": 100,
+      "filterMode": 1,
+      "borders": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "fileName": "Add.png"
+    },
+    {
+      "pixelPerUnit": 100,
+      "filterMode": 1,
+      "borders": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "fileName": "reload.png"
+    },
+    {
+      "pixelPerUnit": 100,
+      "filterMode": 1,
+      "borders": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "fileName": "Twitch.png"
+    },
+    {
+      "pixelPerUnit": 100,
+      "filterMode": 1,
+      "borders": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "fileName": "VK.png"
+    }
+  ],
   "elements": [
     {
       "key": "Menu_Button",
@@ -66,8 +112,6 @@
       },
       "text": {
         "fontSize": 32,
-        "characterSpacing": 0,
-        "wordSpacing": 0,
         "xOffset": 0,
         "yOffset": 6
       }
@@ -138,8 +182,6 @@
       },
       "text": {
         "fontSize": 32,
-        "characterSpacing": 0,
-        "wordSpacing": 0,
         "xOffset": 0,
         "yOffset": 0
       }
@@ -210,8 +252,6 @@
       },
       "text": {
         "fontSize": 64,
-        "characterSpacing": 0,
-        "wordSpacing": 0,
         "xOffset": 0,
         "yOffset": 0
       }
@@ -282,8 +322,6 @@
       },
       "text": {
         "fontSize": 32,
-        "characterSpacing": 0,
-        "wordSpacing": 0,
         "xOffset": 0,
         "yOffset": 0
       }
@@ -354,8 +392,6 @@
       },
       "text": {
         "fontSize": 32,
-        "characterSpacing": 0,
-        "wordSpacing": 0,
         "xOffset": 0,
         "yOffset": 0
       }
@@ -426,8 +462,6 @@
       },
       "text": {
         "fontSize": 32,
-        "characterSpacing": 0,
-        "wordSpacing": 0,
         "xOffset": 0,
         "yOffset": 0
       }
@@ -498,8 +532,6 @@
       },
       "text": {
         "fontSize": 32,
-        "characterSpacing": 0,
-        "wordSpacing": 0,
         "xOffset": 0,
         "yOffset": 0
       }
@@ -518,14 +550,6 @@
         "fileName": "FieldDark.png"
       },
       "mask": {
-        "pixelPerUnit": 100,
-        "filterMode": 1,
-        "borders": {
-          "left": 0,
-          "right": 0,
-          "top": 0,
-          "bottom": 0
-        },
         "fileName": null
       },
       "overlay": {
@@ -578,20 +602,18 @@
       },
       "text": {
         "fontSize": 32,
-        "characterSpacing": 0,
-        "wordSpacing": 0,
         "xOffset": 0,
         "yOffset": 0
       }
     }
   ],
+  "name": "Pixel",
+  "languageKey": "en",
   "v": {
     "major": 0,
     "minor": 0,
     "patch": 2
   },
-  "name": "Pixel",
-  "languageKey": "en",
   "font": {
     "assetName": "Audiowide-Regular SDF.asset",
     "color": {
@@ -599,7 +621,9 @@
       "Y": 0.0,
       "Z": 0.0,
       "W": 255.0
-    }
+    },
+    "characterSpacing": 0,
+    "wordSpacing": 0
   },
   "V": "0.0.2"
 }

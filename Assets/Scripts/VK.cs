@@ -36,12 +36,10 @@ namespace MultiChat
             Data.Type = "vk";
 
             Connect();
-            SaveData();
         }
         internal VK(PlatformData data) : base(data)
         {
             Connect();
-            SaveData();
         }
 
         protected override async void Connect()

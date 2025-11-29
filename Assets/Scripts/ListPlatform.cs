@@ -8,7 +8,6 @@ namespace MultiChat
 {
     public class ListPlatform : ScrollItem
     {
-        [SerializeField] TMP_Text Index;
         [SerializeField] TMP_Text Enabled;
         [SerializeField] TMP_Text Type;
         [SerializeField] TMP_Text Channel;

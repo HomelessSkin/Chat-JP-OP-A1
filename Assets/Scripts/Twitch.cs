@@ -33,12 +33,10 @@ namespace MultiChat
             Data.Type = "twitch";
 
             Connect();
-            SaveData();
         }
         internal Twitch(PlatformData data) : base(data)
         {
             Connect();
-            SaveData();
         }
 
         protected override async void Connect()

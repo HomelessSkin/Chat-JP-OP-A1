@@ -6,48 +6,28 @@
             "value": "Exit"
         },
         {
+            "key": "themes",
+            "value": "Themes"
+        },
+        {
+            "key": "channel",
+            "value": "Channel:"
+        },
+        {
             "key": "name",
             "value": "Name:"
-        },
-        {
-            "key": "enter redirect",
-            "value": "Enter redirect URL"
-        },
-        {
-            "key": "type",
-            "value": "Type:"
         },
         {
             "key": "localizations",
             "value": "Localizations"
         },
         {
-            "key": "submit",
-            "value": "Submit"
-        },
-        {
-            "key": "auth",
-            "value": "Authentication"
-        },
-        {
-            "key": "enabled",
-            "value": "Enabled:"
-        },
-        {
-            "key": "themes",
-            "value": "Themes"
-        },
-        {
-            "key": "index",
-            "value": "Index:"
+            "key": "create",
+            "value": "Create"
         },
         {
             "key": "select",
             "value": "Select"
-        },
-        {
-            "key": "channel",
-            "value": "Channel:"
         },
         {
             "key": "",
@@ -58,8 +38,28 @@
             "value": "Platforms"
         },
         {
-            "key": "create",
-            "value": "Create"
+            "key": "back",
+            "value": "Back"
+        },
+        {
+            "key": "enabled",
+            "value": "Enabled:"
+        },
+        {
+            "key": "auth",
+            "value": "Authentication"
+        },
+        {
+            "key": "enter redirect",
+            "value": "Enter redirect URL"
+        },
+        {
+            "key": "type",
+            "value": "Type:"
+        },
+        {
+            "key": "submit",
+            "value": "Submit"
         },
         {
             "key": "empty name",

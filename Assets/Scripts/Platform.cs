@@ -22,7 +22,8 @@ namespace MultiChat
             get => Data.Enabled;
             set
             {
-                Connect();
+                if (!Socket.IsAlive)
+                    Connect();
 
                 Data.Enabled = value;
             }
@@ -105,11 +106,6 @@ namespace MultiChat
                 }
 
             MC_Messages.Enqueue(message);
-        }
-        protected void SaveData()
-        {
-            //PlayerPrefs.SetString("platform_" + Index, JsonUtility.ToJson(Data));
-            //PlayerPrefs.Save();
         }
         protected void InitializeSocket(string url)
         {

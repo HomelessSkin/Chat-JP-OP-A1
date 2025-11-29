@@ -27,9 +27,9 @@ namespace MultiChat
                 for (int d = 0; d < drawables.Length; d++)
                 {
                     var drawable = drawables[d];
-                    if (drawable.IsNonRedrawable())
+                    if (!(drawable as IRedrawable).IsRedrawable())
                         continue;
-                    if (TryGetDrawData(drawable.GetKey(), out var sprite))
+                    if (TryGetDrawerData(drawable.GetKey(), out var sprite))
                         drawable.SetData(sprite);
                 }
             }
@@ -41,9 +41,9 @@ namespace MultiChat
                 for (int d = 0; d < drawables.Length; d++)
                 {
                     var drawable = drawables[d];
-                    if (drawable.IsNonRedrawable())
+                    if (!(drawable as IRedrawable).IsRedrawable())
                         continue;
-                    if (TryGetDrawData(drawable.GetKey(), out var sprite))
+                    if (TryGetDrawerData(drawable.GetKey(), out var sprite))
                         drawable.SetData(sprite);
                 }
             }
@@ -198,11 +198,8 @@ namespace MultiChat
                     break;
                 }
 
-                List.Add(platform);
                 AllData.Add(data);
             }
-
-            protected override void LoadDefault() { }
         }
 
         public void OpenPlatforms() => _Platforms.Open<ListPlatform>(this);

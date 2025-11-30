@@ -179,24 +179,24 @@ namespace MultiChat
         #endregion
 
         [Space]
-        [SerializeField] protected Platforms _Platforms;
+        [SerializeField] Platforms _Platforms;
         #region PLATFORM LIST
         [Serializable]
-        protected class Platforms : ScrollBase
+        class Platforms : ScrollBase
         {
             internal List<Platform> List = new List<Platform>();
 
-            public override void AddData(string serialized, string path, bool fromResources = false)
+            public override void AddData(string serialized, string path, bool fromResources = false, UIManagerBase manager = null)
             {
                 var data = JsonUtility.FromJson<Platform.PlatformData>(serialized);
                 Platform platform = null;
                 switch (data.Type)
                 {
                     case "vk":
-                    platform = new VK(data);
+                    platform = (manager as MultiChatManager).CreateVK(data);
                     break;
                     case "twitch":
-                    platform = new Twitch(data);
+                    platform = (manager as MultiChatManager).CreateTwitch(data);
                     break;
                 }
 
@@ -212,6 +212,8 @@ namespace MultiChat
 
             _Platforms.Close();
         }
+        internal virtual Platform CreateVK(Platform.PlatformData data) => new VK(data);
+        internal virtual Platform CreateTwitch(Platform.PlatformData data) => new Twitch(data);
 
         void LoadPlatforms()
         {

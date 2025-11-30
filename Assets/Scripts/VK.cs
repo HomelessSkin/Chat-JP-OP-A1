@@ -251,7 +251,7 @@ namespace MultiChat
             return badges;
         }
 
-        enum MessageType : uint
+        protected enum MessageType : uint
         {
             Connection = 1u,
             ChatSub = 2u,

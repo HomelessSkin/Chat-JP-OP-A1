@@ -154,10 +154,10 @@ namespace MultiChat
             switch (_PlatformCreation.Switch.GetValue())
             {
                 case 0:
-                platform = new VK(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text);
+                platform = CreateVK(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text);
                 break;
                 case 1:
-                platform = new Twitch(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text);
+                platform = CreateTwitch(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text);
                 break;
             }
 
@@ -212,7 +212,9 @@ namespace MultiChat
 
             _Platforms.Close();
         }
+        internal virtual Platform CreateVK(string name, string channel) => new VK(name, channel);
         internal virtual Platform CreateVK(Platform.PlatformData data) => new VK(data);
+        internal virtual Platform CreateTwitch(string name, string channel) => new Twitch(name, channel);
         internal virtual Platform CreateTwitch(Platform.PlatformData data) => new Twitch(data);
 
         void LoadPlatforms()
@@ -225,10 +227,10 @@ namespace MultiChat
                 switch (data.Type)
                 {
                     case "vk":
-                    _Platforms.List.Add(new VK(data));
+                    _Platforms.List.Add(CreateVK(data));
                     break;
                     case "twitch":
-                    _Platforms.List.Add(new Twitch(data));
+                    _Platforms.List.Add(CreateTwitch(data));
                     break;
                 }
             }

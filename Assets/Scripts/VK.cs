@@ -16,8 +16,16 @@ namespace MultiChat
     internal class VK : Platform
     {
         internal static string TokenPref = "vk_token";
-        internal static void StartAuth() =>
+        internal static void StartAuth()
+        {
+            //var scope = "scope=";
+            //if (scopes != null)
+            //    for (int s = 0; s < scopes.Length; s++)
+            //        scope += $"{scopes[s]}%20";
+
+            //Application.OpenURL($"{AuthPath}?response_type=token&client_id={AppID}&redirect_uri={RedirectPath}&{scope}");
             Application.OpenURL($"{AuthPath}?client_id={AppID}&redirect_uri={RedirectPath}&response_type=token");
+        }
 
         protected static string AppID = "p61uibtoabrmz18v";
         protected static string AuthPath = "https://auth.live.vkvideo.ru/app/oauth2/authorize";

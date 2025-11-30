@@ -16,8 +16,15 @@ namespace MultiChat
     internal class Twitch : Platform
     {
         internal static string TokenPref = "twitch_token";
-        internal static void StartAuth() =>
-            Application.OpenURL($"{AuthPath}?response_type=token&client_id={AppID}&redirect_uri={RedirectPath}&scope=user%3Aread%3Achat");
+        internal static void StartAuth(string[] scopes)
+        {
+            var scope = "scope=";
+            if (scopes != null)
+                for (int s = 0; s < scopes.Length; s++)
+                    scope += $"{scopes[s]}%20";
+
+            Application.OpenURL($"{AuthPath}?response_type=token&client_id={AppID}&redirect_uri={RedirectPath}&{scope}");
+        }
 
         static string AppID = "6ss2l29z27gl1rmz061rajdhd9mgr6";
         static string AuthPath = "https://id.twitch.tv/oauth2/authorize";

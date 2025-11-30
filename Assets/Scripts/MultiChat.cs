@@ -58,6 +58,8 @@ namespace MultiChat
 
         [Space]
         [SerializeField] Authentication _Authentication;
+        [SerializeField] string[] VKScopes;
+        [SerializeField] string[] TwitchScopes;
         #region AUTHENTICATION
         [Serializable]
         class Authentication : WindowBase
@@ -114,7 +116,7 @@ namespace MultiChat
             _Authentication.SubmitButton.RemoveAllListeners();
             _Authentication.SubmitButton.AddListener(SubmitTwitchToken);
 
-            Twitch.StartAuth();
+            Twitch.StartAuth(TwitchScopes);
         }
         public void SubmitTwitchToken() => SubmitToken(1);
         #endregion

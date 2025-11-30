@@ -19,17 +19,17 @@ namespace MultiChat
         internal static void StartAuth() =>
             Application.OpenURL($"{AuthPath}?client_id={AppID}&redirect_uri={RedirectPath}&response_type=token");
 
-        static string AppID = "p61uibtoabrmz18v";
-        static string AuthPath = "https://auth.live.vkvideo.ru/app/oauth2/authorize";
-        static string EntryPath = "https://apidev.live.vkvideo.ru";
-        static string SocketURL = "wss://pubsub-dev.live.vkvideo.ru/connection/websocket?format=json&cf_protocol_version=v2";
-        static string[] Colors = new string[]
-        {
+        protected static string AppID = "p61uibtoabrmz18v";
+        protected static string AuthPath = "https://auth.live.vkvideo.ru/app/oauth2/authorize";
+        protected static string EntryPath = "https://apidev.live.vkvideo.ru";
+        protected static string SocketURL = "wss://pubsub-dev.live.vkvideo.ru/connection/websocket?format=json&cf_protocol_version=v2";
+        protected static string[] Colors = new string[]
+            {
             "d66e34", "b8aaff", "1d90ff", "9961f9", "59a840", "e73629", "de6489", "20bba1",
             "f8b301", "0099bb", "7bbeff", "e542ff", "a36c59", "8ba259", "00a9ff", "a20bff"
-        };
+            };
 
-        Queue<SocketMessage> Responses = new Queue<SocketMessage>();
+        protected Queue<SocketMessage> Responses = new Queue<SocketMessage>();
 
         internal VK(string name, string channel) : base(name, channel)
         {

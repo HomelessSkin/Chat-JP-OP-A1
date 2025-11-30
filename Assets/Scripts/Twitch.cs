@@ -21,7 +21,7 @@ namespace MultiChat
             var scope = "scope=";
             if (scopes != null)
                 for (int s = 0; s < scopes.Length; s++)
-                    scope += $"{scopes[s]}%20";
+                    scope += $"{scopes[s]}" + (s == scopes.Length ? "" : "%20");
 
             Application.OpenURL($"{AuthPath}?response_type=token&client_id={AppID}&redirect_uri={RedirectPath}&{scope}");
         }

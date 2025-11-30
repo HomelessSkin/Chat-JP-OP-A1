@@ -217,7 +217,7 @@ namespace MultiChat
 
         void LoadPlatforms()
         {
-            _Platforms.Collect();
+            _Platforms.Collect(this);
 
             for (int d = 0; d < _Platforms.AllData.Count; d++)
             {

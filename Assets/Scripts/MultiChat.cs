@@ -179,12 +179,12 @@ namespace MultiChat
         #endregion
 
         [Space]
-        [SerializeField] Platforms _Platforms;
+        [SerializeField] protected Platforms _Platforms;
         #region PLATFORM LIST
         [Serializable]
-        class Platforms : ScrollBase
+        protected class Platforms : ScrollBase
         {
-            public List<Platform> List = new List<Platform>();
+            internal List<Platform> List = new List<Platform>();
 
             public override void AddData(string serialized, string path, bool fromResources = false)
             {

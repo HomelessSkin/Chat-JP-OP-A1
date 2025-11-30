@@ -26,14 +26,14 @@ namespace MultiChat
             Application.OpenURL($"{AuthPath}?response_type=token&client_id={AppID}&redirect_uri={RedirectPath}&{scope}");
         }
 
-        static string AppID = "6ss2l29z27gl1rmz061rajdhd9mgr6";
-        static string AuthPath = "https://id.twitch.tv/oauth2/authorize";
-        static string SocketURL = "wss://eventsub.wss.twitch.tv/ws";
-        static string EventSubURL = "https://api.twitch.tv/helix/eventsub/subscriptions";
-        static string GetUsersURL = "https://api.twitch.tv/helix/users";
-        static string EmoteURL = "https://static-cdn.jtvnw.net/emoticons/v2";
+        protected static string AppID = "6ss2l29z27gl1rmz061rajdhd9mgr6";
+        protected static string AuthPath = "https://id.twitch.tv/oauth2/authorize";
+        protected static string SocketURL = "wss://eventsub.wss.twitch.tv/ws";
+        protected static string EventSubURL = "https://api.twitch.tv/helix/eventsub/subscriptions";
+        protected static string GetUsersURL = "https://api.twitch.tv/helix/users";
+        protected static string EmoteURL = "https://static-cdn.jtvnw.net/emoticons/v2";
 
-        Queue<SocketMessage> Responses = new Queue<SocketMessage>();
+        protected Queue<SocketMessage> Responses = new Queue<SocketMessage>();
 
         internal Twitch(string name, string channel) : base(name, channel)
         {

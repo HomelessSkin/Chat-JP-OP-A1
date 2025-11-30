@@ -137,8 +137,8 @@ namespace MultiChat
 
             public string SessionID;
         }
+        #endregion
     }
-    #endregion
 
     #region MESSAGE
     internal struct MC_Message

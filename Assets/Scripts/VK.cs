@@ -114,127 +114,141 @@ namespace MultiChat
         {
             while (Responses.Count > 0)
             {
-                var socket = Responses.Dequeue();
-                if (socket.id != 0u)
+                var message = Responses.Dequeue();
+                if (message.id != 0u)
                 {
-                    Manager.AddMessage($"{(MessageType)socket.id}\n{Type}_{Data.Name}_SocketMsg");
-                    switch ((MessageType)socket.id)
-                    {
-                        case MessageType.Connection:
-                        {
-                            SubscribeToEvent("chat");
-                        }
-                        break;
-                        case MessageType.ChatSub:
-                        {
-                        }
-                        break;
-                    }
+                    TechMessage(message);
 
                     continue;
                 }
 
-                if (socket.push == null || socket.push.pub == null)
+                if (message.push == null || message.push.pub == null)
                 {
-                    Socket.Send("{}");
+                    Ping();
 
                     continue;
                 }
 
-                var data = socket.push.pub.data;
-                switch (data.type)
-                {
-                    case "channel_chat_message_send":
-                    {
-                        var message = data.data.chat_message;
-                        if (message.author.nick == "ChatBot")
-                            continue;
-
-                        if (GetParts(message, out var parts))
-                            Enqueue(new MC_Message
-                            {
-                                Platform = 0,
-                                ID = message.id.ToString(),
-
-                                Badges = GetBadges(message.author),
-                                NickColor = $"#{Colors[message.author.nick_color]}",
-                                Nick = message.author.nick,
-                                Parts = parts,
-                            });
-                    }
-                    break;
-                    case "channel_chat_message_delete":
-                    {
-                        Manager.DeleteMessage(0, data.data.chat_message.id.ToString());
-                    }
-                    break;
-                }
+                Notification(message);
             }
+        }
 
-            bool GetParts(Message message, out List<MC_Message.Part> parts)
+        protected virtual void TechMessage(SocketMessage message)
+        {
+            Manager.AddMessage($"{(MessageType)message.id}\n{Type}_{Data.Name}_SocketMsg");
+            switch ((MessageType)message.id)
             {
-                parts = new List<MC_Message.Part>();
-                var tasks = new List<Task>();
-                for (int p = 0; p < message.parts.Count; p++)
+                case MessageType.Connection:
                 {
-                    var part = message.parts[p];
-                    var mc = new MC_Message.Part { };
-
-                    if (part.link != null && !string.IsNullOrEmpty(part.link.content))
-                    {
-                        parts = null;
-
-                        return false;
-                    }
-
-                    if (part.mention != null)
-                        mc.Reply = new MC_Message.Part.Mention { Nick = part.mention.nick };
-                    if (part.smile != null && !string.IsNullOrEmpty(part.smile.medium_url))
-                    {
-                        var hash = part.smile.id.GetHashCode();
-                        mc.Emote = new MC_Message.Part.Smile { Hash = hash, Draw = true };
-
-                        if (!Manager.HasSmile(hash, true))
-                            mc.Emote.URL = part.smile.medium_url;
-                    }
-                    if (part.text != null)
-                        mc.Message = new MC_Message.Part.Text { Content = part.text.content };
-
-                    parts.Add(mc);
+                    SubscribeToEvent("chat");
                 }
+                break;
+                case MessageType.ChatSub:
+                {
 
-                return true;
+                }
+                break;
             }
-            List<MC_Message.Badge> GetBadges(Author author)
+        }
+        protected virtual void Ping()
+        {
+            Socket.Send("{}");
+        }
+        protected virtual void Notification(SocketMessage socket)
+        {
+            var data = socket.push.pub.data;
+            switch (data.type)
             {
-                var badges = new List<MC_Message.Badge>() { new MC_Message.Badge { Hash = 0 } };
-
-                for (int r = 0; r < author.roles.Count; r++)
+                case "channel_chat_message_send":
                 {
-                    var role = author.roles[r];
-                    var hash = role.id.GetHashCode();
+                    var message = data.data.chat_message;
+                    if (message.author.nick == "ChatBot")
+                        return;
 
-                    var b = new MC_Message.Badge { Hash = hash, };
-                    if (!Manager.HasBadge(hash, true))
-                        b.URL = role.medium_url;
+                    if (GetParts(message, out var parts))
+                        Enqueue(new MC_Message
+                        {
+                            Platform = 0,
+                            ID = message.id.ToString(),
 
-                    badges.Add(b);
+                            Badges = GetBadges(message.author),
+                            NickColor = $"#{Colors[message.author.nick_color]}",
+                            Nick = message.author.nick,
+                            Parts = parts,
+                        });
                 }
-
-                for (int r = 0; r < author.badges.Count; r++)
+                break;
+                case "channel_chat_message_delete":
                 {
-                    var badge = author.badges[r];
-                    var hash = badge.id.GetHashCode();
-
-                    var b = new MC_Message.Badge { Hash = hash, };
-                    if (!Manager.HasBadge(hash, true))
-                        b.URL = badge.medium_url;
-
-                    badges.Add(b);
+                    Manager.DeleteMessage(0, data.data.chat_message.id.ToString());
                 }
-
-                return badges;
+                break;
             }
+        }
+
+        protected bool GetParts(Message message, out List<MC_Message.Part> parts)
+        {
+            parts = new List<MC_Message.Part>();
+            var tasks = new List<Task>();
+            for (int p = 0; p < message.parts.Count; p++)
+            {
+                var part = message.parts[p];
+                var mc = new MC_Message.Part { };
+
+                if (part.link != null && !string.IsNullOrEmpty(part.link.content))
+                {
+                    parts = null;
+
+                    return false;
+                }
+
+                if (part.mention != null)
+                    mc.Reply = new MC_Message.Part.Mention { Nick = part.mention.nick };
+                if (part.smile != null && !string.IsNullOrEmpty(part.smile.medium_url))
+                {
+                    var hash = part.smile.id.GetHashCode();
+                    mc.Emote = new MC_Message.Part.Smile { Hash = hash, Draw = true };
+
+                    if (!Manager.HasSmile(hash, true))
+                        mc.Emote.URL = part.smile.medium_url;
+                }
+                if (part.text != null)
+                    mc.Message = new MC_Message.Part.Text { Content = part.text.content };
+
+                parts.Add(mc);
+            }
+
+            return true;
+        }
+        protected List<MC_Message.Badge> GetBadges(Author author)
+        {
+            var badges = new List<MC_Message.Badge>() { new MC_Message.Badge { Hash = 0 } };
+
+            for (int r = 0; r < author.roles.Count; r++)
+            {
+                var role = author.roles[r];
+                var hash = role.id.GetHashCode();
+
+                var b = new MC_Message.Badge { Hash = hash, };
+                if (!Manager.HasBadge(hash, true))
+                    b.URL = role.medium_url;
+
+                badges.Add(b);
+            }
+
+            for (int r = 0; r < author.badges.Count; r++)
+            {
+                var badge = author.badges[r];
+                var hash = badge.id.GetHashCode();
+
+                var b = new MC_Message.Badge { Hash = hash, };
+                if (!Manager.HasBadge(hash, true))
+                    b.URL = badge.medium_url;
+
+                badges.Add(b);
+            }
+
+            return badges;
         }
 
         enum MessageType : uint

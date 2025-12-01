@@ -79,7 +79,7 @@ namespace MultiChat
 
             Responses.Enqueue(JsonUtility.FromJson<SocketMessage>(e.Data));
         }
-        protected override async void SubscribeToEvent(string type)
+        protected override async Task<bool> SubscribeToEvent(string type)
         {
             var data = JsonUtility.ToJson(new EventSubRequest
             {
@@ -109,12 +109,20 @@ namespace MultiChat
                 await request.SendWebRequest();
 
                 if (request.result == UnityWebRequest.Result.Success)
+                {
                     Manager.AddMessage($"Subscribed successfully to:\n{type} event");
+
+                    return true;
+                }
                 else
+                {
                     Manager.AddMessage($"Failed to create subscription to:\n{type} event.\nWith error:\n{request.error}", UIManagerBase.LogLevel.Error);
+
+                    return false;
+                }
             }
         }
-        protected override void ProcessSocketMessages()
+        protected override async void ProcessSocketMessages()
         {
             while (Responses.Count > 0)
             {
@@ -125,7 +133,14 @@ namespace MultiChat
                     KeepAlive();
                     break;
                     case "session_welcome":
-                    SessionWelcome(message);
+                    if (await SessionWelcome(message))
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
                     break;
                     case "notification":
                     Notification(message);
@@ -135,12 +150,15 @@ namespace MultiChat
         }
 
         protected virtual void KeepAlive() { }
-        protected virtual void SessionWelcome(SocketMessage message)
+        protected virtual async Task<bool> SessionWelcome(SocketMessage message)
         {
             Data.SessionID = message.payload.session.id;
 
-            SubscribeToEvent("channel.chat.message");
-            SubscribeToEvent("channel.chat.message_delete");
+            var result = true;
+            result &= await SubscribeToEvent("channel.chat.message");
+            result &= await SubscribeToEvent("channel.chat.message_delete");
+
+            return result;
         }
         protected virtual async void Notification(SocketMessage message)
         {

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Core.Util.Core.Util;
 
@@ -62,7 +63,7 @@ namespace MultiChat
         protected abstract void Connect();
         protected abstract void OnOpen(object sender, EventArgs e);
         protected abstract void OnMessage(object sender, MessageEventArgs e);
-        protected abstract void SubscribeToEvent(string type);
+        protected abstract Task<bool> SubscribeToEvent(string type);
         protected abstract void ProcessSocketMessages();
 
         internal void Refresh() => ProcessSocketMessages();

@@ -87,7 +87,7 @@ namespace MultiChat
 
             Responses.Enqueue(JsonUtility.FromJson<SocketMessage>(e.Data));
         }
-        protected override async void SubscribeToEvent(string type)
+        protected override async Task<bool> SubscribeToEvent(string type)
         {
             using (var request = UnityWebRequest.Get(EntryPath +
                 $"/v1/channel" +
@@ -113,9 +113,15 @@ namespace MultiChat
 
                     Manager.AddMessage($"Send subscription\nto channel:\n{message.subscribe.channel}\n{Type}_Sub");
                     Socket.Send(JsonUtility.ToJson(message));
+
+                    return true;
                 }
                 else
+                {
                     Manager.AddMessage($"{request.error}\n{Type}_Sub", UIManagerBase.LogLevel.Error);
+
+                    return false;
+                }
             }
         }
         protected override void ProcessSocketMessages()

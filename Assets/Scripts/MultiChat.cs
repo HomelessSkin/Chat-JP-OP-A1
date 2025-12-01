@@ -220,7 +220,7 @@ namespace MultiChat
 
         void LoadPlatforms()
         {
-            _Platforms.Collect(this);
+            _Platforms.Collect();
 
             for (int d = 0; d < _Platforms.AllData.Count; d++)
             {
@@ -437,6 +437,8 @@ namespace MultiChat
         public override void OnValidate()
         {
             base.OnValidate();
+
+            _Platforms.Manager = this;
 
             DebugSocket = DebugSocketMessages;
         }

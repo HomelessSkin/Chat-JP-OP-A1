@@ -11,7 +11,7 @@ using WebSocketSharp;
 
 namespace MultiChat
 {
-    internal abstract class Platform
+    public abstract class Platform
     {
         protected static string RedirectPath = "https://oauth.vk.com/blank.html";
 
@@ -141,7 +141,7 @@ namespace MultiChat
     }
 
     #region MESSAGE
-    internal struct MC_Message
+    public struct MC_Message
     {
         public byte Platform;
         public string ID;

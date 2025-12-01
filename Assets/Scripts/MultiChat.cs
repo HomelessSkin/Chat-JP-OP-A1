@@ -53,13 +53,14 @@ namespace MultiChat
         [Space]
         [SerializeField] bool DebugSocketMessages;
         [SerializeField] float RefreshPeriod = 2f;
+        [Space]
+        [SerializeField] string[] VKScopes;
+        [SerializeField] string[] TwitchScopes;
 
         float T;
 
         [Space]
         [SerializeField] Authentication _Authentication;
-        [SerializeField] string[] VKScopes;
-        [SerializeField] string[] TwitchScopes;
         #region AUTHENTICATION
         [Serializable]
         class Authentication : WindowBase

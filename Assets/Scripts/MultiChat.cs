@@ -218,6 +218,14 @@ namespace MultiChat
         internal virtual Platform CreateTwitch(string name, string channel) => new Twitch(name, channel);
         internal virtual Platform CreateTwitch(Platform.PlatformData data) => new Twitch(data);
 
+        protected bool AllWorking()
+        {
+            for (int p = 0; p < _Platforms.List.Count; p++)
+                if (!_Platforms.List[p].IsWorking)
+                    return false;
+
+            return true;
+        }
         void LoadPlatforms()
         {
             _Platforms.Collect();

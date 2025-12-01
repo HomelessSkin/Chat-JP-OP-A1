@@ -29,6 +29,7 @@ namespace MultiChat
                 Data.Enabled = value;
             }
         }
+        internal bool IsWorking;
         internal string Type { get => Data.Type; }
         internal string Channel { get => Data.Channel; }
 

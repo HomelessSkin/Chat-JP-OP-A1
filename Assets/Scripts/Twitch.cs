@@ -133,14 +133,7 @@ namespace MultiChat
                     KeepAlive();
                     break;
                     case "session_welcome":
-                    if (await SessionWelcome(message))
-                    {
-
-                    }
-                    else
-                    {
-
-                    }
+                    IsWorking = await SessionWelcome(message);
                     break;
                     case "notification":
                     Notification(message);

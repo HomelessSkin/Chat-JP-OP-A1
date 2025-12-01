@@ -147,14 +147,14 @@ namespace MultiChat
             }
         }
 
-        protected virtual void TechMessage(SocketMessage message)
+        protected virtual async void TechMessage(SocketMessage message)
         {
             Manager.AddMessage($"{(MessageType)message.id}\n{Type}_{Data.Name}_SocketMsg");
             switch ((MessageType)message.id)
             {
                 case MessageType.Connection:
                 {
-                    SubscribeToEvent("chat");
+                    await SubscribeToEvent("chat");
                 }
                 break;
                 case MessageType.ChatSub:

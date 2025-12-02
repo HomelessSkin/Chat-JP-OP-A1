@@ -75,7 +75,7 @@ namespace MultiChat
         }
         internal bool GetMessage(out MC_Message message) => MC_Messages.TryDequeue(out message);
 
-        protected async void Enqueue(MC_Message message)
+        protected async void EnqueueMessage(MC_Message message)
         {
             if (message.Parts != null)
                 for (int p = 0; p < message.Parts.Count; p++)

@@ -159,7 +159,7 @@ namespace MultiChat
             {
                 case "channel.chat.message":
                 {
-                    Enqueue(new MC_Message
+                    EnqueueMessage(new MC_Message
                     {
                         Platform = 1,
                         ID = message.payload.@event.message_id,

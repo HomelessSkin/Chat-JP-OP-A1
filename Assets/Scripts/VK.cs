@@ -180,7 +180,7 @@ namespace MultiChat
                         return;
 
                     if (GetParts(message, out var parts))
-                        Enqueue(new MC_Message
+                        EnqueueMessage(new MC_Message
                         {
                             Platform = 0,
                             ID = message.id.ToString(),

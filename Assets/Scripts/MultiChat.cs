@@ -60,10 +60,10 @@ namespace MultiChat
         float T;
 
         [Space]
-        [SerializeField] Authentication _Authentication;
+        [SerializeField] protected Authentication _Authentication;
         #region AUTHENTICATION
         [Serializable]
-        class Authentication : Storage
+        protected class Authentication : Storage
         {
             public MenuButton SubmitButton;
             public TMP_InputField TokenField;

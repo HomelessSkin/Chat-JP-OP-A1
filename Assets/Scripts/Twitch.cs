@@ -15,7 +15,6 @@ namespace MultiChat
 {
     internal class Twitch : Platform
     {
-        internal static string TokenPref = "twitch_token";
         internal static void StartAuth(string[] scopes)
         {
             var scope = "scope=";
@@ -35,24 +34,27 @@ namespace MultiChat
 
         protected Queue<SocketMessage> Responses = new Queue<SocketMessage>();
 
-        internal Twitch(string name, string channel) : base(name, channel)
+        internal Twitch(string name, string channel, string token) : base(name, channel, token)
         {
             Data.Type = "twitch";
 
             Connect();
         }
-        internal Twitch(PlatformData data) : base(data)
+        internal Twitch(PlatformData data, string token) : base(data, token)
         {
             Connect();
         }
 
         protected override async void Connect()
         {
+            if (!VerifyToken())
+                return;
+
             if (Data.Enabled)
             {
                 using (var request = UnityWebRequest.Get(GetUsersURL + $"?login={Data.Channel}"))
                 {
-                    request.SetRequestHeader("Authorization", $"Bearer {PlayerPrefs.GetString(TokenPref)}");
+                    request.SetRequestHeader("Authorization", $"Bearer {Token}");
                     request.SetRequestHeader("Client-ID", AppID);
 
                     var oper = request.SendWebRequest();
@@ -81,6 +83,9 @@ namespace MultiChat
         }
         protected override async Task<bool> SubscribeToEvent(string type)
         {
+            if (!VerifyToken())
+                return false;
+
             var data = JsonUtility.ToJson(new EventSubRequest
             {
                 type = type,
@@ -99,7 +104,7 @@ namespace MultiChat
 
             using (var request = UnityWebRequest.Post(EventSubURL, "", "application/json"))
             {
-                request.SetRequestHeader("Authorization", $"Bearer {PlayerPrefs.GetString(TokenPref)}");
+                request.SetRequestHeader("Authorization", $"Bearer {Token}");
                 request.SetRequestHeader("Client-Id", AppID);
 
                 var bodyRaw = System.Text.Encoding.UTF8.GetBytes(data);
@@ -240,9 +245,12 @@ namespace MultiChat
 
             async Task RefreshGlobalSet()
             {
+                if (!VerifyToken())
+                    return;
+
                 using (var request = UnityWebRequest.Get($"https://api.twitch.tv/helix/chat/badges" + "/global"))
                 {
-                    request.SetRequestHeader("Authorization", $"Bearer {PlayerPrefs.GetString(TokenPref)}");
+                    request.SetRequestHeader("Authorization", $"Bearer {Token}");
                     request.SetRequestHeader("Client-ID", AppID);
 
                     await request.SendWebRequest();
@@ -264,15 +272,18 @@ namespace MultiChat
                         }
                     }
                     else
-                        Debug.Log(request.error);
+                        Manager.AddMessage(request.error, UIManagerBase.LogLevel.Error);
                 }
             }
             async Task RefreshSubSet()
             {
+                if (!VerifyToken())
+                    return;
+
                 using (var request = UnityWebRequest.Get($"https://api.twitch.tv/helix/chat/badges" +
                     $"?broadcaster_id={Data.ChannelID}"))
                 {
-                    request.SetRequestHeader("Authorization", $"Bearer {PlayerPrefs.GetString(TokenPref)}");
+                    request.SetRequestHeader("Authorization", $"Bearer {Token}");
                     request.SetRequestHeader("Client-ID", AppID);
 
                     await request.SendWebRequest();
@@ -294,7 +305,7 @@ namespace MultiChat
                         }
                     }
                     else
-                        Debug.Log(request.error);
+                        Manager.AddMessage(request.error, UIManagerBase.LogLevel.Error);
                 }
             }
 

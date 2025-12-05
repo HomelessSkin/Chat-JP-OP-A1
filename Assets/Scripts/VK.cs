@@ -15,7 +15,6 @@ namespace MultiChat
 {
     internal class VK : Platform
     {
-        internal static string TokenPref = "vk_token";
         internal static void StartAuth()
         {
             //var scope = "scope=";
@@ -39,24 +38,27 @@ namespace MultiChat
 
         protected Queue<SocketMessage> Responses = new Queue<SocketMessage>();
 
-        internal VK(string name, string channel) : base(name, channel)
+        internal VK(string name, string channel, string token) : base(name, channel, token)
         {
             Data.Type = "vk";
 
             Connect();
         }
-        internal VK(PlatformData data) : base(data)
+        internal VK(PlatformData data, string token) : base(data, token)
         {
             Connect();
         }
 
         protected override async void Connect()
         {
+            if (!VerifyToken())
+                return;
+
             if (Data.Enabled)
             {
                 using (var request = UnityWebRequest.Get(EntryPath + "/v1/websocket/token"))
                 {
-                    request.SetRequestHeader("Authorization", $"Bearer {PlayerPrefs.GetString(TokenPref)}");
+                    request.SetRequestHeader("Authorization", $"Bearer {Token}");
 
                     await request.SendWebRequest();
 
@@ -89,11 +91,14 @@ namespace MultiChat
         }
         protected override async Task<bool> SubscribeToEvent(string type)
         {
+            if (!VerifyToken())
+                return false;
+
             using (var request = UnityWebRequest.Get(EntryPath +
                 $"/v1/channel" +
                 $"?channel_url={Channel.ToLower()}"))
             {
-                request.SetRequestHeader("Authorization", $"Bearer {PlayerPrefs.GetString(TokenPref)}");
+                request.SetRequestHeader("Authorization", $"Bearer {Token}");
                 request.downloadHandler = new DownloadHandlerBuffer();
 
                 await request.SendWebRequest();

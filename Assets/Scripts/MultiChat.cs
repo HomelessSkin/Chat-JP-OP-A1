@@ -63,23 +63,48 @@ namespace MultiChat
         [SerializeField] Authentication _Authentication;
         #region AUTHENTICATION
         [Serializable]
-        class Authentication : WindowBase
+        class Authentication : Storage
         {
             public MenuButton SubmitButton;
             public TMP_InputField TokenField;
+
+            public override void AddData(string serialized, string path, bool fromResources = false, UIManagerBase manager = null)
+            {
+                AllData.Add(JsonUtility.FromJson<Data>(serialized));
+            }
+
+            public string GetToken(string platform)
+            {
+                for (int d = 0; d < AllData.Count; d++)
+                    if (AllData[d].Type == platform)
+                        return AllData[d].Name;
+
+                return null;
+            }
+            public void LoadPrefs()
+            {
+                LoadAndDelete("vk");
+                LoadAndDelete("twitch");
+
+                void LoadAndDelete(string key)
+                {
+                    if (PlayerPrefs.HasKey($"{key}_token"))
+                    {
+                        var data = new Data { Type = key, Name = PlayerPrefs.GetString($"{key}_token") };
+
+                        AllData.Add(data);
+                        Store(data);
+
+                        PlayerPrefs.DeleteKey($"{key}_token");
+                        PlayerPrefs.Save();
+                    }
+                }
+            }
         }
 
         void SubmitToken(byte platform = 0)
         {
-            var pref = VK.TokenPref;
-            switch (platform)
-            {
-                case 1:
-                pref = Twitch.TokenPref;
-                break;
-            }
-
-            AddMessage(SubmitToken() ? "success" : "error", LogLevel.Warning);
+            AddMessage(SubmitToken() ? 3 : 4, LogLevel.Warning);
 
             bool SubmitToken()
             {
@@ -90,7 +115,10 @@ namespace MultiChat
 
                     if (!string.IsNullOrEmpty(token))
                     {
-                        PlayerPrefs.SetString(pref, token);
+                        var data = new Storage.Data { Type = platform == 0 ? "vk" : "twitch", Name = token };
+
+                        _Authentication.AddData(data);
+                        _Authentication.Store(data);
 
                         return true;
                     }
@@ -213,10 +241,11 @@ namespace MultiChat
 
             _Platforms.Close();
         }
-        internal virtual Platform CreateVK(string name, string channel) => new VK(name, channel);
-        internal virtual Platform CreateVK(Platform.PlatformData data) => new VK(data);
-        internal virtual Platform CreateTwitch(string name, string channel) => new Twitch(name, channel);
-        internal virtual Platform CreateTwitch(Platform.PlatformData data) => new Twitch(data);
+
+        internal virtual Platform CreateVK(string name, string channel) => new VK(name, channel, _Authentication.GetToken("vk"));
+        internal virtual Platform CreateVK(Platform.PlatformData data) => new VK(data, _Authentication.GetToken("vk"));
+        internal virtual Platform CreateTwitch(string name, string channel) => new Twitch(name, channel, _Authentication.GetToken("twitch"));
+        internal virtual Platform CreateTwitch(Platform.PlatformData data) => new Twitch(data, _Authentication.GetToken("twitch"));
 
         protected bool AllWorking()
         {
@@ -226,8 +255,12 @@ namespace MultiChat
 
             return true;
         }
+        #endregion
+
         void LoadPlatforms()
         {
+            _Authentication.Collect();
+            _Authentication.LoadPrefs();
             _Platforms.Collect();
 
             for (int d = 0; d < _Platforms.AllData.Count; d++)
@@ -244,7 +277,6 @@ namespace MultiChat
                 }
             }
         }
-        #endregion
 
         [Space]
         [SerializeField] Chat _Chat;
@@ -446,6 +478,7 @@ namespace MultiChat
         {
             base.OnValidate();
 
+            _Authentication.Manager = this;
             _Platforms.Manager = this;
 
             DebugSocket = DebugSocketMessages;

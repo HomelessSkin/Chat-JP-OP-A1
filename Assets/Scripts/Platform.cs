@@ -33,13 +33,21 @@ namespace MultiChat
         internal string Type { get => Data.Type; }
         internal string Channel { get => Data.Channel; }
 
+        protected string Token = "";
+
         protected WebSocket Socket;
         protected MultiChatManager Manager;
 
         protected Queue<MC_Message> MC_Messages = new Queue<MC_Message>();
 
-        internal Platform(string name, string channel)
+        internal Platform(string name, string channel, string token)
         {
+            Manager = GameObject
+                .FindGameObjectWithTag("UIManager")
+                .GetComponent<MultiChatManager>();
+
+            Token = token;
+
             Data = new PlatformData
             {
                 Enabled = true,
@@ -47,18 +55,15 @@ namespace MultiChat
                 Name = name,
                 Channel = channel,
             };
-
-            Manager = GameObject
-                .FindGameObjectWithTag("UIManager")
-                .GetComponent<MultiChatManager>();
         }
-        internal Platform(PlatformData data)
+        internal Platform(PlatformData data, string token)
         {
-            Data = data;
-
             Manager = GameObject
                 .FindGameObjectWithTag("UIManager")
                 .GetComponent<MultiChatManager>();
+
+            Token = token;
+            Data = data;
         }
 
         protected abstract void Connect();
@@ -127,6 +132,18 @@ namespace MultiChat
         }
         protected void OnClose(object sender, CloseEventArgs e) => Manager.AddMessage($"{e.Reason}\n{e.Code}\n{Type}_Close", UIManagerBase.LogLevel.Error);
         protected void OnError(object sender, ErrorEventArgs e) => Manager.AddMessage($"{e.Message}\n{Type}_Error", UIManagerBase.LogLevel.Error);
+
+        protected bool VerifyToken()
+        {
+            if (string.IsNullOrEmpty(Token))
+            {
+                Manager.AddMessage($"Platform {Data.Name} doesn't have User Token!", UIManagerBase.LogLevel.Warning);
+
+                return false;
+            }
+
+            return true;
+        }
 
         #region DATA
         [Serializable]

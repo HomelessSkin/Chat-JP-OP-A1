@@ -259,9 +259,9 @@ namespace MultiChat
 
         void LoadPlatforms()
         {
-            _Authentication.Collect();
+            _Authentication.CollectAllData();
             _Authentication.LoadPrefs();
-            _Platforms.Collect();
+            _Platforms.CollectAllData();
 
             for (int d = 0; d < _Platforms.AllData.Count; d++)
             {

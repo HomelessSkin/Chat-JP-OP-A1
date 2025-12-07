@@ -105,7 +105,7 @@ namespace MultiChat
 
         void SubmitToken(byte platform = 0)
         {
-            AddMessage(SubmitToken() ? 3 : 4, LogLevel.Warning);
+            Log(this.GetType().ToString(), SubmitToken() ? 3 : 4, LogLevel.Warning);
 
             bool SubmitToken()
             {
@@ -168,14 +168,14 @@ namespace MultiChat
         {
             if (string.IsNullOrEmpty(_PlatformCreation.NameInput.text))
             {
-                AddMessage(0, LogLevel.Warning);
+                Log(this.GetType().ToString(), 0, LogLevel.Warning);
 
                 return;
             }
 
             if (string.IsNullOrEmpty(_PlatformCreation.ChannelInput.text))
             {
-                AddMessage(1, LogLevel.Warning);
+                Log(this.GetType().ToString(), 1, LogLevel.Warning);
 
                 return;
             }

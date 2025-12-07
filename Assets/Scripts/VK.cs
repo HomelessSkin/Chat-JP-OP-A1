@@ -65,7 +65,7 @@ namespace MultiChat
                     if (request.result == UnityWebRequest.Result.Success)
                         Data.ChannelID = JsonUtility.FromJson<JWT>(request.downloadHandler.text).data.token;
                     else
-                        Manager.AddMessage($"{request.error}\n{Type}_Connect", UIManagerBase.LogLevel.Error);
+                        Manager.Log(this.GetType().ToString(), $"{request.error} {Type}_Connect", UIManagerBase.LogLevel.Error);
                 }
 
                 InitializeSocket(SocketURL);
@@ -116,14 +116,14 @@ namespace MultiChat
                         break;
                     }
 
-                    Manager.AddMessage($"Send subscription\nto channel:\n{message.subscribe.channel}\n{Type}_Sub");
+                    Manager.Log(this.GetType().ToString(), $"Send subscription to channel: {message.subscribe.channel} {Type}_Sub");
                     Socket.Send(JsonUtility.ToJson(message));
 
                     return true;
                 }
                 else
                 {
-                    Manager.AddMessage($"{request.error}\n{Type}_Sub", UIManagerBase.LogLevel.Error);
+                    Manager.Log(this.GetType().ToString(), $"{request.error} {Type}_Sub", UIManagerBase.LogLevel.Error);
 
                     return false;
                 }
@@ -154,7 +154,7 @@ namespace MultiChat
 
         protected virtual async Task TechMessage(SocketMessage message)
         {
-            Manager.AddMessage($"{(MessageType)message.id}\n{Type}_{Data.Name}_SocketMsg");
+            Manager.Log(this.GetType().ToString(), $"{(MessageType)message.id} {Type}_{Data.Name}_SocketMsg");
             switch ((MessageType)message.id)
             {
                 case MessageType.Connection:

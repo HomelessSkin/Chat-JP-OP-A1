@@ -115,13 +115,13 @@ namespace MultiChat
 
                 if (request.result == UnityWebRequest.Result.Success)
                 {
-                    Manager.AddMessage($"Subscribed successfully to:\n{type} event");
+                    Manager.Log(this.GetType().ToString(), $"Subscribed successfully to: {type} event");
 
                     return true;
                 }
                 else
                 {
-                    Manager.AddMessage($"Failed to create subscription to:\n{type} event.\nWith error:\n{request.error}", UIManagerBase.LogLevel.Error);
+                    Manager.Log(this.GetType().ToString(), $"Failed to create subscription to: {type} event. With error: {request.error}", UIManagerBase.LogLevel.Error);
 
                     return false;
                 }
@@ -272,7 +272,7 @@ namespace MultiChat
                         }
                     }
                     else
-                        Manager.AddMessage(request.error, UIManagerBase.LogLevel.Error);
+                        Manager.Log(this.GetType().ToString(), request.error, UIManagerBase.LogLevel.Error);
                 }
             }
             async Task RefreshSubSet()
@@ -305,7 +305,7 @@ namespace MultiChat
                         }
                     }
                     else
-                        Manager.AddMessage(request.error, UIManagerBase.LogLevel.Error);
+                        Manager.Log(this.GetType().ToString(), request.error, UIManagerBase.LogLevel.Error);
                 }
             }
 

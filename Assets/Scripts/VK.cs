@@ -129,14 +129,14 @@ namespace MultiChat
                 }
             }
         }
-        protected override void ProcessSocketMessages()
+        protected override async Task ProcessSocketMessages()
         {
             while (Responses.Count > 0)
             {
                 var message = Responses.Dequeue();
                 if (message.id != 0u)
                 {
-                    TechMessage(message);
+                    await TechMessage(message);
 
                     continue;
                 }
@@ -152,7 +152,7 @@ namespace MultiChat
             }
         }
 
-        protected virtual async void TechMessage(SocketMessage message)
+        protected virtual async Task TechMessage(SocketMessage message)
         {
             Manager.AddMessage($"{(MessageType)message.id}\n{Type}_{Data.Name}_SocketMsg");
             switch ((MessageType)message.id)

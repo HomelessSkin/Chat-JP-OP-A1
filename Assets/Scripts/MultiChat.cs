@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Core.Util;
 
@@ -373,6 +374,8 @@ namespace MultiChat
         internal bool HasBadge(int hash) => Badges.HasSprite(hash);
         internal int GetBadgeID(int key, GameObject requester) => Badges.GetSpriteID(key, requester);
         internal void DrawBadge(Texture2D badge, int hash) => Badges.Draw(badge, hash);
+
+        Task ChatUpd;
         #endregion
 
         #endregion
@@ -396,20 +399,26 @@ namespace MultiChat
         {
             base.Update();
 
-            T += Time.deltaTime;
-            if (T >= RefreshPeriod)
+            var list = new List<Task>();
             {
-                T = 0f;
-
-                for (int p = 0; p < _Platforms.List.Count; p++)
+                T += Time.deltaTime;
+                if (T >= RefreshPeriod)
                 {
-                    var platform = _Platforms.List[p];
-                    if (platform.Enabled)
-                        platform.Refresh();
+                    T = 0f;
+
+                    for (int p = 0; p < _Platforms.List.Count; p++)
+                    {
+                        var platform = _Platforms.List[p];
+                        if (platform.Enabled)
+                            list.Add(platform.Refresh());
+                    }
                 }
+
+                ChatUpd = Task.WhenAll(list);
             }
 
-            UpdateChat();
+            if (ChatUpd.IsCompleted)
+                UpdateChat();
 
             void UpdateChat()
             {

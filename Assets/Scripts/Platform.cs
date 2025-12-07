@@ -70,9 +70,9 @@ namespace MultiChat
         protected abstract void OnOpen(object sender, EventArgs e);
         protected abstract void OnMessage(object sender, MessageEventArgs e);
         protected abstract Task<bool> SubscribeToEvent(string type);
-        protected abstract void ProcessSocketMessages();
+        protected abstract Task ProcessSocketMessages();
 
-        internal void Refresh() => ProcessSocketMessages();
+        internal Task Refresh() => ProcessSocketMessages();
         internal void Disconnect()
         {
             if (Socket != null && Socket.IsAlive)

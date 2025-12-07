@@ -127,7 +127,7 @@ namespace MultiChat
                 }
             }
         }
-        protected override async void ProcessSocketMessages()
+        protected override async Task ProcessSocketMessages()
         {
             while (Responses.Count > 0)
             {
@@ -141,7 +141,7 @@ namespace MultiChat
                     IsWorking = await SessionWelcome(message);
                     break;
                     case "notification":
-                    Notification(message);
+                    await Notification(message);
                     break;
                 }
             }
@@ -158,7 +158,7 @@ namespace MultiChat
 
             return result;
         }
-        protected virtual async void Notification(SocketMessage message)
+        protected virtual async Task Notification(SocketMessage message)
         {
             switch (message.metadata.subscription_type)
             {

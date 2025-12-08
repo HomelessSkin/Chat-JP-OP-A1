@@ -105,28 +105,23 @@ namespace MultiChat
 
         void SubmitToken(byte platform = 0)
         {
-            Log(this.GetType().ToString(), SubmitToken() ? 3 : 4, LogLevel.Warning);
-
-            bool SubmitToken()
+            if (_Authentication.TokenField.text.Contains("access_token="))
             {
-                if (_Authentication.TokenField.text.Contains("access_token="))
+                var uri = new Uri(_Authentication.TokenField.text);
+                var token = System.Web.HttpUtility.ParseQueryString(uri.Fragment.TrimStart('#'))["access_token"];
+
+                if (!string.IsNullOrEmpty(token))
                 {
-                    var uri = new Uri(_Authentication.TokenField.text);
-                    var token = System.Web.HttpUtility.ParseQueryString(uri.Fragment.TrimStart('#'))["access_token"];
+                    var data = new Storage.Data { Type = platform == 0 ? "vk" : "twitch", Name = token };
 
-                    if (!string.IsNullOrEmpty(token))
-                    {
-                        var data = new Storage.Data { Type = platform == 0 ? "vk" : "twitch", Name = token };
+                    _Authentication.AddData(data);
+                    _Authentication.Store(data);
 
-                        _Authentication.AddData(data);
-                        _Authentication.Store(data);
-
-                        return true;
-                    }
+                    Log(this.GetType().ToString(), "Token accepted!", LogLevel.Warning);
                 }
-
-                return false;
             }
+
+            Log(this.GetType().ToString(), "Token rejected!", LogLevel.Warning);
         }
 
         #region VK
@@ -168,14 +163,14 @@ namespace MultiChat
         {
             if (string.IsNullOrEmpty(_PlatformCreation.NameInput.text))
             {
-                Log(this.GetType().ToString(), 0, LogLevel.Warning);
+                Log(this.GetType().ToString(), $"Name Input is empty!", LogLevel.Warning);
 
                 return;
             }
 
             if (string.IsNullOrEmpty(_PlatformCreation.ChannelInput.text))
             {
-                Log(this.GetType().ToString(), 1, LogLevel.Warning);
+                Log(this.GetType().ToString(), $"Channel Input is empty!", LogLevel.Warning);
 
                 return;
             }

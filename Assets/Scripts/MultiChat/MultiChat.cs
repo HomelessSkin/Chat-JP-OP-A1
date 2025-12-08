@@ -318,20 +318,52 @@ namespace MultiChat
                 _Chat.Messages.RemoveAt(index);
         }
 
+        protected virtual void OnMessage(MC_Message message)
+        {
+            var m = FromPool();
+            m.Init(message, this);
+
+            _Chat.Messages.Add(m);
+        }
+
         void RemoveMessage(ChatMessage message)
         {
             Smiles.RemoveRange(message.GetSmiles(), message.gameObject);
             Badges.RemoveRange(message.GetBadges(), message.gameObject);
 
             ToPool(message);
+        }
+        void ToPool(ChatMessage message)
+        {
+            message.transform.SetParent(null);
+            message.gameObject.SetActive(false);
 
-            void ToPool(ChatMessage message)
+            _Chat.Pool.Add(message);
+        }
+        ChatMessage FromPool()
+        {
+            ChatMessage message;
+            if (_Chat.Messages.Count >= _Chat.MaxChatCount)
             {
-                message.transform.SetParent(null);
-                message.gameObject.SetActive(false);
+                message = _Chat.Messages[0];
 
-                _Chat.Pool.Add(message);
+                message.transform.SetParent(null);
+                message.transform.SetParent(_Chat.Content);
+
+                _Chat.Messages.RemoveAt(0);
             }
+            else if (_Chat.Pool.Count > 0)
+            {
+                message = _Chat.Pool[0];
+                message.transform.SetParent(_Chat.Content);
+                message.gameObject.SetActive(true);
+
+                _Chat.Pool.RemoveAt(0);
+            }
+            else
+                message = Instantiate(_Chat.MessagePrefab, _Chat.Content, false).GetComponent<ChatMessage>();
+
+            return message;
         }
 
         #region SMILES
@@ -431,40 +463,10 @@ namespace MultiChat
                         process |= got;
 
                         if (got)
-                        {
-                            var m = FromPool();
-                            m.Init(message, this);
-
-                            _Chat.Messages.Add(m);
-                        }
+                            OnMessage(message);
                     }
                 }
 
-                ChatMessage FromPool()
-                {
-                    ChatMessage message;
-                    if (_Chat.Messages.Count >= _Chat.MaxChatCount)
-                    {
-                        message = _Chat.Messages[0];
-
-                        message.transform.SetParent(null);
-                        message.transform.SetParent(_Chat.Content);
-
-                        _Chat.Messages.RemoveAt(0);
-                    }
-                    else if (_Chat.Pool.Count > 0)
-                    {
-                        message = _Chat.Pool[0];
-                        message.transform.SetParent(_Chat.Content);
-                        message.gameObject.SetActive(true);
-
-                        _Chat.Pool.RemoveAt(0);
-                    }
-                    else
-                        message = Instantiate(_Chat.MessagePrefab, _Chat.Content, false).GetComponent<ChatMessage>();
-
-                    return message;
-                }
             }
         }
         protected override void OnDestroy()

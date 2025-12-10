@@ -45,7 +45,7 @@ namespace MultiChat
                         Badges.Add(badge.Hash);
                 }
 
-            text += $"<color={color}>" + message.Nick + "</color>: ";
+            text += $"<color={color}>{message.Nick}</color>: ";
 
             if (message.Parts != null)
             {
@@ -60,7 +60,7 @@ namespace MultiChat
                     if (part.Emote.Draw)
                     {
                         var id = Manager.GetSmileID(part.Emote.Hash, gameObject);
-                        text += $"    <sprite name=\"Smiles_{id}\">    ";
+                        text += $"<sprite name=\"Smiles_{id}\">";
 
                         if (!Smiles.Contains(part.Emote.Hash))
                             Smiles.Add(part.Emote.Hash);

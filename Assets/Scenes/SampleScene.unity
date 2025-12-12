@@ -7950,25 +7950,25 @@ MonoBehaviour:
       Name: 
       Type: 
     Elements:
-    - {fileID: 1511719029}
-    - {fileID: 448393089}
-    - {fileID: 1516250299}
-    - {fileID: 1221465447}
-    - {fileID: 1648275456}
-    - {fileID: 1893346242}
-    - {fileID: 2003975314}
-    - {fileID: 1677236867}
-    - {fileID: 1022730102}
-    - {fileID: 655397251}
-    - {fileID: 1216461604}
     - {fileID: 1799508447}
-    - {fileID: 1920031247}
-    - {fileID: 2026923696}
-    - {fileID: 1743281701}
     - {fileID: 451345743}
+    - {fileID: 1216461604}
+    - {fileID: 1511719029}
+    - {fileID: 2026923696}
+    - {fileID: 2003975314}
     - {fileID: 89661733}
+    - {fileID: 1221465447}
+    - {fileID: 1022730102}
+    - {fileID: 1648275456}
+    - {fileID: 1677236867}
+    - {fileID: 1893346242}
     - {fileID: 759194659}
+    - {fileID: 1516250299}
+    - {fileID: 655397251}
     - {fileID: 903601631}
+    - {fileID: 1743281701}
+    - {fileID: 448393089}
+    - {fileID: 1920031247}
   _Drawer:
     Panel: {fileID: 1856091621}
     Manager: {fileID: 9144545109199644478}
@@ -7989,64 +7989,63 @@ MonoBehaviour:
       Name: 
       Type: 
     Elements:
-    - {fileID: 30661673}
-    - {fileID: 1605583831}
-    - {fileID: 1486516769}
-    - {fileID: 1476651504}
-    - {fileID: 912090140}
-    - {fileID: 1012129382}
-    - {fileID: 1479159921}
-    - {fileID: 840609025}
-    - {fileID: 37608750}
-    - {fileID: 990574250}
-    - {fileID: 737108402}
-    - {fileID: 737108404}
     - {fileID: 141923977}
-    - {fileID: 764986222}
-    - {fileID: 393417157}
-    - {fileID: 1394042044}
-    - {fileID: 1517492722}
-    - {fileID: 1856091624}
-    - {fileID: 1759760610}
-    - {fileID: 1765803073}
-    - {fileID: 2052326858}
-    - {fileID: 608360009}
-    - {fileID: 434755128}
-    - {fileID: 203595525}
-    - {fileID: 1860850588}
-    - {fileID: 1748603613}
-    - {fileID: 431140674}
-    - {fileID: 715927840}
-    - {fileID: 98934059}
-    - {fileID: 162526212}
-    - {fileID: 1590855026}
-    - {fileID: 1968707924}
-    - {fileID: 417816625}
-    - {fileID: 1537913096}
-    - {fileID: 132292389}
+    - {fileID: 1012129382}
     - {fileID: 1099318659}
-    - {fileID: 1472956067}
-    - {fileID: 1182582670}
-    - {fileID: 773190231}
+    - {fileID: 1394042044}
+    - {fileID: 1765803073}
+    - {fileID: 393417157}
     - {fileID: 643388458}
+    - {fileID: 737108404}
+    - {fileID: 1968707924}
+    - {fileID: 773190231}
+    - {fileID: 840609025}
+    - {fileID: 737108402}
+    - {fileID: 1537913096}
+    - {fileID: 912090140}
+    - {fileID: 1860850588}
+    - {fileID: 98934059}
+    - {fileID: 431140674}
+    - {fileID: 37608750}
+    - {fileID: 132292389}
+    - {fileID: 1472956067}
     - {fileID: 1307054020}
+    - {fileID: 1517492722}
+    - {fileID: 1759760610}
+    - {fileID: 764986222}
+    - {fileID: 1479159921}
+    - {fileID: 608360009}
+    - {fileID: 162526212}
+    - {fileID: 1748603613}
+    - {fileID: 30661673}
+    - {fileID: 417816625}
+    - {fileID: 203595525}
+    - {fileID: 1605583831}
+    - {fileID: 715927840}
+    - {fileID: 434755128}
+    - {fileID: 1486516769}
+    - {fileID: 2052326858}
+    - {fileID: 1590855026}
+    - {fileID: 990574250}
+    - {fileID: 1476651504}
+    - {fileID: 1182582670}
+    - {fileID: 1856091624}
+    - {fileID: 565461433}
+    - {fileID: 991168912}
+    - {fileID: 1607273876}
+    - {fileID: 147784766}
+    - {fileID: 1990433877}
     - {fileID: 2094587307}
     - {fileID: 1425378029}
     - {fileID: 759293282}
-    - {fileID: 1607273876}
-    - {fileID: 565461433}
-    - {fileID: 1990433877}
-    - {fileID: 147784766}
-    - {fileID: 991168912}
   _Messenger:
     Panel: {fileID: 2114193511}
+    Manager: {fileID: 0}
+    DataFile: '*.json'
+    ResourcesPath: 
+    PersistentPath: 
+    _Type: 1
     MessageText: {fileID: 1473977925}
-    Messages:
-    - empty name
-    - empty channel
-    - theme lang override
-    - success
-    - error
     Timers:
     - 1
     - 10

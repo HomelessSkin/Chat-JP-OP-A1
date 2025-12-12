@@ -1,0 +1,584 @@
+{
+  "icons": [],
+  "elements": [
+    {
+      "key": "Menu_Button",
+      "base": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": "MenuButton.png"
+      },
+      "mask": {
+        "fileName": null
+      },
+      "overlay": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": null
+      },
+      "selectable": {
+        "transition": 0,
+        "normalColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "pressedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "selectedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "disabledColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedSprite": null,
+        "pressedSprite": null,
+        "selectedSprite": null,
+        "disabledSprite": null
+      },
+      "text": {
+        "fontSize": 32,
+        "xOffset": 0,
+        "yOffset": 0
+      }
+    },
+    {
+      "key": "Big_Panel",
+      "base": {
+        "pixelPerUnit": 100,
+        "filterMode": 2,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": "Texture.png"
+      },
+      "mask": {
+        "fileName": "Mask.png"
+      },
+      "overlay": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": null
+      },
+      "selectable": {
+        "transition": 0,
+        "normalColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "pressedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "selectedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "disabledColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedSprite": null,
+        "pressedSprite": null,
+        "selectedSprite": null,
+        "disabledSprite": null
+      },
+      "text": {
+        "fontSize": 32,
+        "xOffset": 0,
+        "yOffset": 0
+      }
+    },
+    {
+      "key": "Mid_Panel",
+      "base": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": "MidPanel.png"
+      },
+      "mask": {
+        "fileName": null
+      },
+      "overlay": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": null
+      },
+      "selectable": {
+        "transition": 0,
+        "normalColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "pressedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "selectedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "disabledColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedSprite": null,
+        "pressedSprite": null,
+        "selectedSprite": null,
+        "disabledSprite": null
+      },
+      "text": {
+        "fontSize": 32,
+        "xOffset": 0,
+        "yOffset": 0
+      }
+    },
+    {
+      "key": "Chat_Message",
+      "base": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": "ChatMassage.png"
+      },
+      "mask": {
+        "fileName": null
+      },
+      "overlay": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": null
+      },
+      "selectable": {
+        "transition": 0,
+        "normalColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "pressedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "selectedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "disabledColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedSprite": null,
+        "pressedSprite": null,
+        "selectedSprite": null,
+        "disabledSprite": null
+      },
+      "text": {
+        "fontSize": 32,
+        "xOffset": 0,
+        "yOffset": 0
+      }
+    },
+    {
+      "key": "Text",
+      "base": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": "Text.png"
+      },
+      "mask": {
+        "fileName": null
+      },
+      "overlay": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": null
+      },
+      "selectable": {
+        "transition": 0,
+        "normalColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "pressedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "selectedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "disabledColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedSprite": null,
+        "pressedSprite": null,
+        "selectedSprite": null,
+        "disabledSprite": null
+      },
+      "text": {
+        "fontSize": 32,
+        "xOffset": 0,
+        "yOffset": 0
+      }
+    },
+    {
+      "key": "Scroll",
+      "base": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": "Scroll.png"
+      },
+      "mask": {
+        "fileName": null
+      },
+      "overlay": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": null
+      },
+      "selectable": {
+        "transition": 0,
+        "normalColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "pressedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "selectedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "disabledColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedSprite": null,
+        "pressedSprite": null,
+        "selectedSprite": null,
+        "disabledSprite": null
+      },
+      "text": {
+        "fontSize": 32,
+        "xOffset": 0,
+        "yOffset": 0
+      }
+    },
+    {
+      "key": "Scroll_Area",
+      "base": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": "ScrollArea.png"
+      },
+      "mask": {
+        "fileName": null
+      },
+      "overlay": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": null
+      },
+      "selectable": {
+        "transition": 0,
+        "normalColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "pressedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "selectedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "disabledColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedSprite": null,
+        "pressedSprite": null,
+        "selectedSprite": null,
+        "disabledSprite": null
+      },
+      "text": {
+        "fontSize": 32,
+        "xOffset": 0,
+        "yOffset": 0
+      }
+    },
+    {
+      "key": "Console",
+      "base": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": "Console.png"
+      },
+      "mask": {
+        "fileName": null
+      },
+      "overlay": {
+        "pixelPerUnit": 100,
+        "filterMode": 1,
+        "borders": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "fileName": null
+      },
+      "selectable": {
+        "transition": 0,
+        "normalColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "pressedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "selectedColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "disabledColor": {
+          "X": 255.0,
+          "Y": 255.0,
+          "Z": 255.0,
+          "W": 255.0
+        },
+        "highlightedSprite": null,
+        "pressedSprite": null,
+        "selectedSprite": null,
+        "disabledSprite": null
+      },
+      "text": {
+        "fontSize": 32,
+        "xOffset": 0,
+        "yOffset": 0
+      }
+    }
+  ],
+  "name": "Industrial",
+  "languageKey": "default",
+  "v": {
+    "major": 0,
+    "minor": 0,
+    "patch": 2
+  },
+  "font": {
+    "assetName": "",
+    "color": {
+      "X": 10.0,
+      "Y": 10.0,
+      "Z": 10.0,
+      "W": 255.0
+    },
+    "characterSpacing": 0,
+    "wordSpacing": 0
+  },
+  "V": "0.0.2"
+}

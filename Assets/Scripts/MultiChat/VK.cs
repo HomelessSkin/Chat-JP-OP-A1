@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 
 using MultiChat.JSON;
 
-using UI;
-
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -65,7 +63,7 @@ namespace MultiChat
                     if (request.result == UnityWebRequest.Result.Success)
                         Data.ChannelID = JsonUtility.FromJson<JWT>(request.downloadHandler.text).data.token;
                     else
-                        Manager.Log(this.GetType().ToString(), $"{request.error} {Type}_Connect", UIManagerBase.LogLevel.Error);
+                        Manager.Log(this.GetType().ToString(), $"{request.error} {Type}_Connect", Core.LogLevel.Error);
                 }
 
                 InitializeSocket(SocketURL);
@@ -123,7 +121,7 @@ namespace MultiChat
                 }
                 else
                 {
-                    Manager.Log(this.GetType().ToString(), $"{request.error} {Type}_Sub", UIManagerBase.LogLevel.Error);
+                    Manager.Log(this.GetType().ToString(), $"{request.error} {Type}_Sub", Core.LogLevel.Error);
 
                     return false;
                 }

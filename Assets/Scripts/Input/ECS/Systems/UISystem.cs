@@ -1,3 +1,5 @@
+using Core;
+
 using Input;
 
 using Unity.Entities;
@@ -12,7 +14,7 @@ namespace MultiChat
         {
             base.OnCreate();
 
-            Group = Controller.GroupTag.UI;
+            Group = "UI";
         }
     }
 }

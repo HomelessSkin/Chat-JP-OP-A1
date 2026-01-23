@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using Core.Util;
+using Core;
 
 using TMPro;
 
@@ -17,7 +17,7 @@ namespace MultiChat
         internal static bool DebugSocket;
 
         #region DRAWER
-        protected override void RedrawTheme(Storage.Data storage)
+        protected override void RedrawTheme(IStorage.Data storage)
         {
             base.RedrawTheme(storage);
 
@@ -71,7 +71,7 @@ namespace MultiChat
 
             public override void AddData(string serialized, string path, bool fromResources = false, UIManagerBase manager = null)
             {
-                AllData.Add(JsonUtility.FromJson<Data>(serialized));
+                AllData.Add(JsonUtility.FromJson<IStorage.Data>(serialized));
             }
 
             public string GetToken(string platform)
@@ -81,25 +81,6 @@ namespace MultiChat
                         return AllData[d].Name;
 
                 return null;
-            }
-            public void LoadPrefs()
-            {
-                LoadAndDelete("vk");
-                LoadAndDelete("twitch");
-
-                void LoadAndDelete(string key)
-                {
-                    if (PlayerPrefs.HasKey($"{key}_token"))
-                    {
-                        var data = new Data { Type = key, Name = PlayerPrefs.GetString($"{key}_token") };
-
-                        AllData.Add(data);
-                        Store(data);
-
-                        PlayerPrefs.DeleteKey($"{key}_token");
-                        PlayerPrefs.Save();
-                    }
-                }
             }
         }
 
@@ -112,10 +93,10 @@ namespace MultiChat
 
                 if (!string.IsNullOrEmpty(token))
                 {
-                    var data = new Storage.Data { Type = platform == 0 ? "vk" : "twitch", Name = token };
+                    var data = new IStorage.Data { Type = platform == 0 ? "vk" : "twitch", Name = token };
 
                     _Authentication.AddData(data);
-                    _Authentication.Store(data);
+                    _Authentication.Save(data);
 
                     Log(this.GetType().ToString(), "Token accepted!", LogLevel.Warning);
                 }
@@ -192,7 +173,7 @@ namespace MultiChat
 
                 _Platforms.Close();
                 _Platforms.AddData(platform.Data);
-                _Platforms.Store(platform.Data);
+                _Platforms.Save(platform.Data);
                 _Platforms.Open<ListPlatform>(this);
 
                 _PlatformCreation.NameInput.text = "";
@@ -256,7 +237,6 @@ namespace MultiChat
         void LoadPlatforms()
         {
             _Authentication.CollectAllData();
-            _Authentication.LoadPrefs();
             _Platforms.CollectAllData();
 
             for (int d = 0; d < _Platforms.AllData.Count; d++)
@@ -479,6 +459,7 @@ namespace MultiChat
                 platform.Disconnect();
             }
         }
+
 #if UNITY_EDITOR
         public override void OnValidate()
         {

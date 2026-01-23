@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using Core.Util.Core.Util;
-
-using UI;
+using Core;
 
 using UnityEngine;
 
@@ -130,14 +128,14 @@ namespace MultiChat
 
             Socket.Connect();
         }
-        protected void OnClose(object sender, CloseEventArgs e) => Manager.Log(this.GetType().ToString(), $"{e.Reason} {e.Code} {Type}_Close", UIManagerBase.LogLevel.Error);
-        protected void OnError(object sender, ErrorEventArgs e) => Manager.Log(this.GetType().ToString(), $"{e.Message} {Type}_Error", UIManagerBase.LogLevel.Error);
+        protected void OnClose(object sender, CloseEventArgs e) => Manager.Log(this.GetType().ToString(), $"{e.Reason} {e.Code} {Type}_Close", Core.LogLevel.Error);
+        protected void OnError(object sender, ErrorEventArgs e) => Manager.Log(this.GetType().ToString(), $"{e.Message} {Type}_Error", Core.LogLevel.Error);
 
         protected bool VerifyToken()
         {
             if (string.IsNullOrEmpty(Token))
             {
-                Manager.Log(this.GetType().ToString(), $"Platform {Data.Name} doesn't have User Token!", UIManagerBase.LogLevel.Warning);
+                Manager.Log(this.GetType().ToString(), $"Platform {Data.Name} doesn't have User Token!", Core.LogLevel.Warning);
 
                 return false;
             }
@@ -147,7 +145,7 @@ namespace MultiChat
 
         #region DATA
         [Serializable]
-        public class PlatformData : Storage.Data
+        public class PlatformData : IStorage.Data
         {
             public bool Enabled;
 

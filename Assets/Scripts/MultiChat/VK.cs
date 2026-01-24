@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using Core;
+
 using MultiChat.JSON;
 
 using UnityEngine;
@@ -63,7 +65,7 @@ namespace MultiChat
                     if (request.result == UnityWebRequest.Result.Success)
                         Data.ChannelID = JsonUtility.FromJson<JWT>(request.downloadHandler.text).data.token;
                     else
-                        Manager.Log(this.GetType().ToString(), $"{request.error} {Type}_Connect", Core.LogLevel.Error);
+                        Log.Error(this.GetType().ToString(), $"{request.error} {Type}_Connect");
                 }
 
                 InitializeSocket(SocketURL);
@@ -114,14 +116,14 @@ namespace MultiChat
                         break;
                     }
 
-                    Manager.Log(this.GetType().ToString(), $"Send subscription to channel: {message.subscribe.channel} {Type}_Sub");
+                    Log.Info(this.GetType().ToString(), $"Send subscription to channel: {message.subscribe.channel} {Type}_Sub");
                     Socket.Send(JsonUtility.ToJson(message));
 
                     return true;
                 }
                 else
                 {
-                    Manager.Log(this.GetType().ToString(), $"{request.error} {Type}_Sub", Core.LogLevel.Error);
+                    Log.Error(this.GetType().ToString(), $"{request.error} {Type}_Sub");
 
                     return false;
                 }
@@ -152,7 +154,7 @@ namespace MultiChat
 
         protected virtual async Task TechMessage(SocketMessage message)
         {
-            Manager.Log(this.GetType().ToString(), $"{(MessageType)message.id} {Type}_{Data.Name}_SocketMsg");
+            Log.Info(this.GetType().ToString(), $"{(MessageType)message.id} {Type}_{Data.Name}_SocketMsg");
             switch ((MessageType)message.id)
             {
                 case MessageType.Connection:

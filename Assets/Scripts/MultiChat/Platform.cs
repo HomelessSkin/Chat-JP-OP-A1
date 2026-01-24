@@ -128,14 +128,14 @@ namespace MultiChat
 
             Socket.Connect();
         }
-        protected void OnClose(object sender, CloseEventArgs e) => Manager.Log(this.GetType().ToString(), $"{e.Reason} {e.Code} {Type}_Close", Core.LogLevel.Error);
-        protected void OnError(object sender, ErrorEventArgs e) => Manager.Log(this.GetType().ToString(), $"{e.Message} {Type}_Error", Core.LogLevel.Error);
+        protected void OnClose(object sender, CloseEventArgs e) => Log.Error(this.GetType().ToString(), $"{e.Reason} {e.Code} {Type}_Close");
+        protected void OnError(object sender, ErrorEventArgs e) => Log.Error(this.GetType().ToString(), $"{e.Message} {Type}_Error");
 
         protected bool VerifyToken()
         {
             if (string.IsNullOrEmpty(Token))
             {
-                Manager.Log(this.GetType().ToString(), $"Platform {Data.Name} doesn't have User Token!", Core.LogLevel.Warning);
+                Log.Warning(this.GetType().ToString(), $"Platform {Data.Name} doesn't have User Token!");
 
                 return false;
             }

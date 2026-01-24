@@ -98,11 +98,11 @@ namespace MultiChat
                     _Authentication.AddData(data);
                     _Authentication.Save(data);
 
-                    Log(this.GetType().ToString(), "Token accepted!", LogLevel.Warning);
+                    Log.Warning(this.GetType().ToString(), "Token accepted!");
                 }
             }
 
-            Log(this.GetType().ToString(), "Token rejected!", LogLevel.Warning);
+            Log.Warning(this.GetType().ToString(), "Token rejected!");
         }
 
         #region VK
@@ -144,14 +144,14 @@ namespace MultiChat
         {
             if (string.IsNullOrEmpty(_PlatformCreation.NameInput.text))
             {
-                Log(this.GetType().ToString(), $"Name Input is empty!", LogLevel.Warning);
+                Log.Warning(this.GetType().FullName, $"Name Input is empty!");
 
                 return;
             }
 
             if (string.IsNullOrEmpty(_PlatformCreation.ChannelInput.text))
             {
-                Log(this.GetType().ToString(), $"Channel Input is empty!", LogLevel.Warning);
+                Log.Warning(this.GetType().FullName, $"Channel Input is empty!");
 
                 return;
             }

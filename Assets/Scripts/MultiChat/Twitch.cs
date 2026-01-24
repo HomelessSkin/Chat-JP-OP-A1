@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using Core;
+
 using MultiChat.JSON;
 
 using UnityEngine;
@@ -113,13 +115,13 @@ namespace MultiChat
 
                 if (request.result == UnityWebRequest.Result.Success)
                 {
-                    Manager.Log(this.GetType().ToString(), $"Subscribed successfully to: {type} event");
+                    Log.Info(this.GetType().ToString(), $"Subscribed successfully to: {type} event");
 
                     return true;
                 }
                 else
                 {
-                    Manager.Log(this.GetType().ToString(), $"Failed to create subscription to: {type} event. With error: {request.error}", Core.LogLevel.Error);
+                    Log.Error(this.GetType().ToString(), $"Failed to create subscription to: {type} event. With error: {request.error}");
 
                     return false;
                 }
@@ -270,7 +272,7 @@ namespace MultiChat
                         }
                     }
                     else
-                        Manager.Log(this.GetType().ToString(), request.error, Core.LogLevel.Error);
+                        Log.Error(this.GetType().ToString(), request.error);
                 }
             }
             async Task RefreshSubSet()
@@ -303,7 +305,7 @@ namespace MultiChat
                         }
                     }
                     else
-                        Manager.Log(this.GetType().ToString(), request.error, Core.LogLevel.Error);
+                        Log.Error(this.GetType().ToString(), request.error);
                 }
             }
 

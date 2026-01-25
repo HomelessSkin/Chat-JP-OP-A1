@@ -7913,6 +7913,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2818375574615174556}
   - component: {fileID: 9144545109199644478}
+  - component: {fileID: 9144545109199644479}
   m_Layer: 0
   m_Name: MultiChatEngine
   m_TagString: UIManager
@@ -7958,25 +7959,25 @@ MonoBehaviour:
       Name: 
       Type: 
     Elements:
+    - {fileID: 1221465447}
+    - {fileID: 451345743}
     - {fileID: 1648275456}
     - {fileID: 1022730102}
-    - {fileID: 1743281701}
-    - {fileID: 655397251}
-    - {fileID: 1221465447}
-    - {fileID: 1511719029}
-    - {fileID: 1799508447}
-    - {fileID: 448393089}
-    - {fileID: 1893346242}
-    - {fileID: 759194659}
-    - {fileID: 903601631}
-    - {fileID: 1920031247}
-    - {fileID: 1216461604}
-    - {fileID: 1677236867}
-    - {fileID: 2003975314}
-    - {fileID: 89661733}
-    - {fileID: 451345743}
     - {fileID: 1516250299}
+    - {fileID: 2003975314}
+    - {fileID: 1799508447}
+    - {fileID: 655397251}
+    - {fileID: 903601631}
+    - {fileID: 1216461604}
+    - {fileID: 1511719029}
+    - {fileID: 1920031247}
+    - {fileID: 448393089}
+    - {fileID: 1743281701}
+    - {fileID: 759194659}
+    - {fileID: 1893346242}
     - {fileID: 2026923696}
+    - {fileID: 89661733}
+    - {fileID: 1677236867}
   _Drawer:
     Panel: {fileID: 1856091621}
     Manager: {fileID: 9144545109199644478}
@@ -7998,55 +7999,55 @@ MonoBehaviour:
       Name: 
       Type: 
     Elements:
-    - {fileID: 417816625}
-    - {fileID: 1537913096}
-    - {fileID: 1517492722}
-    - {fileID: 737108404}
-    - {fileID: 37608750}
-    - {fileID: 912090140}
     - {fileID: 1182582670}
-    - {fileID: 608360009}
-    - {fileID: 773190231}
-    - {fileID: 1748603613}
-    - {fileID: 2052326858}
-    - {fileID: 1860850588}
-    - {fileID: 990574250}
-    - {fileID: 1394042044}
-    - {fileID: 30661673}
-    - {fileID: 1759760610}
-    - {fileID: 1307054020}
-    - {fileID: 840609025}
-    - {fileID: 141923977}
-    - {fileID: 1476651504}
-    - {fileID: 162526212}
-    - {fileID: 1605583831}
     - {fileID: 1968707924}
-    - {fileID: 1479159921}
-    - {fileID: 737108402}
-    - {fileID: 1856091624}
-    - {fileID: 1486516769}
-    - {fileID: 1012129382}
+    - {fileID: 715927840}
+    - {fileID: 1860850588}
+    - {fileID: 30661673}
+    - {fileID: 431140674}
+    - {fileID: 1472956067}
+    - {fileID: 1748603613}
+    - {fileID: 912090140}
+    - {fileID: 1605583831}
+    - {fileID: 1476651504}
+    - {fileID: 1517492722}
+    - {fileID: 643388458}
     - {fileID: 764986222}
     - {fileID: 1765803073}
-    - {fileID: 431140674}
-    - {fileID: 132292389}
-    - {fileID: 434755128}
-    - {fileID: 393417157}
-    - {fileID: 1099318659}
-    - {fileID: 1590855026}
     - {fileID: 203595525}
-    - {fileID: 715927840}
+    - {fileID: 132292389}
+    - {fileID: 1307054020}
+    - {fileID: 37608750}
+    - {fileID: 1486516769}
+    - {fileID: 434755128}
+    - {fileID: 1012129382}
+    - {fileID: 608360009}
+    - {fileID: 141923977}
+    - {fileID: 773190231}
+    - {fileID: 990574250}
+    - {fileID: 393417157}
+    - {fileID: 840609025}
+    - {fileID: 1479159921}
+    - {fileID: 417816625}
+    - {fileID: 737108402}
+    - {fileID: 1537913096}
+    - {fileID: 2052326858}
+    - {fileID: 1759760610}
+    - {fileID: 1099318659}
     - {fileID: 98934059}
-    - {fileID: 643388458}
-    - {fileID: 1472956067}
-    - {fileID: 2094587307}
-    - {fileID: 147784766}
+    - {fileID: 1856091624}
+    - {fileID: 162526212}
+    - {fileID: 737108404}
+    - {fileID: 1394042044}
+    - {fileID: 1590855026}
     - {fileID: 565461433}
     - {fileID: 1990433877}
+    - {fileID: 147784766}
+    - {fileID: 991168912}
     - {fileID: 759293282}
     - {fileID: 1425378029}
     - {fileID: 1607273876}
-    - {fileID: 991168912}
+    - {fileID: 2094587307}
   _Messenger:
     Panel: {fileID: 2114193511}
     Manager: {fileID: 9144545109199644478}
@@ -8057,10 +8058,6 @@ MonoBehaviour:
     _Type: 1
     MaxRowCount: 100
     MessageText: {fileID: 1473977925}
-    Timers:
-    - 1
-    - 10
-    - 5
   _Confirm:
     Panel: {fileID: 0}
     Text: {fileID: 0}
@@ -8124,6 +8121,23 @@ MonoBehaviour:
     DefaultSprites:
     - {fileID: 2800000, guid: 6f49850f90b2bac45856ccf8aef9ab2d, type: 3}
     - {fileID: 2800000, guid: 21470ab6e2e65f747acc4acaccf885f0, type: 3}
+--- !u!114 &9144545109199644479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7947503730284345680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ebf2ee1b14c01840bc2b1e556582cca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.homelessskin.integration::Integration2.IntegrationManager
+  RefreshPeriod: 2
+  Events: []
+  Processors:
+  - {fileID: 11400000, guid: 4ba8be336cdb33b4fb61dd7c5cef5a31, type: 2}
+  - {fileID: 11400000, guid: 196227ac4fab1c74e90593e7bbbc0d61, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

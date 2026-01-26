@@ -84,9 +84,6 @@ namespace MultiChat
         }
         protected override void OnMessage(object sender, MessageEventArgs e)
         {
-            if (MultiChatManager.DebugSocket)
-                Debug.Log(e.Data);
-
             Responses.Enqueue(JsonUtility.FromJson<SocketMessage>(e.Data));
         }
         protected override async Task<bool> SubscribeToEvent(string type)

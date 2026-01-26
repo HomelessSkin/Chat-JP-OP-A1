@@ -76,9 +76,6 @@ namespace MultiChat
         }
         protected override void OnMessage(object sender, MessageEventArgs e)
         {
-            if (MultiChatManager.DebugSocket)
-                Debug.Log(e.Data);
-
             Responses.Enqueue(JsonUtility.FromJson<SocketMessage>(e.Data));
         }
         protected override async Task<bool> SubscribeToEvent(string type)
@@ -115,13 +112,13 @@ namespace MultiChat
 
                 if (request.result == UnityWebRequest.Result.Success)
                 {
-                    Log.Info(this.GetType().ToString(), $"Subscribed successfully to: {type} event");
+                    Log.Info(this, $"Subscribed successfully to: {type} event");
 
                     return true;
                 }
                 else
                 {
-                    Log.Error(this.GetType().ToString(), $"Failed to create subscription to: {type} event. With error: {request.error}");
+                    Log.Error(this, $"Failed to create subscription to: {type} event. With error: {request.error}");
 
                     return false;
                 }
@@ -272,7 +269,7 @@ namespace MultiChat
                         }
                     }
                     else
-                        Log.Error(this.GetType().ToString(), request.error);
+                        Log.Error(this, request.error);
                 }
             }
             async Task RefreshSubSet()
@@ -305,7 +302,7 @@ namespace MultiChat
                         }
                     }
                     else
-                        Log.Error(this.GetType().ToString(), request.error);
+                        Log.Error(this, request.error);
                 }
             }
 

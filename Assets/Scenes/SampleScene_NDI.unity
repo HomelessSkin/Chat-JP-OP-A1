@@ -3063,17 +3063,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1336034802535612084, guid: 4b3db9c72e296394f8958354e67719c9, type: 3}
   m_PrefabInstance: {fileID: 1054988528}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1054988530 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9141272979747367219, guid: 4b3db9c72e296394f8958354e67719c9, type: 3}
-  m_PrefabInstance: {fileID: 1054988528}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_InputField
 --- !u!1 &1093523107
 GameObject:
   m_ObjectHideFlags: 0
@@ -5052,17 +5041,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5568580278342320505, guid: b0cac3a3fd4624f46b915ca332815a07, type: 3}
   m_PrefabInstance: {fileID: 1536704049}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1536704052 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4023252733380293697, guid: b0cac3a3fd4624f46b915ca332815a07, type: 3}
-  m_PrefabInstance: {fileID: 1536704049}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84cc8d0ec6354084c9c28044fe6e38c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: com.homelessskin.ui::UI.DropDown
 --- !u!114 &1537913096 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2774185117191887096, guid: 0076ebc6e563c144d84e964339ce7b7d, type: 3}
@@ -5367,17 +5345,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a4db7a114972834c8e4117be1d82ba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Scrollbar
---- !u!114 &1637700835 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9141272979747367219, guid: 4b3db9c72e296394f8958354e67719c9, type: 3}
-  m_PrefabInstance: {fileID: 3689005265958622715}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_InputField
 --- !u!114 &1648275456 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 412660016067569928, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
@@ -6944,17 +6911,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1336034802535612084, guid: 4b3db9c72e296394f8958354e67719c9, type: 3}
   m_PrefabInstance: {fileID: 2040583810}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2040583812 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9141272979747367219, guid: 4b3db9c72e296394f8958354e67719c9, type: 3}
-  m_PrefabInstance: {fileID: 2040583810}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_InputField
 --- !u!1001 &2040829003
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7451,17 +7407,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3445150795387016123, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
   m_PrefabInstance: {fileID: 2054043759}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2054043761 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
-  m_PrefabInstance: {fileID: 2054043759}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3d370ef8dc291d4dba24c46932e18c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2091775093
 GameObject:
   m_ObjectHideFlags: 0
@@ -7928,7 +7873,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7947503730284345680}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43d8bbf690d0faa41a11b25218dbca5b, type: 3}
   m_Name: 
@@ -7940,7 +7885,6 @@ MonoBehaviour:
     Camera: {fileID: 0}
   _Localizator:
     Panel: {fileID: 162526209}
-    Manager: {fileID: 9144545109199644478}
     MaxSaveFiles: 0
     DataFile: '*.json'
     ResourcesPath: UI/Localizations/
@@ -7959,28 +7903,27 @@ MonoBehaviour:
       Name: 
       Type: 
     Elements:
-    - {fileID: 1221465447}
-    - {fileID: 451345743}
-    - {fileID: 1648275456}
     - {fileID: 1022730102}
-    - {fileID: 1516250299}
+    - {fileID: 759194659}
+    - {fileID: 448393089}
+    - {fileID: 451345743}
+    - {fileID: 1216461604}
+    - {fileID: 903601631}
     - {fileID: 2003975314}
     - {fileID: 1799508447}
-    - {fileID: 655397251}
-    - {fileID: 903601631}
-    - {fileID: 1216461604}
-    - {fileID: 1511719029}
-    - {fileID: 1920031247}
-    - {fileID: 448393089}
-    - {fileID: 1743281701}
-    - {fileID: 759194659}
-    - {fileID: 1893346242}
-    - {fileID: 2026923696}
-    - {fileID: 89661733}
     - {fileID: 1677236867}
+    - {fileID: 1516250299}
+    - {fileID: 1920031247}
+    - {fileID: 1893346242}
+    - {fileID: 1221465447}
+    - {fileID: 89661733}
+    - {fileID: 655397251}
+    - {fileID: 2026923696}
+    - {fileID: 1743281701}
+    - {fileID: 1648275456}
+    - {fileID: 1511719029}
   _Drawer:
     Panel: {fileID: 1856091621}
-    Manager: {fileID: 9144545109199644478}
     MaxSaveFiles: 0
     DataFile: '*.json'
     ResourcesPath: UI/Themes/
@@ -8000,57 +7943,56 @@ MonoBehaviour:
       Type: 
     Elements:
     - {fileID: 1182582670}
-    - {fileID: 1968707924}
+    - {fileID: 643388458}
+    - {fileID: 98934059}
+    - {fileID: 737108402}
+    - {fileID: 1748603613}
+    - {fileID: 737108404}
+    - {fileID: 1472956067}
+    - {fileID: 840609025}
+    - {fileID: 2052326858}
+    - {fileID: 434755128}
+    - {fileID: 162526212}
+    - {fileID: 1765803073}
+    - {fileID: 1307054020}
+    - {fileID: 1099318659}
+    - {fileID: 1537913096}
+    - {fileID: 1856091624}
+    - {fileID: 1394042044}
+    - {fileID: 37608750}
+    - {fileID: 30661673}
+    - {fileID: 393417157}
+    - {fileID: 203595525}
+    - {fileID: 912090140}
+    - {fileID: 764986222}
+    - {fileID: 431140674}
+    - {fileID: 1486516769}
     - {fileID: 715927840}
     - {fileID: 1860850588}
-    - {fileID: 30661673}
-    - {fileID: 431140674}
-    - {fileID: 1472956067}
-    - {fileID: 1748603613}
-    - {fileID: 912090140}
+    - {fileID: 417816625}
+    - {fileID: 1012129382}
+    - {fileID: 1479159921}
+    - {fileID: 608360009}
+    - {fileID: 132292389}
+    - {fileID: 1590855026}
+    - {fileID: 141923977}
+    - {fileID: 1517492722}
+    - {fileID: 990574250}
     - {fileID: 1605583831}
     - {fileID: 1476651504}
-    - {fileID: 1517492722}
-    - {fileID: 643388458}
-    - {fileID: 764986222}
-    - {fileID: 1765803073}
-    - {fileID: 203595525}
-    - {fileID: 132292389}
-    - {fileID: 1307054020}
-    - {fileID: 37608750}
-    - {fileID: 1486516769}
-    - {fileID: 434755128}
-    - {fileID: 1012129382}
-    - {fileID: 608360009}
-    - {fileID: 141923977}
     - {fileID: 773190231}
-    - {fileID: 990574250}
-    - {fileID: 393417157}
-    - {fileID: 840609025}
-    - {fileID: 1479159921}
-    - {fileID: 417816625}
-    - {fileID: 737108402}
-    - {fileID: 1537913096}
-    - {fileID: 2052326858}
     - {fileID: 1759760610}
-    - {fileID: 1099318659}
-    - {fileID: 98934059}
-    - {fileID: 1856091624}
-    - {fileID: 162526212}
-    - {fileID: 737108404}
-    - {fileID: 1394042044}
-    - {fileID: 1590855026}
-    - {fileID: 565461433}
-    - {fileID: 1990433877}
-    - {fileID: 147784766}
+    - {fileID: 1968707924}
     - {fileID: 991168912}
-    - {fileID: 759293282}
+    - {fileID: 1990433877}
     - {fileID: 1425378029}
+    - {fileID: 147784766}
     - {fileID: 1607273876}
+    - {fileID: 759293282}
+    - {fileID: 565461433}
     - {fileID: 2094587307}
   _Messenger:
     Panel: {fileID: 2114193511}
-    Manager: {fileID: 9144545109199644478}
     MaxSaveFiles: 0
     DataFile: '*.json'
     ResourcesPath: 
@@ -8069,38 +8011,6 @@ MonoBehaviour:
     Text: {fileID: 0}
     Key: 
     Value: 
-  DebugSocketMessages: 0
-  RefreshPeriod: 2
-  VKScopes: []
-  TwitchScopes:
-  - user%3Aread%3Achat
-  _Authentication:
-    Panel: {fileID: 1435092684}
-    Manager: {fileID: 9144545109199644478}
-    MaxSaveFiles: 0
-    DataFile: '*.json'
-    ResourcesPath: 
-    PersistentPath: Authorization/
-    AllData: []
-    SubmitButton: {fileID: 2054043761}
-    TokenField: {fileID: 2040583812}
-  _PlatformCreation:
-    Panel: {fileID: 229204422}
-    Switch: {fileID: 1536704052}
-    NameInput: {fileID: 1637700835}
-    ChannelInput: {fileID: 1054988530}
-  _Platforms:
-    Panel: {fileID: 1748603610}
-    Manager: {fileID: 9144545109199644478}
-    MaxSaveFiles: 0
-    DataFile: '*.json'
-    ResourcesPath: 
-    PersistentPath: Platforms/
-    AllData: []
-    Head: {fileID: 1792313203}
-    View: {fileID: 997901245}
-    ContentPrefab: {fileID: 2112550299084185896, guid: ff14822c9101fce43913db5cf4312556, type: 3}
-    ItemPrefab: {fileID: 1636279902245100134, guid: 43b53460414fe8f468f860a62144d53f, type: 3}
   _Chat:
     Panel: {fileID: 2091775094}
     MaxChatCount: 100
@@ -8133,11 +8043,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ebf2ee1b14c01840bc2b1e556582cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: com.homelessskin.integration::Integration2.IntegrationManager
-  RefreshPeriod: 2
+  VKAdapter:
+    Panel: {fileID: 0}
+    MaxSaveFiles: 1
+    DataFile: '*.json'
+    ResourcesPath: 
+    PersistentPath: Platforms/
+    Processor: {fileID: 11400000, guid: 4ba8be336cdb33b4fb61dd7c5cef5a31, type: 2}
+  TwitchAdapter:
+    Panel: {fileID: 0}
+    MaxSaveFiles: 1
+    DataFile: '*.json'
+    ResourcesPath: 
+    PersistentPath: Platforms/
+    Processor: {fileID: 11400000, guid: 196227ac4fab1c74e90593e7bbbc0d61, type: 2}
   Events: []
-  Processors:
-  - {fileID: 11400000, guid: 4ba8be336cdb33b4fb61dd7c5cef5a31, type: 2}
-  - {fileID: 11400000, guid: 196227ac4fab1c74e90593e7bbbc0d61, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

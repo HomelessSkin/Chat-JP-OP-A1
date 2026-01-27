@@ -5413,18 +5413,6 @@ MonoBehaviour:
           m_Calls:
           - m_Target: {fileID: 9144545109199644478}
             m_TargetAssemblyTypeName: MultiChat.MultiChatManager, Assembly-CSharp
-            m_MethodName: ClosePlatforms
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 1
-            m_CallState: 2
-          - m_Target: {fileID: 9144545109199644478}
-            m_TargetAssemblyTypeName: MultiChat.MultiChatManager, Assembly-CSharp
             m_MethodName: CloseThemes
             m_Mode: 1
             m_Arguments:
@@ -7885,10 +7873,11 @@ MonoBehaviour:
     Camera: {fileID: 0}
   _Localizator:
     Panel: {fileID: 162526209}
-    MaxSaveFiles: 0
-    DataFile: '*.json'
-    ResourcesPath: UI/Localizations/
-    PersistentPath: Localizations/
+    StorageSettings:
+      MaxSaveFiles: 1
+      DataFile: '*.json'
+      ResourcesPath: UI/Localizations/
+      PersistentPath: Localizations/
     AllData: []
     Head: {fileID: 1830158402}
     View: {fileID: 1093523108}
@@ -7903,31 +7892,32 @@ MonoBehaviour:
       Name: 
       Type: 
     Elements:
+    - {fileID: 1920031247}
+    - {fileID: 89661733}
+    - {fileID: 2026923696}
+    - {fileID: 1677236867}
+    - {fileID: 1221465447}
+    - {fileID: 448393089}
+    - {fileID: 1648275456}
+    - {fileID: 1516250299}
     - {fileID: 1022730102}
     - {fileID: 759194659}
-    - {fileID: 448393089}
-    - {fileID: 451345743}
     - {fileID: 1216461604}
-    - {fileID: 903601631}
+    - {fileID: 1743281701}
+    - {fileID: 1893346242}
+    - {fileID: 1511719029}
     - {fileID: 2003975314}
     - {fileID: 1799508447}
-    - {fileID: 1677236867}
-    - {fileID: 1516250299}
-    - {fileID: 1920031247}
-    - {fileID: 1893346242}
-    - {fileID: 1221465447}
-    - {fileID: 89661733}
+    - {fileID: 451345743}
     - {fileID: 655397251}
-    - {fileID: 2026923696}
-    - {fileID: 1743281701}
-    - {fileID: 1648275456}
-    - {fileID: 1511719029}
+    - {fileID: 903601631}
   _Drawer:
     Panel: {fileID: 1856091621}
-    MaxSaveFiles: 0
-    DataFile: '*.json'
-    ResourcesPath: UI/Themes/
-    PersistentPath: Themes/
+    StorageSettings:
+      MaxSaveFiles: 1
+      DataFile: '*.json'
+      ResourcesPath: UI/Themes/
+      PersistentPath: Themes/
     AllData: []
     Head: {fileID: 2106700040}
     View: {fileID: 522770785}
@@ -7942,61 +7932,62 @@ MonoBehaviour:
       Name: 
       Type: 
     Elements:
-    - {fileID: 1182582670}
-    - {fileID: 643388458}
-    - {fileID: 98934059}
-    - {fileID: 737108402}
-    - {fileID: 1748603613}
-    - {fileID: 737108404}
-    - {fileID: 1472956067}
-    - {fileID: 840609025}
-    - {fileID: 2052326858}
-    - {fileID: 434755128}
-    - {fileID: 162526212}
-    - {fileID: 1765803073}
-    - {fileID: 1307054020}
-    - {fileID: 1099318659}
-    - {fileID: 1537913096}
-    - {fileID: 1856091624}
-    - {fileID: 1394042044}
-    - {fileID: 37608750}
-    - {fileID: 30661673}
-    - {fileID: 393417157}
-    - {fileID: 203595525}
-    - {fileID: 912090140}
     - {fileID: 764986222}
-    - {fileID: 431140674}
+    - {fileID: 737108404}
+    - {fileID: 1394042044}
+    - {fileID: 30661673}
+    - {fileID: 643388458}
+    - {fileID: 434755128}
+    - {fileID: 773190231}
     - {fileID: 1486516769}
-    - {fileID: 715927840}
+    - {fileID: 840609025}
+    - {fileID: 1765803073}
+    - {fileID: 1099318659}
+    - {fileID: 1517492722}
+    - {fileID: 1537913096}
+    - {fileID: 431140674}
     - {fileID: 1860850588}
+    - {fileID: 132292389}
+    - {fileID: 1182582670}
+    - {fileID: 737108402}
+    - {fileID: 1472956067}
     - {fileID: 417816625}
+    - {fileID: 203595525}
+    - {fileID: 1759760610}
+    - {fileID: 990574250}
     - {fileID: 1012129382}
+    - {fileID: 912090140}
+    - {fileID: 1605583831}
+    - {fileID: 393417157}
+    - {fileID: 98934059}
+    - {fileID: 1856091624}
+    - {fileID: 715927840}
+    - {fileID: 1748603613}
+    - {fileID: 1476651504}
+    - {fileID: 141923977}
+    - {fileID: 1307054020}
+    - {fileID: 2052326858}
+    - {fileID: 1590855026}
+    - {fileID: 37608750}
+    - {fileID: 1968707924}
     - {fileID: 1479159921}
     - {fileID: 608360009}
-    - {fileID: 132292389}
-    - {fileID: 1590855026}
-    - {fileID: 141923977}
-    - {fileID: 1517492722}
-    - {fileID: 990574250}
-    - {fileID: 1605583831}
-    - {fileID: 1476651504}
-    - {fileID: 773190231}
-    - {fileID: 1759760610}
-    - {fileID: 1968707924}
-    - {fileID: 991168912}
+    - {fileID: 162526212}
     - {fileID: 1990433877}
-    - {fileID: 1425378029}
-    - {fileID: 147784766}
     - {fileID: 1607273876}
+    - {fileID: 1425378029}
+    - {fileID: 2094587307}
     - {fileID: 759293282}
     - {fileID: 565461433}
-    - {fileID: 2094587307}
+    - {fileID: 147784766}
+    - {fileID: 991168912}
   _Messenger:
     Panel: {fileID: 2114193511}
-    MaxSaveFiles: 0
-    DataFile: '*.json'
-    ResourcesPath: 
-    PersistentPath: 
+    StorageSettings:
+      MaxSaveFiles: 1
+      DataFile: '*.json'
+      ResourcesPath: 
+      PersistentPath: 
     _Type: 1
     MaxRowCount: 100
     MessageText: {fileID: 1473977925}
@@ -8045,19 +8036,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: com.homelessskin.integration::Integration2.IntegrationManager
   VKAdapter:
     Panel: {fileID: 0}
-    MaxSaveFiles: 1
-    DataFile: '*.json'
-    ResourcesPath: 
-    PersistentPath: Platforms/
+    StorageSettings:
+      MaxSaveFiles: 1
+      DataFile: '*.json'
+      ResourcesPath: 
+      PersistentPath: Platforms/
     Processor: {fileID: 11400000, guid: 4ba8be336cdb33b4fb61dd7c5cef5a31, type: 2}
+    Events: []
   TwitchAdapter:
     Panel: {fileID: 0}
-    MaxSaveFiles: 1
-    DataFile: '*.json'
-    ResourcesPath: 
-    PersistentPath: Platforms/
+    StorageSettings:
+      MaxSaveFiles: 1
+      DataFile: '*.json'
+      ResourcesPath: 
+      PersistentPath: Platforms/
     Processor: {fileID: 11400000, guid: 196227ac4fab1c74e90593e7bbbc0d61, type: 2}
-  Events: []
+    Events: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using Core;
 
-using TMPro;
+using Input;
 
 using UI;
 
@@ -72,7 +72,7 @@ namespace MultiChat
 
             _Chat.Messages.Clear();
         }
-        internal void DeleteMessage(byte platform, string id)
+        internal void DeleteMessage(string platform, string id)
         {
             var index = -1;
             for (int m = 0; m < _Chat.Messages.Count; m++)
@@ -93,7 +93,7 @@ namespace MultiChat
                 _Chat.Messages.RemoveAt(index);
         }
 
-        protected virtual void OnMessage(MC_Message message)
+        protected virtual void OnMessage(OuterInput message)
         {
             var m = FromPool();
             m.Init(message, this);

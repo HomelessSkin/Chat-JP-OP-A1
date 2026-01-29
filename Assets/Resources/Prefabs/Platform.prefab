@@ -86,11 +86,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1636279902245100134}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f00a8a8aa6a9fd34e8d3adfcf1bf831a, type: 3}
+  m_Script: {fileID: 11500000, guid: c20527ec59fe72a47bdf6bf663f3f331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MultiChat.ListPlatform
   Name: {fileID: 2123530992680580299}
-  Index: {fileID: 0}
   Enabled: {fileID: 8833829033928162169}
   Type: {fileID: 1063717649177338261}
   Channel: {fileID: 424306860735426614}

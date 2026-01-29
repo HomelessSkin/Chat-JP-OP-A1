@@ -4,6 +4,7 @@
     "com.homelessskin.core": "file:E:/zagruzke/_DEV/Shared/com.homelessskin.core",
     "com.homelessskin.input": "file:E:/zagruzke/_DEV/Shared/com.homelessskin.input",
     "com.homelessskin.integration": "file:E:/zagruzke/_DEV/Shared/com.homelessskin.integration",
+    "com.homelessskin.overlay": "file:E:/zagruzke/_DEV/Shared/com.homelessskin.overlay",
     "com.homelessskin.ui": "file:E:/zagruzke/_DEV/Shared/com.homelessskin.ui",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.entities": "1.4.4",

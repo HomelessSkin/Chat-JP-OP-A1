@@ -36,6 +36,14 @@
         "websocket-sharp": "1.0.0"
       }
     },
+    "com.homelessskin.overlay": {
+      "version": "file:E:/zagruzke/_DEV/Shared/com.homelessskin.overlay",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {
+        "com.unity.render-pipelines.universal": "17.2.0"
+      }
+    },
     "com.homelessskin.ui": {
       "version": "file:E:/zagruzke/_DEV/Shared/com.homelessskin.ui",
       "depth": 0,

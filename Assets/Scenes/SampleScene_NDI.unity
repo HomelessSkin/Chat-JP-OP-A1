@@ -905,7 +905,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
+  m_TargetTexture: {fileID: 8400000, guid: 983f6a409024f0a498f0aa717615e888, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
@@ -3259,6 +3259,95 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!1 &1131845674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1131845678}
+  - component: {fileID: 1131845677}
+  - component: {fileID: 1131845676}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &1131845676
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131845674}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1131845677
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131845674}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1131845678
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131845674}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1132852884
 GameObject:
   m_ObjectHideFlags: 0
@@ -5191,6 +5280,56 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3445150795387016123, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
   m_PrefabInstance: {fileID: 1551474163}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1569609933
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1569609935}
+  - component: {fileID: 1569609936}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1569609935
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1569609933}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1569609936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1569609933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2d98e5bfcdff4847ad69efa861a8e7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Klak.Ndi.Runtime::Klak.Ndi.NdiSender
+  _ndiName: NDI Sender
+  _keepAlpha: 1
+  _captureMethod: 3
+  _sourceCamera: {fileID: 0}
+  _sourceTexture: {fileID: 8400000, guid: 983f6a409024f0a498f0aa717615e888, type: 2}
+  _resources: {fileID: 11400000, guid: 69304b86950074db7ba8caba75214004, type: 2}
 --- !u!114 &1590855026 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1191462982083881911, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
@@ -7882,7 +8021,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7947503730284345680}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43d8bbf690d0faa41a11b25218dbca5b, type: 3}
   m_Name: 
@@ -7913,25 +8052,25 @@ MonoBehaviour:
       Name: 
       Type: 
     Elements:
+    - {fileID: 1799508447}
+    - {fileID: 1511719029}
     - {fileID: 1648275456}
-    - {fileID: 1221465447}
-    - {fileID: 1022730102}
-    - {fileID: 448393089}
+    - {fileID: 2026923696}
+    - {fileID: 451345743}
+    - {fileID: 1743281701}
+    - {fileID: 759194659}
+    - {fileID: 1216461604}
     - {fileID: 1516250299}
     - {fileID: 1677236867}
-    - {fileID: 1743281701}
-    - {fileID: 1511719029}
-    - {fileID: 2003975314}
-    - {fileID: 1799508447}
-    - {fileID: 655397251}
-    - {fileID: 2026923696}
-    - {fileID: 1920031247}
-    - {fileID: 1216461604}
     - {fileID: 903601631}
-    - {fileID: 1893346242}
+    - {fileID: 655397251}
     - {fileID: 89661733}
-    - {fileID: 759194659}
-    - {fileID: 451345743}
+    - {fileID: 1893346242}
+    - {fileID: 2003975314}
+    - {fileID: 1221465447}
+    - {fileID: 1022730102}
+    - {fileID: 1920031247}
+    - {fileID: 448393089}
   _Drawer:
     Panel: {fileID: 1856091621}
     StorageSettings:
@@ -7953,55 +8092,55 @@ MonoBehaviour:
       Name: 
       Type: 
     Elements:
-    - {fileID: 1486516769}
-    - {fileID: 737108402}
-    - {fileID: 37608750}
-    - {fileID: 1968707924}
-    - {fileID: 1860850588}
-    - {fileID: 764986222}
-    - {fileID: 417816625}
-    - {fileID: 715927840}
-    - {fileID: 1765803073}
-    - {fileID: 30661673}
-    - {fileID: 393417157}
-    - {fileID: 1394042044}
-    - {fileID: 1517492722}
-    - {fileID: 1537913096}
-    - {fileID: 434755128}
-    - {fileID: 98934059}
-    - {fileID: 2052326858}
     - {fileID: 840609025}
-    - {fileID: 1590855026}
-    - {fileID: 1099318659}
-    - {fileID: 737108404}
-    - {fileID: 912090140}
-    - {fileID: 162526212}
-    - {fileID: 431140674}
-    - {fileID: 990574250}
-    - {fileID: 1605583831}
+    - {fileID: 1012129382}
+    - {fileID: 1486516769}
     - {fileID: 1748603613}
     - {fileID: 608360009}
-    - {fileID: 1182582670}
     - {fileID: 1856091624}
-    - {fileID: 1307054020}
-    - {fileID: 132292389}
-    - {fileID: 1472956067}
-    - {fileID: 141923977}
-    - {fileID: 1759760610}
-    - {fileID: 1012129382}
-    - {fileID: 203595525}
-    - {fileID: 1479159921}
-    - {fileID: 1476651504}
-    - {fileID: 773190231}
+    - {fileID: 1590855026}
+    - {fileID: 1182582670}
+    - {fileID: 1099318659}
+    - {fileID: 431140674}
     - {fileID: 643388458}
-    - {fileID: 1990433877}
-    - {fileID: 2094587307}
-    - {fileID: 147784766}
+    - {fileID: 737108402}
+    - {fileID: 141923977}
+    - {fileID: 1537913096}
+    - {fileID: 203595525}
+    - {fileID: 1476651504}
+    - {fileID: 162526212}
+    - {fileID: 990574250}
+    - {fileID: 912090140}
+    - {fileID: 1472956067}
+    - {fileID: 1479159921}
+    - {fileID: 1394042044}
+    - {fileID: 1605583831}
+    - {fileID: 2052326858}
+    - {fileID: 773190231}
+    - {fileID: 1968707924}
+    - {fileID: 1860850588}
+    - {fileID: 1517492722}
+    - {fileID: 30661673}
+    - {fileID: 417816625}
+    - {fileID: 764986222}
+    - {fileID: 98934059}
+    - {fileID: 1307054020}
+    - {fileID: 37608750}
+    - {fileID: 1765803073}
+    - {fileID: 1759760610}
+    - {fileID: 737108404}
+    - {fileID: 715927840}
+    - {fileID: 132292389}
+    - {fileID: 434755128}
+    - {fileID: 393417157}
+    - {fileID: 759293282}
     - {fileID: 1425378029}
+    - {fileID: 2094587307}
+    - {fileID: 1990433877}
+    - {fileID: 147784766}
     - {fileID: 565461433}
     - {fileID: 1607273876}
     - {fileID: 991168912}
-    - {fileID: 759293282}
   _Messenger:
     Panel: {fileID: 2114193511}
     StorageSettings:
@@ -8082,3 +8221,5 @@ SceneRoots:
   - {fileID: 1782815699}
   - {fileID: 1899794212}
   - {fileID: 1675260616}
+  - {fileID: 1569609935}
+  - {fileID: 1131845678}

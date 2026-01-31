@@ -14,6 +14,11 @@ namespace MultiChat
 {
     public class MultiChatManager : UIManagerBase
     {
+        #region CANVASSER
+        void RenderMainCanvas() => _Canvasser.QueueRender();
+        void RenderOBSCanvas() => _Canvasser.QueueRender(1);
+        #endregion
+
         #region DRAWER
         protected override void RedrawTheme(IStorage.Data storage)
         {
@@ -194,6 +199,8 @@ namespace MultiChat
 
             Smiles.Prepare();
             Badges.Prepare();
+
+            Log.AddReadListener(RenderMainCanvas);
         }
     }
 }

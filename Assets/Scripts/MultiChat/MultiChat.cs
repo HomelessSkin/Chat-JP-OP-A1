@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using Core.Util;
+using Core;
 
-using TMPro;
+using Input;
 
 using UI;
 
@@ -14,10 +14,13 @@ namespace MultiChat
 {
     public class MultiChatManager : UIManagerBase
     {
-        internal static bool DebugSocket;
+        #region CANVASSER
+        void RenderMainCanvas() => _Canvasser.QueueRender();
+        void RenderOBSCanvas() => _Canvasser.QueueRender(1);
+        #endregion
 
         #region DRAWER
-        protected override void RedrawTheme(Storage.Data storage)
+        protected override void RedrawTheme(IStorage.Data storage)
         {
             base.RedrawTheme(storage);
 
@@ -52,229 +55,6 @@ namespace MultiChat
         #endregion
 
         [Space]
-        [SerializeField] bool DebugSocketMessages;
-        [SerializeField] float RefreshPeriod = 2f;
-        [Space]
-        [SerializeField] string[] VKScopes;
-        [SerializeField] string[] TwitchScopes;
-
-        float T;
-
-        [Space]
-        [SerializeField] protected Authentication _Authentication;
-        #region AUTHENTICATION
-        [Serializable]
-        protected class Authentication : DataStorage
-        {
-            public MenuButton SubmitButton;
-            public TMP_InputField TokenField;
-
-            public override void AddData(string serialized, string path, bool fromResources = false, UIManagerBase manager = null)
-            {
-                AllData.Add(JsonUtility.FromJson<Data>(serialized));
-            }
-
-            public string GetToken(string platform)
-            {
-                for (int d = 0; d < AllData.Count; d++)
-                    if (AllData[d].Type == platform)
-                        return AllData[d].Name;
-
-                return null;
-            }
-            public void LoadPrefs()
-            {
-                LoadAndDelete("vk");
-                LoadAndDelete("twitch");
-
-                void LoadAndDelete(string key)
-                {
-                    if (PlayerPrefs.HasKey($"{key}_token"))
-                    {
-                        var data = new Data { Type = key, Name = PlayerPrefs.GetString($"{key}_token") };
-
-                        AllData.Add(data);
-                        Store(data);
-
-                        PlayerPrefs.DeleteKey($"{key}_token");
-                        PlayerPrefs.Save();
-                    }
-                }
-            }
-        }
-
-        void SubmitToken(byte platform = 0)
-        {
-            if (_Authentication.TokenField.text.Contains("access_token="))
-            {
-                var uri = new Uri(_Authentication.TokenField.text);
-                var token = System.Web.HttpUtility.ParseQueryString(uri.Fragment.TrimStart('#'))["access_token"];
-
-                if (!string.IsNullOrEmpty(token))
-                {
-                    var data = new Storage.Data { Type = platform == 0 ? "vk" : "twitch", Name = token };
-
-                    _Authentication.AddData(data);
-                    _Authentication.Store(data);
-
-                    Log(this.GetType().ToString(), "Token accepted!", LogLevel.Warning);
-                }
-            }
-
-            Log(this.GetType().ToString(), "Token rejected!", LogLevel.Warning);
-        }
-
-        #region VK
-        public void StartAuthVK()
-        {
-            _Authentication.SubmitButton.RemoveAllListeners();
-            _Authentication.SubmitButton.AddListener(SubmitVKToken);
-
-            VK.StartAuth();
-        }
-        public void SubmitVKToken() => SubmitToken();
-        #endregion
-
-        #region TWITCH
-        public void StartAuthTwitch()
-        {
-            _Authentication.SubmitButton.RemoveAllListeners();
-            _Authentication.SubmitButton.AddListener(SubmitTwitchToken);
-
-            Twitch.StartAuth(TwitchScopes);
-        }
-        public void SubmitTwitchToken() => SubmitToken(1);
-        #endregion
-
-        #endregion
-
-        [Space]
-        [SerializeField] PlatformCreation _PlatformCreation;
-        #region PLATFORM CREATION
-        [Serializable]
-        class PlatformCreation : WindowBase
-        {
-            public DropDown Switch;
-            public TMP_InputField NameInput;
-            public TMP_InputField ChannelInput;
-        }
-
-        public void CreatePlatform()
-        {
-            if (string.IsNullOrEmpty(_PlatformCreation.NameInput.text))
-            {
-                Log(this.GetType().ToString(), $"Name Input is empty!", LogLevel.Warning);
-
-                return;
-            }
-
-            if (string.IsNullOrEmpty(_PlatformCreation.ChannelInput.text))
-            {
-                Log(this.GetType().ToString(), $"Channel Input is empty!", LogLevel.Warning);
-
-                return;
-            }
-
-            Platform platform = null;
-            switch (_PlatformCreation.Switch.GetValue())
-            {
-                case 0:
-                platform = CreateVK(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text);
-                break;
-                case 1:
-                platform = CreateTwitch(_PlatformCreation.NameInput.text, _PlatformCreation.ChannelInput.text);
-                break;
-            }
-
-            if (platform != null)
-            {
-                _Platforms.List.Add(platform);
-
-                _Platforms.Close();
-                _Platforms.AddData(platform.Data);
-                _Platforms.Store(platform.Data);
-                _Platforms.Open<ListPlatform>(this);
-
-                _PlatformCreation.NameInput.text = "";
-                _PlatformCreation.ChannelInput.text = "";
-
-                _PlatformCreation.SetEnabled(false);
-            }
-        }
-        #endregion
-
-        [Space]
-        [SerializeField] protected Platforms _Platforms;
-        #region PLATFORM LIST
-        [Serializable]
-        protected class Platforms : ScrollBase
-        {
-            internal List<Platform> List = new List<Platform>();
-
-            public override void AddData(string serialized, string path, bool fromResources = false, UIManagerBase manager = null)
-            {
-                var data = JsonUtility.FromJson<Platform.PlatformData>(serialized);
-                Platform platform = null;
-                switch (data.Type)
-                {
-                    case "vk":
-                    platform = (manager as MultiChatManager).CreateVK(data);
-                    break;
-                    case "twitch":
-                    platform = (manager as MultiChatManager).CreateTwitch(data);
-                    break;
-                }
-
-                AllData.Add(data);
-            }
-        }
-
-        public void OpenPlatforms() => _Platforms.Open<ListPlatform>(this);
-        public void ClosePlatforms()
-        {
-            if (_PlatformCreation.IsEnabled())
-                return;
-
-            _Platforms.Close();
-        }
-
-        internal virtual Platform CreateVK(string name, string channel) => new VK(name, channel, _Authentication.GetToken("vk"));
-        internal virtual Platform CreateVK(Platform.PlatformData data) => new VK(data, _Authentication.GetToken("vk"));
-        internal virtual Platform CreateTwitch(string name, string channel) => new Twitch(name, channel, _Authentication.GetToken("twitch"));
-        internal virtual Platform CreateTwitch(Platform.PlatformData data) => new Twitch(data, _Authentication.GetToken("twitch"));
-
-        protected bool AllWorking()
-        {
-            for (int p = 0; p < _Platforms.List.Count; p++)
-                if (!_Platforms.List[p].IsWorking)
-                    return false;
-
-            return true;
-        }
-        #endregion
-
-        void LoadPlatforms()
-        {
-            _Authentication.CollectAllData();
-            _Authentication.LoadPrefs();
-            _Platforms.CollectAllData();
-
-            for (int d = 0; d < _Platforms.AllData.Count; d++)
-            {
-                var data = _Platforms.AllData[d] as Platform.PlatformData;
-                switch (data.Type)
-                {
-                    case "vk":
-                    _Platforms.List.Add(CreateVK(data));
-                    break;
-                    case "twitch":
-                    _Platforms.List.Add(CreateTwitch(data));
-                    break;
-                }
-            }
-        }
-
-        [Space]
         [SerializeField] Chat _Chat;
         #region CHAT
         [Serializable]
@@ -297,7 +77,7 @@ namespace MultiChat
 
             _Chat.Messages.Clear();
         }
-        internal void DeleteMessage(byte platform, string id)
+        internal void DeleteMessage(string platform, string id)
         {
             var index = -1;
             for (int m = 0; m < _Chat.Messages.Count; m++)
@@ -318,7 +98,7 @@ namespace MultiChat
                 _Chat.Messages.RemoveAt(index);
         }
 
-        protected virtual void OnMessage(MC_Message message)
+        protected virtual void OnMessage(OuterInput message)
         {
             var m = FromPool();
             m.Init(message, this);
@@ -420,75 +200,7 @@ namespace MultiChat
             Smiles.Prepare();
             Badges.Prepare();
 
-            LoadPlatforms();
+            Log.AddReadListener(RenderMainCanvas);
         }
-        protected override void Update()
-        {
-            base.Update();
-
-            var list = new List<Task>();
-            {
-                T += Time.deltaTime;
-                if (T >= RefreshPeriod)
-                {
-                    T = 0f;
-
-                    for (int p = 0; p < _Platforms.List.Count; p++)
-                    {
-                        var platform = _Platforms.List[p];
-                        if (platform.Enabled)
-                            list.Add(platform.Refresh());
-                    }
-                }
-
-                ChatUpd = Task.WhenAll(list);
-            }
-
-            if (ChatUpd.IsCompleted)
-                UpdateChat();
-
-            void UpdateChat()
-            {
-                var process = true;
-                while (process)
-                {
-                    process = false;
-                    for (int p = 0; p < _Platforms.List.Count; p++)
-                    {
-                        var platform = _Platforms.List[p];
-                        if (!platform.Enabled)
-                            continue;
-
-                        var got = platform.GetMessage(out var message);
-                        process |= got;
-
-                        if (got)
-                            OnMessage(message);
-                    }
-                }
-
-            }
-        }
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            for (int p = 0; p < _Platforms.List.Count; p++)
-            {
-                var platform = _Platforms.List[p];
-                platform.Disconnect();
-            }
-        }
-#if UNITY_EDITOR
-        public override void OnValidate()
-        {
-            base.OnValidate();
-
-            _Authentication.Manager = this;
-            _Platforms.Manager = this;
-
-            DebugSocket = DebugSocketMessages;
-        }
-#endif
     }
 }

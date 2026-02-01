@@ -77,18 +77,25 @@ namespace MultiChat
 
             _Chat.Messages.Clear();
         }
-        internal void DeleteMessage(string platform, string id)
+        public virtual void OnMessage(OuterInput message, Command command)
+        {
+            var m = FromPool();
+            m.Init(message, this);
+
+            _Chat.Messages.Add(m);
+        }
+        public virtual void OnDeleteMessage(OuterInput message, Command command)
         {
             var index = -1;
             for (int m = 0; m < _Chat.Messages.Count; m++)
             {
-                var message = _Chat.Messages[m];
-                if (message.GetPlatform() == platform &&
-                     message.GetID() == id)
+                var me = _Chat.Messages[m];
+                if (me.GetPlatform() == message.Platform &&
+                      me.GetID() == message.ID)
                 {
                     index = m;
 
-                    RemoveMessage(message);
+                    RemoveMessage(me);
 
                     break;
                 }
@@ -96,14 +103,6 @@ namespace MultiChat
 
             if (index >= 0)
                 _Chat.Messages.RemoveAt(index);
-        }
-
-        protected virtual void OnMessage(OuterInput message)
-        {
-            var m = FromPool();
-            m.Init(message, this);
-
-            _Chat.Messages.Add(m);
         }
 
         void RemoveMessage(ChatMessage message)

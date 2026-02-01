@@ -37,15 +37,15 @@ namespace MultiChat
 
             var text = "";
 
-            if (input.Badges != null)
-                for (int b = 0; b < input.Badges.Count; b++)
-                {
-                    var badge = input.Badges[b];
-                    text += $"<sprite name=\"Badges_{Manager.GetBadgeID(badge.Hash, gameObject)}\">";
+            //if (input.Badges != null)
+            //    for (int b = 0; b < input.Badges.Count; b++)
+            //    {
+            //        var badge = input.Badges[b];
+            //        text += $"<sprite name=\"Badges_{Manager.GetBadgeID(badge.Hash, gameObject)}\">";
 
-                    if (!Badges.Contains(badge.Hash))
-                        Badges.Add(badge.Hash);
-                }
+            //        if (!Badges.Contains(badge.Hash))
+            //            Badges.Add(badge.Hash);
+            //    }
 
             text += $"<color={color}>{input.Nick}</color>: ";
 
@@ -61,13 +61,13 @@ namespace MultiChat
                         text += part.Message.Content;
 
                     //if (part.Emote.Draw)
-                    {
-                        var id = Manager.GetSmileID(part.Emote.Hash, gameObject);
-                        text += $"<sprite name=\"Smiles_{id}\">";
+                    //{
+                    //    var id = Manager.GetSmileID(part.Emote.Hash, gameObject);
+                    //    text += $"<sprite name=\"Smiles_{id}\">";
 
-                        if (!Smiles.Contains(part.Emote.Hash))
-                            Smiles.Add(part.Emote.Hash);
-                    }
+                    //    if (!Smiles.Contains(part.Emote.Hash))
+                    //        Smiles.Add(part.Emote.Hash);
+                    //}
                 }
 
                 if (input.IsSlashMe)

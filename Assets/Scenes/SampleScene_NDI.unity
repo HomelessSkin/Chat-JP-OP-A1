@@ -850,7 +850,7 @@ GameObject:
   - component: {fileID: 330585547}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2317,7 +2317,7 @@ GameObject:
   - component: {fileID: 809380864}
   m_Layer: 5
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5650,20 +5650,44 @@ MonoBehaviour:
     Title: Message
     Command: {fileID: 0}
     _Action:
-      RemoveInput: 0
+      RemoveInput: 1
       Event:
         m_PersistentCalls:
-          m_Calls: []
+          m_Calls:
+          - m_Target: {fileID: 9144545109199644478}
+            m_TargetAssemblyTypeName: MultiChat.MultiChatManager, Assembly-CSharp
+            m_MethodName: OnMessage
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
   - Name: On Outer Delete Message
     Key: 0
     Type: 4
     Title: Delete Message
     Command: {fileID: 0}
     _Action:
-      RemoveInput: 0
+      RemoveInput: 1
       Event:
         m_PersistentCalls:
-          m_Calls: []
+          m_Calls:
+          - m_Target: {fileID: 9144545109199644478}
+            m_TargetAssemblyTypeName: MultiChat.MultiChatManager, Assembly-CSharp
+            m_MethodName: OnDeleteMessage
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
 --- !u!114 &1677236867 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2334945127198808038, guid: 4b3db9c72e296394f8958354e67719c9, type: 3}
@@ -8196,25 +8220,25 @@ MonoBehaviour:
       Name: 
       Type: 
     Elements:
-    - {fileID: 1648275456}
     - {fileID: 2003975314}
-    - {fileID: 1893346242}
-    - {fileID: 1216461604}
-    - {fileID: 903601631}
-    - {fileID: 89661733}
-    - {fileID: 451345743}
-    - {fileID: 1022730102}
     - {fileID: 1677236867}
+    - {fileID: 1022730102}
+    - {fileID: 89661733}
+    - {fileID: 1743281701}
+    - {fileID: 1511719029}
+    - {fileID: 1920031247}
+    - {fileID: 1648275456}
+    - {fileID: 655397251}
     - {fileID: 448393089}
     - {fileID: 759194659}
     - {fileID: 1221465447}
     - {fileID: 1799508447}
-    - {fileID: 655397251}
+    - {fileID: 1216461604}
+    - {fileID: 1893346242}
     - {fileID: 2026923696}
-    - {fileID: 1743281701}
-    - {fileID: 1511719029}
     - {fileID: 1516250299}
-    - {fileID: 1920031247}
+    - {fileID: 451345743}
+    - {fileID: 903601631}
   _Drawer:
     Panel: {fileID: 1856091621}
     StorageSettings:
@@ -8236,55 +8260,55 @@ MonoBehaviour:
       Name: 
       Type: 
     Elements:
-    - {fileID: 1856091624}
+    - {fileID: 912090140}
+    - {fileID: 840609025}
+    - {fileID: 1486516769}
+    - {fileID: 1748603613}
+    - {fileID: 434755128}
+    - {fileID: 37608750}
+    - {fileID: 643388458}
+    - {fileID: 1307054020}
     - {fileID: 1479159921}
-    - {fileID: 1968707924}
-    - {fileID: 1394042044}
+    - {fileID: 990574250}
+    - {fileID: 1605583831}
+    - {fileID: 1759760610}
+    - {fileID: 1099318659}
     - {fileID: 715927840}
+    - {fileID: 1394042044}
+    - {fileID: 30661673}
+    - {fileID: 764986222}
+    - {fileID: 1012129382}
+    - {fileID: 393417157}
+    - {fileID: 162526212}
+    - {fileID: 1590855026}
+    - {fileID: 1968707924}
+    - {fileID: 431140674}
+    - {fileID: 737108402}
+    - {fileID: 98934059}
+    - {fileID: 737108404}
+    - {fileID: 773190231}
+    - {fileID: 417816625}
+    - {fileID: 1860850588}
+    - {fileID: 141923977}
     - {fileID: 132292389}
     - {fileID: 608360009}
-    - {fileID: 162526212}
     - {fileID: 1182582670}
-    - {fileID: 1748603613}
-    - {fileID: 393417157}
-    - {fileID: 434755128}
-    - {fileID: 1537913096}
-    - {fileID: 37608750}
-    - {fileID: 141923977}
-    - {fileID: 737108402}
+    - {fileID: 1856091624}
     - {fileID: 203595525}
-    - {fileID: 912090140}
-    - {fileID: 737108404}
-    - {fileID: 1765803073}
-    - {fileID: 431140674}
-    - {fileID: 1860850588}
-    - {fileID: 1012129382}
-    - {fileID: 1590855026}
-    - {fileID: 30661673}
-    - {fileID: 990574250}
-    - {fileID: 1759760610}
-    - {fileID: 840609025}
-    - {fileID: 1307054020}
     - {fileID: 1517492722}
-    - {fileID: 1605583831}
     - {fileID: 1472956067}
-    - {fileID: 1099318659}
-    - {fileID: 98934059}
-    - {fileID: 764986222}
-    - {fileID: 643388458}
     - {fileID: 1476651504}
-    - {fileID: 1486516769}
-    - {fileID: 417816625}
+    - {fileID: 1765803073}
     - {fileID: 2052326858}
-    - {fileID: 773190231}
-    - {fileID: 991168912}
-    - {fileID: 147784766}
-    - {fileID: 1607273876}
-    - {fileID: 2094587307}
-    - {fileID: 565461433}
+    - {fileID: 1537913096}
     - {fileID: 759293282}
-    - {fileID: 1990433877}
     - {fileID: 1425378029}
+    - {fileID: 1607273876}
+    - {fileID: 991168912}
+    - {fileID: 565461433}
+    - {fileID: 2094587307}
+    - {fileID: 1990433877}
+    - {fileID: 147784766}
   _Messenger:
     Panel: {fileID: 2114193511}
     StorageSettings:
@@ -8295,9 +8319,6 @@ MonoBehaviour:
     _Type: 1
     MaxRowCount: 100
     MessageText: {fileID: 1473977925}
-    OnRead:
-      m_PersistentCalls:
-        m_Calls: []
   _Confirm:
     Panel: {fileID: 0}
     Text: {fileID: 0}

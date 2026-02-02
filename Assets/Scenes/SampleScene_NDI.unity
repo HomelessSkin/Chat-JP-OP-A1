@@ -255,6 +255,83 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d22448c74e6c9ea4ebe87a0d74a56f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: com.homelessskin.ui::UI.Drawable
+--- !u!1 &54872264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 54872265}
+  - component: {fileID: 54872267}
+  - component: {fileID: 54872266}
+  m_Layer: 5
+  m_Name: Content
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &54872265
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54872264}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 721229936}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
+--- !u!114 &54872266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54872264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
+--- !u!114 &54872267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54872264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.VerticalLayoutGroup
+  m_Padding:
+    m_Left: 20
+    m_Right: 20
+    m_Top: 20
+    m_Bottom: 20
+  m_ChildAlignment: 6
+  m_Spacing: 15
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!114 &89661733 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 412660016067569928, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
@@ -1810,6 +1887,98 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d22448c74e6c9ea4ebe87a0d74a56f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: com.homelessskin.ui::UI.Drawable
+--- !u!1 &721229935
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 721229936}
+  - component: {fileID: 721229938}
+  - component: {fileID: 721229937}
+  - component: {fileID: 721229939}
+  m_Layer: 5
+  m_Name: Chat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &721229936
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721229935}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 54872265}
+  m_Father: {fileID: 2113567224}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 400, y: 0}
+  m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &721229937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721229935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.09539128, g: 0.3490566, b: 0.07738519, a: 0.39215687}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &721229938
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721229935}
+  m_CullTransparentMesh: 1
+--- !u!114 &721229939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721229935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b84085120d7e3c4aaf9707c3d3f3bb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.homelessskin.integration::Integration.Messenger
+  MaxChatCount: 100
+  Content: {fileID: 54872265}
+  MessagePrefab: {fileID: 7890616675190739281, guid: 44e31c784b9bd22418200d37ceec6935, type: 3}
 --- !u!1001 &723009749
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2395,7 +2564,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 1}
+  m_BackGroundColor: {r: 0.110359564, g: 0.12614216, b: 0.1509434, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -4217,7 +4386,7 @@ GameObject:
   - component: {fileID: 1473977926}
   - component: {fileID: 1473977925}
   m_Layer: 5
-  m_Name: Message
+  m_Name: Log
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5574,10 +5743,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: com.homelessskin.input::Input.Controller
   Group: UI
   Actions:
-  - Name: On Up Escape
+  - Name: On Outer Escape
     Key: 60
-    Type: 3
-    Title: 
+    Type: 4
+    Title: Escape
     Command: {fileID: 0}
     _Action:
       RemoveInput: 0
@@ -5654,8 +5823,20 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 9144545109199644478}
-            m_TargetAssemblyTypeName: MultiChat.MultiChatManager, Assembly-CSharp
+          - m_Target: {fileID: 721229939}
+            m_TargetAssemblyTypeName: Integration.Messenger, com.homelessskin.integration
+            m_MethodName: OnMessage
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 2091775098}
+            m_TargetAssemblyTypeName: Integration.Messenger, com.homelessskin.integration
             m_MethodName: OnMessage
             m_Mode: 0
             m_Arguments:
@@ -5676,8 +5857,20 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 9144545109199644478}
-            m_TargetAssemblyTypeName: MultiChat.MultiChatManager, Assembly-CSharp
+          - m_Target: {fileID: 721229939}
+            m_TargetAssemblyTypeName: Integration.Messenger, com.homelessskin.integration
+            m_MethodName: OnDeleteMessage
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 2091775098}
+            m_TargetAssemblyTypeName: Integration.Messenger, com.homelessskin.integration
             m_MethodName: OnDeleteMessage
             m_Mode: 0
             m_Arguments:
@@ -6461,7 +6654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 1
+  m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
@@ -7617,6 +7810,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2091775094}
   - component: {fileID: 2091775097}
+  - component: {fileID: 2091775098}
   m_Layer: 5
   m_Name: Chat
   m_TagString: Untagged
@@ -7652,6 +7846,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2091775093}
   m_CullTransparentMesh: 1
+--- !u!114 &2091775098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2091775093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b84085120d7e3c4aaf9707c3d3f3bb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.homelessskin.integration::Integration.Messenger
+  MaxChatCount: 100
+  Content: {fileID: 622463374}
+  MessagePrefab: {fileID: 7890616675190739281, guid: 1af6ad4e3d2a6b246b51856bfeeaaaff, type: 3}
 --- !u!114 &2094587307 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2060773889512101114, guid: 43b53460414fe8f468f860a62144d53f, type: 3}
@@ -7790,10 +7999,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 1
+  m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ReferenceResolution: {x: 900, y: 900}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
@@ -7837,6 +8046,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 809380863}
+  - {fileID: 721229936}
   - {fileID: 1435092684}
   - {fileID: 1748603610}
   - {fileID: 162526209}
@@ -7862,7 +8072,7 @@ GameObject:
   - component: {fileID: 2114193511}
   - component: {fileID: 2114193514}
   m_Layer: 5
-  m_Name: Messenger
+  m_Name: Logger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8220,25 +8430,25 @@ MonoBehaviour:
       Name: 
       Type: 
     Elements:
-    - {fileID: 2003975314}
-    - {fileID: 1677236867}
-    - {fileID: 1022730102}
-    - {fileID: 89661733}
-    - {fileID: 1743281701}
-    - {fileID: 1511719029}
-    - {fileID: 1920031247}
-    - {fileID: 1648275456}
-    - {fileID: 655397251}
-    - {fileID: 448393089}
-    - {fileID: 759194659}
-    - {fileID: 1221465447}
-    - {fileID: 1799508447}
-    - {fileID: 1216461604}
-    - {fileID: 1893346242}
     - {fileID: 2026923696}
-    - {fileID: 1516250299}
+    - {fileID: 759194659}
+    - {fileID: 1677236867}
+    - {fileID: 1799508447}
     - {fileID: 451345743}
+    - {fileID: 448393089}
+    - {fileID: 1216461604}
+    - {fileID: 1022730102}
+    - {fileID: 1648275456}
+    - {fileID: 1516250299}
+    - {fileID: 89661733}
+    - {fileID: 655397251}
+    - {fileID: 1920031247}
+    - {fileID: 1743281701}
     - {fileID: 903601631}
+    - {fileID: 2003975314}
+    - {fileID: 1893346242}
+    - {fileID: 1511719029}
+    - {fileID: 1221465447}
   _Drawer:
     Panel: {fileID: 1856091621}
     StorageSettings:
@@ -8260,65 +8470,60 @@ MonoBehaviour:
       Name: 
       Type: 
     Elements:
-    - {fileID: 912090140}
-    - {fileID: 840609025}
-    - {fileID: 1486516769}
-    - {fileID: 1748603613}
-    - {fileID: 434755128}
-    - {fileID: 37608750}
-    - {fileID: 643388458}
-    - {fileID: 1307054020}
-    - {fileID: 1479159921}
-    - {fileID: 990574250}
-    - {fileID: 1605583831}
-    - {fileID: 1759760610}
-    - {fileID: 1099318659}
-    - {fileID: 715927840}
-    - {fileID: 1394042044}
-    - {fileID: 30661673}
-    - {fileID: 764986222}
-    - {fileID: 1012129382}
-    - {fileID: 393417157}
-    - {fileID: 162526212}
-    - {fileID: 1590855026}
     - {fileID: 1968707924}
-    - {fileID: 431140674}
-    - {fileID: 737108402}
-    - {fileID: 98934059}
-    - {fileID: 737108404}
-    - {fileID: 773190231}
+    - {fileID: 162526212}
     - {fileID: 417816625}
+    - {fileID: 912090140}
+    - {fileID: 990574250}
+    - {fileID: 431140674}
+    - {fileID: 1476651504}
+    - {fileID: 1472956067}
+    - {fileID: 737108404}
+    - {fileID: 1012129382}
+    - {fileID: 1537913096}
+    - {fileID: 1759760610}
+    - {fileID: 1605583831}
+    - {fileID: 1856091624}
+    - {fileID: 1099318659}
+    - {fileID: 2052326858}
+    - {fileID: 1394042044}
+    - {fileID: 434755128}
+    - {fileID: 773190231}
+    - {fileID: 1486516769}
+    - {fileID: 30661673}
     - {fileID: 1860850588}
+    - {fileID: 737108402}
+    - {fileID: 1479159921}
+    - {fileID: 715927840}
+    - {fileID: 840609025}
+    - {fileID: 1765803073}
+    - {fileID: 203595525}
+    - {fileID: 643388458}
+    - {fileID: 764986222}
+    - {fileID: 393417157}
     - {fileID: 141923977}
     - {fileID: 132292389}
     - {fileID: 608360009}
+    - {fileID: 1307054020}
+    - {fileID: 1748603613}
+    - {fileID: 1590855026}
+    - {fileID: 37608750}
+    - {fileID: 98934059}
     - {fileID: 1182582670}
-    - {fileID: 1856091624}
-    - {fileID: 203595525}
     - {fileID: 1517492722}
-    - {fileID: 1472956067}
-    - {fileID: 1476651504}
-    - {fileID: 1765803073}
-    - {fileID: 2052326858}
-    - {fileID: 1537913096}
     - {fileID: 759293282}
-    - {fileID: 1425378029}
-    - {fileID: 1607273876}
     - {fileID: 991168912}
-    - {fileID: 565461433}
-    - {fileID: 2094587307}
     - {fileID: 1990433877}
     - {fileID: 147784766}
-  _Messenger:
+    - {fileID: 565461433}
+    - {fileID: 2094587307}
+    - {fileID: 1607273876}
+    - {fileID: 1425378029}
+  _Logger:
     Panel: {fileID: 2114193511}
-    StorageSettings:
-      MaxSaveFiles: 1
-      DataFile: '*.json'
-      ResourcesPath: 
-      PersistentPath: 
     _Type: 1
+    LogText: {fileID: 1473977925}
     MaxRowCount: 100
-    MessageText: {fileID: 1473977925}
   _Confirm:
     Panel: {fileID: 0}
     Text: {fileID: 0}
@@ -8330,19 +8535,7 @@ MonoBehaviour:
     Text: {fileID: 0}
     Key: 
     Value: 
-  _Chat:
-    Panel: {fileID: 2091775094}
-    MaxChatCount: 100
-    Content: {fileID: 622463374}
-    MessagePrefab: {fileID: 7890616675190739281, guid: 1af6ad4e3d2a6b246b51856bfeeaaaff, type: 3}
-    Messages: []
-    Pool: []
-  Smiles:
-    Asset: {fileID: 11400000, guid: 3a1423e8d0562554d99c96a9ede40c10, type: 2}
-    SpriteDensity: 25
-    Texture: {fileID: 2800000, guid: 0b460f0b1bdc8374f8668451357d194f, type: 3}
-    DefaultSprites:
-    - {fileID: 2800000, guid: b657603946f8b0f47a57ef19e4f9dc37, type: 3}
+  Smiles: {fileID: 11400000, guid: da73b5de790771d40a3a9db7d287f981, type: 2}
   Badges:
     Asset: {fileID: 11400000, guid: a127f0bf1c8711a44bb9ba6c74f04d6e, type: 2}
     SpriteDensity: 25
@@ -8387,5 +8580,5 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 2818375574615174556}
   - {fileID: 1675260616}
-  - {fileID: 1782815699}
   - {fileID: 2113567224}
+  - {fileID: 1782815699}

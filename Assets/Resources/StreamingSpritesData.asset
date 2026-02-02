@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73d0481bd9860674bb9a51a4c16835a7, type: 3}
+  m_Name: StreamingSpritesData
+  m_EditorClassIdentifier: com.homelessskin.core::Core.StreamingSpritesData
+  Asset: {fileID: 11400000, guid: 3a1423e8d0562554d99c96a9ede40c10, type: 2}
+  SpriteDensity: 25
+  Texture: {fileID: 2800000, guid: 0b460f0b1bdc8374f8668451357d194f, type: 3}
+  DefaultSprites:
+  - {fileID: 2800000, guid: 6f49850f90b2bac45856ccf8aef9ab2d, type: 3}
+  - {fileID: 2800000, guid: 21470ab6e2e65f747acc4acaccf885f0, type: 3}

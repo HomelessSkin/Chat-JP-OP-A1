@@ -16,5 +16,5 @@ MonoBehaviour:
   SpriteDensity: 25
   Texture: {fileID: 2800000, guid: 0b460f0b1bdc8374f8668451357d194f, type: 3}
   DefaultSprites:
-  - {fileID: 2800000, guid: 6f49850f90b2bac45856ccf8aef9ab2d, type: 3}
+  - {fileID: 2800000, guid: 88298c3a020ac5e4889e0151095714fc, type: 3}
   - {fileID: 2800000, guid: 21470ab6e2e65f747acc4acaccf885f0, type: 3}

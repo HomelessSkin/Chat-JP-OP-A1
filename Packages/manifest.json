@@ -6,6 +6,7 @@
     "com.homelessskin.integration": "file:E:/zagruzke/_DEV/Shared/com.homelessskin.integration",
     "com.homelessskin.overlay": "file:E:/zagruzke/_DEV/Shared/com.homelessskin.overlay",
     "com.homelessskin.ui": "file:E:/zagruzke/_DEV/Shared/com.homelessskin.ui",
+    "com.homelessskin.ui.themes": "file:E:/zagruzke/_DEV/Shared/com.homelessskin.ui.themes",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.entities": "1.4.4",
     "com.unity.ide.visualstudio": "2.0.27",

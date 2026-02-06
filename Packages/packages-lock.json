@@ -49,8 +49,15 @@
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.unity.entities": "1.3.14",
-        "com.unity.ugui": "2.0.0"
+        "com.unity.entities": "1.3.14"
+      }
+    },
+    "com.homelessskin.ui.themes": {
+      "version": "file:E:/zagruzke/_DEV/Shared/com.homelessskin.ui.themes",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {
+        "com.unity.entities": "1.3.14"
       }
     },
     "com.unity.2d.sprite": {

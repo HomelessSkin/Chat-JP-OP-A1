@@ -4087,8 +4087,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ead4a04a43bc7cb4f892fb43f604d931, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 0}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -4096,7 +4096,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.4
 --- !u!222 &1111038374
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4623,6 +4623,10 @@ PrefabInstance:
     - target: {fileID: 4528944238508383289, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: m_text
       value: Themes
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528944238508383289, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
+      propertyPath: m_characterSpacing
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7625946376549601315, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: m_Name
@@ -7285,6 +7289,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5568580278342320505, guid: b0cac3a3fd4624f46b915ca332815a07, type: 3}
   m_PrefabInstance: {fileID: 1744604531}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1744604533 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4023252733380293697, guid: b0cac3a3fd4624f46b915ca332815a07, type: 3}
+  m_PrefabInstance: {fileID: 1744604531}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84cc8d0ec6354084c9c28044fe6e38c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.homelessskin.ui::UI.DropDown
 --- !u!1 &1754480934
 GameObject:
   m_ObjectHideFlags: 0
@@ -7359,14 +7374,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.0627451}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 023991995d7acb34487a37b680125d40, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7375,7 +7390,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 2
+  m_PixelsPerUnitMultiplier: 0.1
 --- !u!222 &1754480938
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8713,7 +8728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.12971698, g: 0.3742946, b: 0.5188679, a: 0.392}
+  m_Color: {r: 0.12971698, g: 0.3742946, b: 0.5188679, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9315,8 +9330,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MultiChat.MultiChatManager
   _FPS:
     Panel: {fileID: 663460704}
+    PrefKey: FPS Lock
     FramesCount: 5
     FPSGUI: {fileID: 1921957309}
+    DropDown: {fileID: 1744604533}
   _Canvasser:
     Refs:
     - Name: Main Canvas
@@ -9350,26 +9367,26 @@ MonoBehaviour:
       Name: 
       Type: 
     Elements:
-    - {fileID: 1309057222}
-    - {fileID: 1312908106}
-    - {fileID: 249737805}
-    - {fileID: 2026923696}
-    - {fileID: 2009679540}
     - {fileID: 1469431900}
     - {fileID: 1516250299}
+    - {fileID: 2026923696}
+    - {fileID: 1268113173}
+    - {fileID: 2009679540}
+    - {fileID: 1309057222}
+    - {fileID: 1799508447}
     - {fileID: 1382644301}
+    - {fileID: 1312908106}
+    - {fileID: 2003975314}
     - {fileID: 451345743}
-    - {fileID: 88886950}
-    - {fileID: 145881969}
-    - {fileID: 1893346242}
     - {fileID: 1648275456}
+    - {fileID: 568292776}
+    - {fileID: 1893346242}
+    - {fileID: 88886950}
+    - {fileID: 1677236867}
+    - {fileID: 145881969}
     - {fileID: 610423962}
     - {fileID: 1391722992}
-    - {fileID: 1268113173}
-    - {fileID: 568292776}
-    - {fileID: 2003975314}
-    - {fileID: 1677236867}
-    - {fileID: 1799508447}
+    - {fileID: 249737805}
   _Drawer:
     Panel: {fileID: 1856091621}
     StorageSettings:
@@ -9391,39 +9408,39 @@ MonoBehaviour:
       Name: 
       Type: 
     Elements:
-    - {fileID: 37608750}
-    - {fileID: 1169493167}
-    - {fileID: 2052326858}
-    - {fileID: 912090140}
-    - {fileID: 1605583831}
-    - {fileID: 393417157}
-    - {fileID: 1472956067}
-    - {fileID: 905394076}
-    - {fileID: 737108402}
-    - {fileID: 162526212}
-    - {fileID: 51267803}
-    - {fileID: 1862207315}
-    - {fileID: 431140674}
-    - {fileID: 1099318659}
-    - {fileID: 203595525}
-    - {fileID: 1968707924}
-    - {fileID: 1192439042}
-    - {fileID: 737108404}
-    - {fileID: 545348594}
-    - {fileID: 715927840}
-    - {fileID: 1856091624}
-    - {fileID: 741312980}
-    - {fileID: 285746214}
     - {fileID: 608360009}
-    - {fileID: 2000166316}
-    - {fileID: 2119127968}
-    - {fileID: 277022871}
+    - {fileID: 1099318659}
+    - {fileID: 431140674}
+    - {fileID: 905394076}
     - {fileID: 1874141654}
-    - {fileID: 1486516769}
-    - {fileID: 643388458}
+    - {fileID: 2119127968}
     - {fileID: 1765803073}
+    - {fileID: 1862207315}
+    - {fileID: 277022871}
+    - {fileID: 2000166316}
+    - {fileID: 1605583831}
     - {fileID: 1394042044}
+    - {fileID: 2052326858}
+    - {fileID: 1856091624}
+    - {fileID: 393417157}
+    - {fileID: 1169493167}
+    - {fileID: 51267803}
     - {fileID: 773190231}
+    - {fileID: 1472956067}
+    - {fileID: 285746214}
+    - {fileID: 643388458}
+    - {fileID: 715927840}
+    - {fileID: 912090140}
+    - {fileID: 162526212}
+    - {fileID: 545348594}
+    - {fileID: 37608750}
+    - {fileID: 737108402}
+    - {fileID: 1968707924}
+    - {fileID: 737108404}
+    - {fileID: 1192439042}
+    - {fileID: 1486516769}
+    - {fileID: 741312980}
+    - {fileID: 203595525}
     - {fileID: 1990433877}
   _Logger:
     Panel: {fileID: 2079709005}

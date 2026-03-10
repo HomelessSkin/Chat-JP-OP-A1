@@ -5,10 +5,12 @@
     "com.homelessskin.input": "file:E:/zagruzke/_DEV/Shared/com.homelessskin.input",
     "com.homelessskin.integration": "file:E:/zagruzke/_DEV/Shared/com.homelessskin.integration",
     "com.homelessskin.overlay": "file:E:/zagruzke/_DEV/Shared/com.homelessskin.overlay",
+    "com.homelessskin.scene-switcher": "file:E:/zagruzke/_DEV/Shared/Quick-Scene-Switcher/QuickSceneSwitcher",
+    "com.homelessskin.shader-editor": "file:E:/zagruzke/_DEV/Shared/com.homelessskin.shader-editor",
     "com.homelessskin.ui": "file:E:/zagruzke/_DEV/Shared/com.homelessskin.ui",
     "com.homelessskin.ui.themes": "file:E:/zagruzke/_DEV/Shared/com.homelessskin.ui.themes",
     "com.unity.2d.sprite": "1.0.0",
-    "com.unity.entities": "1.4.4",
+    "com.unity.entities": "1.4.5",
     "com.unity.ide.visualstudio": "2.0.27",
     "com.unity.render-pipelines.universal": "17.3.0",
     "com.unity.test-framework": "1.6.0",
@@ -48,5 +50,15 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
-  }
+  },
+  "scopedRegistries": [
+    {
+      "name": "OpenUPM",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.homelessskin",
+        "media.lightside"
+      ]
+    }
+  ]
 }

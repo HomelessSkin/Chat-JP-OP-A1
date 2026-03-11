@@ -133,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -142,7 +142,7 @@ PrefabInstance:
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 9144545109199644481}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -165,7 +165,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Integration.IntegrationManager, com.homelessskin.integration
+      value: Integration.MonoAdapter, com.homelessskin.integration
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -913,12 +913,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 9144545109199644482}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -929,7 +929,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Integration.IntegrationManager, com.homelessskin.integration
+      value: Integration.MonoAdapter, com.homelessskin.integration
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -3473,12 +3473,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 9144545109199644481}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -3489,7 +3489,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Integration.IntegrationManager, com.homelessskin.integration
+      value: Integration.MonoAdapter, com.homelessskin.integration
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4036,7 +4036,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -4045,7 +4045,7 @@ PrefabInstance:
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 9144545109199644482}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -4068,7 +4068,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Integration.IntegrationManager, com.homelessskin.integration
+      value: Integration.MonoAdapter, com.homelessskin.integration
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -6350,7 +6350,6 @@ MonoBehaviour:
     Key: 60
     Type: 3
     Title: Escape
-    Command: {fileID: 0}
     _Action:
       RemoveInput: 0
       Event:
@@ -6432,7 +6431,6 @@ MonoBehaviour:
     Key: 0
     Type: 4
     Title: Message
-    Command: {fileID: 0}
     _Action:
       RemoveInput: 1
       Event:
@@ -6466,7 +6464,6 @@ MonoBehaviour:
     Key: 0
     Type: 4
     Title: Delete Message
-    Command: {fileID: 0}
     _Action:
       RemoveInput: 1
       Event:
@@ -6487,28 +6484,6 @@ MonoBehaviour:
           - m_Target: {fileID: 2091775098}
             m_TargetAssemblyTypeName: Integration.Messenger, com.homelessskin.integration
             m_MethodName: OnDeleteMessage
-            m_Mode: 0
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-  - Name: On Outer Delete Message Button
-    Key: 0
-    Type: 4
-    Title: Delete Message Button
-    Command: {fileID: 0}
-    _Action:
-      RemoveInput: 1
-      Event:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 0}
-            m_TargetAssemblyTypeName: Integration.IntegrationManager, com.homelessskin.integration
-            m_MethodName: DeleteMessageButton
             m_Mode: 0
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
@@ -6522,7 +6497,6 @@ MonoBehaviour:
     Key: 0
     Type: 4
     Title: Ban
-    Command: {fileID: 0}
     _Action:
       RemoveInput: 1
       Event:
@@ -6552,19 +6526,39 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
-  - Name: On Outer Timeout Button
+  - Name: On Outer Delete Message Button
     Key: 0
     Type: 4
-    Title: Timeout Button
-    Command: {fileID: 0}
+    Title: Delete Message Button
     _Action:
       RemoveInput: 1
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 0}
-            m_TargetAssemblyTypeName: Integration.IntegrationManager, com.homelessskin.integration
-            m_MethodName: TimeoutButton
+          - m_Target: {fileID: 9144545109199644478}
+            m_TargetAssemblyTypeName: Integration.MultiChatManager, com.homelessskin.integration
+            m_MethodName: DeleteMessage
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - Name: On Outer Timeout Button
+    Key: 0
+    Type: 4
+    Title: Timeout Button
+    _Action:
+      RemoveInput: 1
+      Event:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 9144545109199644478}
+            m_TargetAssemblyTypeName: Integration.MultiChatManager, com.homelessskin.integration
+            m_MethodName: TimeOut
             m_Mode: 0
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
@@ -6578,15 +6572,14 @@ MonoBehaviour:
     Key: 0
     Type: 4
     Title: Ban Button
-    Command: {fileID: 0}
     _Action:
       RemoveInput: 1
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 0}
-            m_TargetAssemblyTypeName: Integration.IntegrationManager, com.homelessskin.integration
-            m_MethodName: BanButton
+          - m_Target: {fileID: 9144545109199644478}
+            m_TargetAssemblyTypeName: Integration.MultiChatManager, com.homelessskin.integration
+            m_MethodName: Ban
             m_Mode: 0
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
@@ -7495,7 +7488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -7504,7 +7497,7 @@ PrefabInstance:
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 9144545109199644482}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -7527,7 +7520,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Integration.IntegrationManager, com.homelessskin.integration
+      value: Integration.MonoAdapter, com.homelessskin.integration
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -7931,7 +7924,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -7940,7 +7933,7 @@ PrefabInstance:
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 9144545109199644481}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -7963,7 +7956,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Integration.IntegrationManager, com.homelessskin.integration
+      value: Integration.MonoAdapter, com.homelessskin.integration
       objectReference: {fileID: 0}
     - target: {fileID: -1983071796993563537, guid: 9a2278ec408a9a1408aceb663facccfd, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -8336,7 +8329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: com.homelessskin.integration::Integration.Messenger
   MaxChatCount: 100
   Content: {fileID: 622463374}
-  MessagePrefab: {fileID: 7890616675190739281, guid: 1af6ad4e3d2a6b246b51856bfeeaaaff, type: 3}
+  MessagePrefab: {fileID: 7890616675190739281, guid: f7740b219f219de43be88125cc7aa515, type: 3}
 --- !u!1001 &2100880741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8839,11 +8832,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7947503730284345680}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43d8bbf690d0faa41a11b25218dbca5b, type: 3}
+  m_Script: {fileID: 11500000, guid: 34df29c4a082f6047b2c333e91e7e887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MultiChat.MultiChatManager
   _FPS:
-    Panel: {fileID: 663460704}
+    Panel: {fileID: 0}
     PrefKey: FPS Lock
     FramesCount: 5
     FPSGUI: {fileID: 1921957309}
@@ -8856,7 +8849,7 @@ MonoBehaviour:
       Canvas: {fileID: 2113567223}
       Camera: {fileID: 809380866}
     - Name: OBS Canvas
-      UpdateMode: 1
+      UpdateMode: 0
       RenderFrame: 0
       Canvas: {fileID: 1782815698}
       Camera: {fileID: 330585545}
@@ -8877,6 +8870,10 @@ MonoBehaviour:
     Key: 
     Value: 
   Smiles: {fileID: 11400000, guid: da73b5de790771d40a3a9db7d287f981, type: 2}
+  VKAdapter: {fileID: 9144545109199644482}
+  TwitchAdapter: {fileID: 9144545109199644481}
+  MainMessenger: {fileID: 721229939}
+  OBSMessenger: {fileID: 2091775098}
 --- !u!114 &9144545109199644480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8902,7 +8899,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 510709c2b043faa4b8e13b92ae813f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: com.homelessskin.integration::Integration.MonoAdapter
-  Platform: twitch
+  _PlatformName: twitch
   _Adapter:
     Panel: {fileID: 0}
     StorageSettings:
@@ -8911,7 +8908,7 @@ MonoBehaviour:
       ResourcesPath: 
       PersistentPath: Platforms/
     PrintRawSocket: 0
-    Processor: {fileID: 11400000, guid: 196227ac4fab1c74e90593e7bbbc0d61, type: 2}
+    _Processor: {fileID: 11400000, guid: 196227ac4fab1c74e90593e7bbbc0d61, type: 2}
     Indicator: {fileID: 167690568}
     TokenInput: {fileID: 365135474}
     ChannelInput: {fileID: 1281775305}
@@ -8927,7 +8924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 510709c2b043faa4b8e13b92ae813f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: com.homelessskin.integration::Integration.MonoAdapter
-  Platform: vk
+  _PlatformName: vk
   _Adapter:
     Panel: {fileID: 0}
     StorageSettings:
@@ -8936,7 +8933,7 @@ MonoBehaviour:
       ResourcesPath: 
       PersistentPath: Platforms/
     PrintRawSocket: 0
-    Processor: {fileID: 11400000, guid: 4ba8be336cdb33b4fb61dd7c5cef5a31, type: 2}
+    _Processor: {fileID: 11400000, guid: 4ba8be336cdb33b4fb61dd7c5cef5a31, type: 2}
     Indicator: {fileID: 434689523}
     TokenInput: {fileID: 417812650}
     ChannelInput: {fileID: 1698817901}
